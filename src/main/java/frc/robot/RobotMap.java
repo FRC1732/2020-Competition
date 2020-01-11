@@ -26,12 +26,12 @@ public class RobotMap {
   
   // names of constants should be subsystem_specificPart
   
-  public static final int DRIVETRAIN_LEFTMASTER_ID = 0;
-  public static final int DRIVETRAIN_LEFT1_ID = 0;
-  public static final int DRIVETRAIN_LEFT2_ID = 0;
-  public static final int DRIVETRAIN_RIGHTMASTER_ID = 0;
-  public static final int DRIVETRAIN_RIGHT1_ID = 0;
-  public static final int DRIVETRAIN_RIGHT2_ID = 0;
+  public static final int DRIVETRAIN_LEFTMASTER_ID = 1;
+  public static final int DRIVETRAIN_LEFT1_ID = 2;
+  public static final int DRIVETRAIN_LEFT2_ID = 3;
+  public static final int DRIVETRAIN_RIGHTMASTER_ID = 4;
+  public static final int DRIVETRAIN_RIGHT1_ID = 5;
+  public static final int DRIVETRAIN_RIGHT2_ID = 6;
   
   public static final int OI_LEFT_ID = 1;
   public static final int OI_RIGHT_ID = 2;
