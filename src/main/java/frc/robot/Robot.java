@@ -27,7 +27,6 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   public static Drivetrain drivetrain = new Drivetrain();
   public static OI oi;
-  
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.

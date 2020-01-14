@@ -34,6 +34,10 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(RobotMap.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
     right1 = new CANSparkMax(RobotMap.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
     right2 = new CANSparkMax(RobotMap.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
+
+    leftMaster.setClosedLoopRampRate(1);
+    rightMaster.setClosedLoopRampRate(1);
+
     
     left1.follow(leftMaster);
     left2.follow(leftMaster);
