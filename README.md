@@ -31,6 +31,12 @@ The following files should not be modified in anyway:
 * .gitignore (specifies what file types are ignored when pushed/pulled using GIT)
 * eclipse-formatter.xml (defines default java code style)
 
+## Project type
+
+This season the project will utilize the new Command-Based structure as defined here: https://docs.wpilib.org/en/latest/docs/software/commandbased/index.html
+
+This differs from the Command-Based structure in the past which uses OI and RobotMap. 
+
 ### Constants
 
 Constants can be found in RobotMap.java. The RobotMap is intended to provide constants in a single place, e.g. CAN IDs, and other identifying information.
@@ -51,12 +57,3 @@ Commands read data from subsystems, and use logic and math to decide on a target
 ### Operator Input
 
 OI.java has all of the joystick and button inputs. Commands shouldn't use or access Joystick objects directly, but instead just call the appropriate method in OI.java.
-
-### Util
-
-TBD if util classes will be imported from previous code base.
-
-~~The util package has several useful classes:~~
-~~* MotorUtil, which configures and applies a bunch of defualt settings on motor controllers, for subsystems.~~
-~~* Console, which provides better printing methods, e.g. logging w/ levels instead of just always printing everything.~~
-~~* MathUtil, which has several Mathematical functions to make code more readable.~~
