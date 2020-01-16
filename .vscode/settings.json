@@ -11,7 +11,5 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  },
-  "java.format.settings.url": "eclipse-formatter.xml",
-  "java.checkstyle.configuration": "/google_checks.xml"
+  }
 }
