@@ -18,4 +18,8 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final int CLIMBER_CLIMBER_RIGHT_ID = 0;
+    public static final int CLIMBER_CLIMBER_LEFT_ID = 15;
+    public static final int CLIMBER_SOLENOID_LEFT_ID = 0;
+    public static final int CLIMBER_SOLENOID_RIGHT_ID = 0;
 }
