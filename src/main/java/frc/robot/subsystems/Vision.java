@@ -32,30 +32,79 @@ public class Vision extends SubsystemBase {
     camMode = table.getEntry("camMode");
   }
 
-  public void setLightsEnabled(){
+  //turns off the limelight LEDs
+  //this should only be called by toggleLed
+  private void setLedOff(){
     ledMode.setNumber(1);
   }
 
-  public void setLightsDisabled(){
+  //turns on the limelight LEDs
+  //this should only be called by toggleLed
+  private void setLedOn(){
     ledMode.setNumber(3);
   }
 
-  private boolean getLights(){
-    if(ledMode.getNumber(new Integer(-1)) == 3){
+  //this returns a 1 if the LEDs are off or a 3 if the LEDs are on
+  //once again this is used by toggleLed
+  private double getLedStatus(){
+    return ledMode.getDouble(-1);
+  }    
+
+  //using the previous three methods, this toggles the LEDs between on and oof
+  public void toggleLed(){
+    if(getLedStatus() == 1){
+      setLedOn();
+    } else {
+      setLedOff();
+    }
+
+  }
+
+  //returns true if the limelight sees a target or false is the limelight doesn't see a target
+  public boolean hasTarget(){
+    if(tv.getDouble(0) == 1){
       return true;
     } else {
       return false;
     }
   }
 
-  public void toggleLights(){
-
+  //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
+  public double getX(){
+    return tx.getDouble(0);
   }
 
-  public void toggle(){
-    ledMode.setNumber(1)
+  //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
+  public double getY(){
+    return ty.getDouble(0);
   }
 
+  //sets the limelight to function as a vision processing camera
+  //this is used by toggleVisionMode
+  public void setModeLimelight(){
+    camMode.setDouble(0);
+  }
+
+  //sets the limelight to function as a driver vision camera
+  //this is used by toggleVisionMode
+  public void setModeCamera(){
+    camMode.setDouble(1);
+  }
+
+  //returns whether the limelight is functioning as a limelight or a vision camera
+  //this is used by toggleVisionMode
+  public double getVisionMode(){
+    return camMode.getDouble(-1);
+  }
+  
+  //toggles the limelight mode between functioning as a driver vision camera and a limelight
+  public void toggleVisionMode(){
+    if(getVisionMode() == 0){
+      setModeCamera();
+    } else {
+      setModeLimelight();
+    }
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
