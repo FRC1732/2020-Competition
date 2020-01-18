@@ -13,26 +13,31 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 
-public class Indexer extends SubsystemBase{
-    final double speed =  1;
-    VictorSPX cellHolder1=new VictorSPX(1);
+public class Indexer extends SubsystemBase {
+    final double speed = 1;
+    VictorSPX cellHolder1 = new VictorSPX(1);
     VictorSPX cellHodler2 = new VictorSPX(2);
-    VictorSPX conveyor= new VictorSPX(3);
-    Solenoid cellGate= new Solenoid(4);
+    VictorSPX conveyor = new VictorSPX(3);
+    Solenoid cellGate = new Solenoid(4);
 
     public Indexer() {
-  
+
     }
 
-    public void openCellGate(boolean extendGate){   
+    public void openCellGate(boolean extendGate) {
         cellGate.set(extendGate);
     }
-    public void feedShooter(){
-        conveyor.set(ControlMode.PercentOutput,speed);
+
+    public void feedShooter() {
+        conveyor.set(ControlMode.PercentOutput, speed);
     }
-    public void reverseFeedShooter(){
-        conveyor.set(ControlMode.PercentOutput,-speed);
+
+    public void reverseFeedShooter() {
+        conveyor.set(ControlMode.PercentOutput, -speed);
     }
     // System.out.print("we need a sensor here");
+    @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
 }
-
