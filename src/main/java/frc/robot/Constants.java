@@ -18,4 +18,37 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    public static final double CLIMBER_RIGHT_ID = 10;
+    public static final double CLIMBER_LEFT_ID = 35;
+    public static final double CLIMBER_DRIVE_ID = 17;
+    public static final double CLIMBING_SOLENOID_ID = 1;
+    
+    public static final double DRIVETRAIN_LEFTMASTER_ID = 32;
+    public static final double DRIVETRAIN_LEFT1_ID = 33;
+    public static final double DRIVETRAIN_LEFT2_ID = 34;
+    public static final double DRIVETRAIN_RIGHTMASTER_ID = 11;
+    public static final double DRIVETRAIN_RIGHT1_ID = 12; 
+    public static final double DRIVETRAIN_RIGHT2_ID = 13;
+    
+    public static final double SHOOTER_SHOOTER_ID = 9;
+    public static final double SHOOTER_ADJUSTMENT_SOLENOID_ID = 5;
+    public static final double SHOOTER_ROTATION_SOLENOID_ID = 6;
+
+    public static final double INDEXER_CELLHOLDER1_ID = 30;
+    public static final double INDEXER_CELLHOLDER2_ID = 28;
+    public static final double INDEXER_CONVEYER_ID = 15;
+    public static final double INDEXER_CELLGATE_ID = 3;
+
+    public static final double INTAKE_INTAKEMOTOR_ID = 16;
+    public static final double INTAKE_INTAKESOLENOID_ID = 0;
+
+    public static final double CONTROLPANEL_MOTOR_ID = 14;
+    public static final double CONTROLPANEL_TRENCH_HARDSTOP_SOLENOID_ID = 4;
+
+    public static final double VISION_LIMELIGHT_ID = 31;
+
+
+
+
+
 }
