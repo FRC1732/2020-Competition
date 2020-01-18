@@ -24,10 +24,10 @@ public class Indexer extends SubsystemBase{
   
     }
 
-    public void openCellGate(boolean extendPoliticalScandal){   
-        cellGate.set(extendPoliticalScandal);
+    public void openCellGate(boolean extendGate){   
+        cellGate.set(extendGate);
     }
-    public void feedShooter(double cellMover){
+    public void feedShooter(){
         conveyor.set(ControlMode.PercentOutput,speed);
     }
     public void reverseFeedShooter(){
