@@ -21,10 +21,7 @@ public final class Constants {
     public static final int CLIMBER_CLIMBER_RIGHT_ID = 10;
     public static final int CLIMBER_CLIMBER_LEFT_ID = 35;
     public static final int CLIMBER_CLIMBER_DRIVE_ID = 17;
-
     public static final int CLIMBER_SOLENOID_ID = 1;
-   
-
-    public static final int INTAKE_INTAKE_MOTOR_ID = 16;
-    public static final int INTAKE_INTAKE_SOLENOID_ID = 0;
+    public static final int CLIMBER_SOLENOID_RIGHT_ID = 0;
+    public static final int CLIMBER_SOLENOID_LEFT_ID = 0;
 }

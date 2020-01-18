@@ -22,9 +22,7 @@ public class Subsystem_Climber extends SubsystemBase {
   TalonSRX climberRight = new TalonSRX(Constants.CLIMBER_CLIMBER_RIGHT_ID);
   TalonSRX climberLeft = new TalonSRX(Constants.CLIMBER_CLIMBER_LEFT_ID);
   VictorSPX climberDrive = new VictorSPX(Constants.CLIMBER_CLIMBER_DRIVE_ID);
-  // walter the solenoid
   Solenoid solenoidLeft = new Solenoid(Constants.CLIMBER_SOLENOID_LEFT_ID);
-  // kevin the solenoid
   Solenoid solenoidRight = new Solenoid(Constants.CLIMBER_SOLENOID_RIGHT_ID);
 
   //need button to control each motor
