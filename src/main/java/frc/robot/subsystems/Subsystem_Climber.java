@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,12 +21,13 @@ public class Subsystem_Climber extends SubsystemBase {
    */
   TalonSRX climberRight = new TalonSRX(Constants.CLIMBER_CLIMBER_RIGHT_ID);
   TalonSRX climberLeft = new TalonSRX(Constants.CLIMBER_CLIMBER_LEFT_ID);
+  VictorSPX climberDrive = new VictorSPX(Constants.CLIMBER_CLIMBER_DRIVE_ID);
   // walter the solenoid
   Solenoid solenoidLeft = new Solenoid(Constants.CLIMBER_SOLENOID_LEFT_ID);
   // kevin the solenoid
   Solenoid solenoidRight = new Solenoid(Constants.CLIMBER_SOLENOID_RIGHT_ID);
 
-
+  //need button to control each motor
   /**
    * @param climberLeft the climberLeft to set
    */
@@ -35,6 +37,10 @@ public class Subsystem_Climber extends SubsystemBase {
 
   public void setLeft(double left) {
     climberLeft.set(ControlMode.PercentOutput, left);
+  }
+
+  public void setDrive(double drive) {
+    climberLeft.set(ControlMode.PercentOutput, drive);
   }
 
   public void extendLeft(boolean extendLeft) {
