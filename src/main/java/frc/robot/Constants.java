@@ -22,8 +22,9 @@ public final class Constants {
     public static final int CLIMBER_CLIMBER_LEFT_ID = 35;
     public static final int CLIMBER_CLIMBER_DRIVE_ID = 17;
 
-    //filler
-    public static final int CLIMBER_SOLENOID_LEFT_ID = 1;
-    //filler 
-    public static final int CLIMBER_SOLENOID_RIGHT_ID = 2;
+    public static final int CLIMBER_SOLENOID_ID = 1;
+   
+
+    public static final int INTAKE_INTAKE_MOTOR_ID = 16;
+    public static final int INTAKE_INTAKE_SOLENOID_ID = 0;
 }
