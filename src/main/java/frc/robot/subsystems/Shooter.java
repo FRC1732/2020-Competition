@@ -10,28 +10,43 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  private CANSparkMax motor1 = new CANSparkMax(0, MotorType.kBrushless);
-  private CANSparkMax motor2 = new CANSparkMax(0, MotorType.kBrushless);
- 
+  private CANSparkMax shooter = new CANSparkMax(9, MotorType.kBrushless);
+  private Solenoid adjustmentSolenoid = new Solenoid(5);
+  private Solenoid rotationSolenoid = new Solenoid(6);
+
   public Shooter() {
-   
+
+  }
+  public void set(double speed) {
+    shooter.set(speed);
   }
 
-  public void set(double speed){
-    motor1.set(speed);
-    motor2.set(speed);
+  public void setAdjustmentSolenoid(Solenoid adjustmentSolenoid) {
+    this.adjustmentSolenoid = adjustmentSolenoid;
+  }
+  
+  public void setRotationSolenoid(Solenoid rotationSolenoid) {
+    this.rotationSolenoid = rotationSolenoid;
   }
 
   public double getShooter() {
-    motor1.get();
-    motor2.get();
+    return shooter.get()*1;
     //Add code to get speed
+  }
+
+  public Solenoid getAdjustmentSolenoid() {
+    return adjustmentSolenoid;
+  }
+
+  public Solenoid getRotationSolenoid() {
+    return rotationSolenoid;
   }
 
   public boolean atSpeed() {
