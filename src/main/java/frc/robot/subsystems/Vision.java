@@ -27,7 +27,7 @@ public class Vision extends SubsystemBase {
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tv = table.getEntry("tv");
     tx = table.getEntry("tx");
-    ty = table.getEntry("tx");
+    ty = table.getEntry("ty");
     ledMode = table.getEntry("ledMode");
     camMode = table.getEntry("camMode");
   }
