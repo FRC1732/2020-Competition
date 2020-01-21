@@ -12,14 +12,15 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  private CANSparkMax shooter = new CANSparkMax(9, MotorType.kBrushless);
-  private Solenoid adjustmentSolenoid = new Solenoid(5);
-  private Solenoid rotationSolenoid = new Solenoid(6);
+  private CANSparkMax shooter = new CANSparkMax(Constants.SHOOTER_SHOOTER_ID, MotorType.kBrushless);
+  private Solenoid adjustmentSolenoid = new Solenoid(Constants.SHOOTER_ADJUSTMENT_SOLENOID_ID);
+  private Solenoid rotationSolenoid = new Solenoid(Constants.SHOOTER_ROTATION_SOLENOID_ID);
 
   public Shooter() {
 
