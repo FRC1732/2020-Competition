@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
     final double speed = 1;
-    VictorSPX cellHolder1 = new VictorSPX(1);
-    VictorSPX cellHodler2 = new VictorSPX(2);
-    VictorSPX conveyor = new VictorSPX(3);
-    Solenoid cellGate = new Solenoid(4);
+    VictorSPX cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
+    VictorSPX cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
+    VictorSPX conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+    Solenoid cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
 
     public Indexer() {
 
