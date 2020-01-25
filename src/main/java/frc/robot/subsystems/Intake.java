@@ -18,12 +18,16 @@ public class Intake extends SubsystemBase {
   /**
    * Creates a new Intake.
    */
-  VictorSPX intakeMotor = new VictorSPX(Constants.INTAKE_INTAKE_MOTOR_ID);
-  Solenoid intakeSolenoid = new Solenoid(Constants.INTAKE_INTAKE_SOLENOID_ID);
+  private VictorSPX intakeMotor;
+  private Solenoid intakeSolenoid;
 
   public Intake() {
+    intakeMotor = new VictorSPX(Constants.INTAKE_INTAKEMOTOR_ID);
+    intakeSolenoid = new Solenoid(Constants.INTAKE_INTAKESOLENOID_ID);
   }
 
+
+  
   public void setIntakeMotor (double motor){
     intakeMotor.set(ControlMode.PercentOutput, motor);
   }
