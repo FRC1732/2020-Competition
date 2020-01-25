@@ -19,10 +19,17 @@ public class Subsystem_Climber extends SubsystemBase {
   /**
    * Creates a new Subsystem_Climber.
    */
-  TalonSRX climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
-  TalonSRX climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
-  VictorSPX climberDrive = new VictorSPX(Constants.CLIMBER_DRIVE_ID);
-  Solenoid solenoid = new Solenoid(Constants.CLIMBING_SOLENOID_ID);
+  private TalonSRX climberRight;
+  private TalonSRX climberLeft;
+  private VictorSPX climberDrive;
+  private Solenoid solenoid;
+
+  public Subsystem_Climber() {
+    climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
+    climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
+    climberDrive = new VictorSPX(Constants.CLIMBER_DRIVE_ID);
+    solenoid = new Solenoid(Constants.CLIMBING_SOLENOID_ID);
+  }
 
   //need button to control each motor
   /**
@@ -44,8 +51,7 @@ public class Subsystem_Climber extends SubsystemBase {
     solenoid.set(extend);
   }
 
-  public Subsystem_Climber() {
-  }
+  
 
   @Override
   public void periodic() {
