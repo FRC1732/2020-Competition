@@ -9,6 +9,8 @@ Using the command palette within VS Code, use `WPILib: Manage Vendor Libraries` 
 - REVRobotics: https://www.revrobotics.com/content/sw/max/sdk/REVRobotics.json
 - NavX: https://www.kauailabs.com/dist/frc/2020/navx_frc.json
 
+- NEW WPILib Dependency: https://raw.githubusercontent.com/wpilibsuite/allwpilib/master/wpilibNewCommands/WPILibNewCommands.json
+
 ## Repository
 
 Before editing files in this repository, read [CONTRIBUTING.md](CONTRIBUTING.md).
