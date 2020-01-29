@@ -14,30 +14,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  CANSparkMax Leftmaster = new CANSparkMax(Constants.DRIVETRAIN_LEFTMASTER_ID, MotorType.kBrushless);
-  CANSparkMax Left1 = new CANSparkMax(Constants.DRIVETRAIN_LEFT1_ID, MotorType.kBrushless);
-  CANSparkMax Left2 = new CANSparkMax(Constants.DRIVETRAIN_LEFT2_ID, MotorType.kBrushless);
-  CANSparkMax Rightmaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
-  CANSparkMax Right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
-  CANSparkMax Right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
+  private CANSparkMax leftMaster = new CANSparkMax(Constants.DRIVETRAIN_LEFTMASTER_ID, MotorType.kBrushless);
+  private CANSparkMax left1 = new CANSparkMax(Constants.DRIVETRAIN_LEFT1_ID, MotorType.kBrushless);
+  private CANSparkMax left2 = new CANSparkMax(Constants.DRIVETRAIN_LEFT2_ID, MotorType.kBrushless);
+  private CANSparkMax rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
+  private CANSparkMax right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
+  private CANSparkMax right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
   /**
    * Creates a new Drivetrain.
    */
   public Drivetrain() {
-    Left1.follow(Leftmaster);
-    Left2.follow(Leftmaster);
-    Right1.follow(Rightmaster);
-    Right2.follow(Rightmaster);
+    left1.follow(leftMaster);
+    left2.follow(leftMaster);
+    right1.follow(rightMaster);
+    right2.follow(rightMaster);
   }
 
-  public void set(double Left, double Right) {
-    Leftmaster.set(Left);
-    Rightmaster.set(Right);
+  public void set(double left, double right) {
+    leftMaster.set(left);
+    rightMaster.set(right);
   }
 
   public void stop() {
-    set(0, 0);
-
+    leftMaster.set(0);
+	  rightMaster.set(0);
   }
 
   @Override
