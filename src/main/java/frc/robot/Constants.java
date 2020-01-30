@@ -19,7 +19,7 @@ package frc.robot;
  * wherever the constants are needed, to reduce verbosity.
  */
 public final class Constants {
-
+  
     //Declare all constants in the form: SUBSYSTEM_NAME_ID = x;
 
     //Climber mapping
