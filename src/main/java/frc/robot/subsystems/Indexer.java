@@ -15,29 +15,33 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
-    final double speed = 1;
-    
+  private final double speed = 1;
+  private VictorSPX cellHolder1;
+  private VictorSPX cellHodler2;
+  private VictorSPX conveyor;
+  private Solenoid cellGate;
 
-    public Indexer() {
-      private VictorSPX cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
-      private VictorSPX cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
-      private VictorSPX conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
-      private Solenoid cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
-    }
+  public Indexer() {
+    cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
+    cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
+    conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+    cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
+  }
 
-    public void openCellGate(boolean extendGate) {
-        cellGate.set(extendGate);
-    }
+  public void openCellGate(boolean extendGate) {
+    cellGate.set(extendGate);
+  }
 
-    public void feedShooter() {
-        conveyor.set(ControlMode.PercentOutput, speed);
-    }
+  public void feedShooter() {
+    conveyor.set(ControlMode.PercentOutput, speed);
+  }
 
-    public void reverseFeedShooter() {
-        conveyor.set(ControlMode.PercentOutput, -speed);
-    }
-    // System.out.print("we need a sensor here");
-    @Override
+  public void reverseFeedShooter() {
+    conveyor.set(ControlMode.PercentOutput, -speed);
+  }
+
+  // System.out.print("we need a sensor here");
+  @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
