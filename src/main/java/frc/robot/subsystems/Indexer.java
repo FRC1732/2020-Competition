@@ -16,13 +16,13 @@ import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
     final double speed = 1;
-    VictorSPX cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
-    VictorSPX cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
-    VictorSPX conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
-    Solenoid cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
+    
 
     public Indexer() {
-
+      private VictorSPX cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
+      private VictorSPX cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
+      private VictorSPX conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+      private Solenoid cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
     }
 
     public void openCellGate(boolean extendGate) {
