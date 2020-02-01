@@ -13,10 +13,10 @@ import frc.robot.subsystems.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DrivetrainOn extends InstantCommand {
+public class DrivetrainOff extends InstantCommand {
   private Drivetrain drivetrain;
-
-  public DrivetrainOn(Drivetrain drivetrain) {
+  
+  public DrivetrainOff(Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
     this.drivetrain = drivetrain;
@@ -25,6 +25,6 @@ public class DrivetrainOn extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.set(0.5, 0.5);
+    drivetrain.set(0.0, 0.0);
   }
 }
