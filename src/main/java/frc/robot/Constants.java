@@ -22,28 +22,36 @@ public final class Constants {
   
     //Declare all constants in the form: SUBSYSTEM_NAME_ID = x;
 
+    public static final int JOYSTICK_LEFT = 0;
+    public static final int JOYSTICK_RIGHT = 1;
+
+    public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
+    public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
+    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
+
     //Climber mapping
-    public static final int CLIMBER_RIGHT_ID = 10;
-    public static final int CLIMBER_LEFT_ID = 35;
+    public static final int CLIMBER_RIGHT_ID = 13;
+    public static final int CLIMBER_LEFT_ID = 32;
     public static final int CLIMBER_DRIVE_ID = 17;
     public static final int CLIMBING_SOLENOID_ID = 1;
     
     //Drivetrain mapping
-    public static final int DRIVETRAIN_LEFTMASTER_ID = 32;
-    public static final int DRIVETRAIN_LEFT1_ID = 33;
-    public static final int DRIVETRAIN_LEFT2_ID = 34;
-    public static final int DRIVETRAIN_RIGHTMASTER_ID = 11;
-    public static final int DRIVETRAIN_RIGHT1_ID = 12; 
-    public static final int DRIVETRAIN_RIGHT2_ID = 13;
+    public static final int DRIVETRAIN_LEFTMASTER_ID = 33;
+    public static final int DRIVETRAIN_LEFT1_ID = 34;
+    public static final int DRIVETRAIN_LEFT2_ID = 35;
+    public static final int DRIVETRAIN_RIGHTMASTER_ID = 10;
+    public static final int DRIVETRAIN_RIGHT1_ID = 11; 
+    public static final int DRIVETRAIN_RIGHT2_ID = 12;
     
     //Shooter mapping
-    public static final int SHOOTER_SHOOTER_ID = 9;
+    public static final int SHOOTER_SHOOTER_MASTER_ID = 30;
+    public static final int SHOOTER_SHOOTER_FOLLOWER_ID = 28;
     public static final int SHOOTER_ADJUSTMENT_SOLENOID_ID = 5;
     public static final int SHOOTER_ROTATION_SOLENOID_ID = 6;
 
     //Indexer mapping
-    public static final int INDEXER_CELLHOLDER1_ID = 30;
-    public static final int INDEXER_CELLHOLDER2_ID = 28;
+    public static final int INDEXER_CELLHOLDER1_ID = 29;
+    public static final int INDEXER_CELLHOLDER2_ID = -99999;
     public static final int INDEXER_CONVEYER_ID = 15;
     public static final int INDEXER_CELLGATE_ID = 3;
 

@@ -7,11 +7,17 @@
 
 package frc.robot;
 
+import javax.print.attribute.standard.JobHoldUntil;
+
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.DecreaseMotorSpeed;
+import frc.robot.commands.IncreaseMotorSpeed;
+import frc.robot.commands.MaintainRPM;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -22,14 +28,39 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Shooter shooter;
+
+  private final DecreaseMotorSpeed decreaseMotorSpeed;
+  private final IncreaseMotorSpeed increaseMotorSpeed;
+  private final MaintainRPM maintainRPM;
+
+  public static Joystick left;
+  public static Joystick right;
+
+  public static JoystickButton decreaseMotorSpeedButton;
+  public static JoystickButton increaseMotorSpeedButton;
+  public static JoystickButton maintainRPMButton;
+
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    shooter = new Shooter();
+
+    decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
+    increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
+    maintainRPM = new MaintainRPM(shooter);
+
+    left = new Joystick(Constants.JOYSTICK_LEFT);
+    right = new Joystick(Constants.JOYSTICK_RIGHT);
+
+    decreaseMotorSpeedButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
+    increaseMotorSpeedButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
+    maintainRPMButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -41,7 +72,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
+    increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
+    maintainRPMButton.whenPressed(maintainRPM); 
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -50,6 +85,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
