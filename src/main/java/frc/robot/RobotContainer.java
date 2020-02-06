@@ -45,7 +45,7 @@ public class RobotContainer {
     //commands
     driveForwardCommand = new DriveForward(drivetrainSubsystem);
     driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
-    
+    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
 
 
     // Configure the button bindings
