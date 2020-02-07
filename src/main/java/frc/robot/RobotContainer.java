@@ -26,10 +26,10 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private Drivetrain drivetrainSubsystem;
+  //private Drivetrain drivetrainSubsystem;
 
-  private DriveForward driveForwardCommand;
-  private DriveWithJoysticks driveWithJoysticksCommand;
+  //private DriveForward driveForwardCommand;
+  //private DriveWithJoysticks driveWithJoysticksCommand;
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -39,13 +39,13 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    drivetrainSubsystem = new Drivetrain();
+    //drivetrainSubsystem = new Drivetrain();
 
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrainSubsystem);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
-    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    //driveForwardCommand = new DriveForward(drivetrainSubsystem);
+    //driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    //drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
 
 
     // Configure the button bindings
@@ -73,6 +73,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForwardCommand;
+    return null;//driveForwardCommand;
   }
 }
