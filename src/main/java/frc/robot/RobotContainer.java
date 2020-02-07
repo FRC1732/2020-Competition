@@ -50,6 +50,8 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+
+    System.out.println(RobotProperties.getProperty("name"));
     
   }
 
