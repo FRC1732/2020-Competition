@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.GetColor;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -32,13 +34,13 @@ public class RobotContainer {
 
   private Shooter shooter;
   private Drivetrain drivetrainSubsystem;
-
+  private ControlPanel controlpanel;
   private DecreaseMotorSpeed decreaseMotorSpeed;
   private IncreaseMotorSpeed increaseMotorSpeed;
   private MaintainRPM maintainRPM;
   private DriveForward driveForwardCommand;
   private DriveWithJoysticks driveWithJoysticksCommand;
-
+  private GetColor getColorCommand;
   private JoystickButton decreaseMotorSpeedButton;
   private JoystickButton increaseMotorSpeedButton;
   private JoystickButton maintainRPMButton;
@@ -51,16 +53,16 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    drivetrainSubsystem = new Drivetrain();
-    shooter = new Shooter();
-
+    //drivetrainSubsystem = new Drivetrain();
+    //shooter = new Shooter();
+    controlpanel = new ControlPanel();
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrainSubsystem);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
-    decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
-    increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
-    maintainRPM = new MaintainRPM(shooter);
+    //driveForwardCommand = new DriveForward(drivetrainSubsystem);
+    //driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    //decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
+    //increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
+    //maintainRPM = new MaintainRPM(shooter);
 
     defineButtons();
 
@@ -76,7 +78,7 @@ public class RobotContainer {
     decreaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
     increaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
     maintainRPMButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
-  }
+  } 
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -85,10 +87,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
-    decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
-    increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
-    maintainRPMButton.whenPressed(maintainRPM); 
+    //drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    controlpanel.setDefaultCommand(getColorCommand);
+    //decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
+    //increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
+    //maintainRPMButton.whenPressed(maintainRPM); 
   }
 
 
@@ -97,8 +100,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  //public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForwardCommand;
-  }
+    //return driveForwardCommand;
+ // }
 }
