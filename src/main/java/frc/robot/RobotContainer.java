@@ -36,11 +36,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private Shooter shooter;
-  private Drivetrain drivetrainSubsystem;
   private Intake intake;
+  private Drivetrain drivetrain;
 
-  private DriveForward driveForwardCommand;
-  private DriveWithJoysticks driveWithJoysticksCommand;
+  private DriveForward driveForward;
+  private DriveWithJoysticks driveWithJoysticks;
 
   private JoystickButton decreaseMotorSpeed;
   private JoystickButton increaseMotorSpeed;
@@ -58,17 +58,20 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    drivetrainSubsystem = new Drivetrain();
+    drivetrain = new Drivetrain();
     shooter = new Shooter();
 
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrainSubsystem);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    driveForward = new DriveForward(drivetrain);
+    driveWithJoysticks = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
+
     defineButtons();
 
     // Configure the button bindings
     configureButtonBindings();
+
+    System.out.println(RobotProperties.getProperty("name"));
     
   }
 
@@ -93,7 +96,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    drivetrain.setDefaultCommand(driveWithJoysticks);
 
     decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
     increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
@@ -115,6 +118,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForwardCommand;
+    return driveForward;
   }
 }
