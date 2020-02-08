@@ -22,13 +22,6 @@ public final class Constants {
   
     //Declare all constants in the form: SUBSYSTEM_NAME_ID = x;
 
-    public static final int JOYSTICK_LEFT = 0;
-    public static final int JOYSTICK_RIGHT = 1;
-
-    public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
-    public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
-
     //Climber mapping
     public static final int CLIMBER_RIGHT_ID = 13;
     public static final int CLIMBER_LEFT_ID = 32;
@@ -66,4 +59,12 @@ public final class Constants {
     //Vision mapping
     public static final int VISION_LIMELIGHT_ID = 31;
 
+    //Driver Interface Components
+    public static final int LEFT_JOYSTICK_PORT_ID = 0;
+    public static final int RIGHT_JOYSTICK_PORT_ID = 1;
+
+    //Operator Interface (buttons)
+    public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
+    public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
+    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
 }

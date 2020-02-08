@@ -7,11 +7,12 @@
 
 package frc.robot;
 
-import javax.print.attribute.standard.JobHoldUntil;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DecreaseMotorSpeed;
@@ -29,40 +30,52 @@ import frc.robot.subsystems.Shooter;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  private final Shooter shooter;
+  private Shooter shooter;
+  private Drivetrain drivetrainSubsystem;
 
-  private final DecreaseMotorSpeed decreaseMotorSpeed;
-  private final IncreaseMotorSpeed increaseMotorSpeed;
-  private final MaintainRPM maintainRPM;
+  private DecreaseMotorSpeed decreaseMotorSpeed;
+  private IncreaseMotorSpeed increaseMotorSpeed;
+  private MaintainRPM maintainRPM;
+  private DriveForward driveForwardCommand;
+  private DriveWithJoysticks driveWithJoysticksCommand;
 
-  public static Joystick left;
-  public static Joystick right;
+  private JoystickButton decreaseMotorSpeedButton;
+  private JoystickButton increaseMotorSpeedButton;
+  private JoystickButton maintainRPMButton;
 
-  public static JoystickButton decreaseMotorSpeedButton;
-  public static JoystickButton increaseMotorSpeedButton;
-  public static JoystickButton maintainRPMButton;
-
+  private Joystick leftJoystick;
+  private Joystick rightJoystick;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    //Subsystems
+    drivetrainSubsystem = new Drivetrain();
     shooter = new Shooter();
 
+
+    //commands
+    driveForwardCommand = new DriveForward(drivetrainSubsystem);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
     decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
     increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
     maintainRPM = new MaintainRPM(shooter);
 
-    left = new Joystick(Constants.JOYSTICK_LEFT);
-    right = new Joystick(Constants.JOYSTICK_RIGHT);
-
-    decreaseMotorSpeedButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
-    increaseMotorSpeedButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
-    maintainRPMButton = new JoystickButton(left, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
-
+    defineButtons();
 
     // Configure the button bindings
     configureButtonBindings();
+    
+  }
+
+  private void defineButtons() {
+    leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
+    rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
+
+    decreaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
+    increaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
+    maintainRPMButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
   }
 
   /**
@@ -72,6 +85,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
     decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
     increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
     maintainRPMButton.whenPressed(maintainRPM); 
@@ -85,6 +99,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return driveForwardCommand;
   }
 }
