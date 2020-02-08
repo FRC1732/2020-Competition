@@ -21,14 +21,14 @@ public class ControlPanel extends SubsystemBase {
   /**
    * Creates a new ControlPanel.
    */
-  private VictorSPX controlPanelMotor;
-  private Solenoid controlPanelTrench;
+  //private VictorSPX controlPanelMotor;
+  //private Solenoid controlPanelTrench;
   private final I2C.Port i2cPort;
   private final ColorSensorV3 colorSensor;
 
   public ControlPanel() {
-    controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
-    controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID);
+    //controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
+    //controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID);
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
   }
@@ -36,9 +36,9 @@ public class ControlPanel extends SubsystemBase {
   public Color readColor() {
     return colorSensor.getColor();
   }
-
+/*
   public VictorSPX getControlPanelMotor() {
-    return controlPanelMotor;
+    //return controlPanelMotor;
   }
 
   public Solenoid getControlPanelTrench() {
@@ -58,7 +58,7 @@ public class ControlPanel extends SubsystemBase {
 
   public void position() {
   }
-
+*/
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

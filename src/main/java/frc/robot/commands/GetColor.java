@@ -7,9 +7,6 @@
 
 package frc.robot.commands;
 
-import com.revrobotics.ColorSensorV3;
-
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -20,10 +17,6 @@ public class GetColor extends CommandBase {
    * Creates a new GetColor.
    */
   private ControlPanel controlpanel;
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort);
-  private Color detectedColor = colorSensor.getColor();
-  private double IR = colorSensor.getIR();
   
   public GetColor(ControlPanel controlpanel) {
     this.controlpanel = controlpanel;
@@ -39,13 +32,11 @@ public class GetColor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Color detectedColor = controlpanel.readColor();
+    System.out.println("Red: " + detectedColor.red);
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
-    SmartDashboard.putNumber("IR", IR);
-    int proximity = colorSensor.getProximity();
-
-    SmartDashboard.putNumber("Proximity", proximity);
   }
 
   // Called once the command ends or is interrupted.
