@@ -58,4 +58,7 @@ public final class Constants {
     //Vision mapping
     public static final int VISION_LIMELIGHT_ID = 31;
 
+    //Driver Interface Components
+    public static final int LEFT_JOYSTICK_PORT_ID = 0;
+    public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 }
