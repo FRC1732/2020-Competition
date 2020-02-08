@@ -7,32 +7,32 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class ControlPanel extends SubsystemBase {
   /**
    * Creates a new ControlPanel.
    */
-  private CANSparkMax controlPanelMotor = new CANSparkMax(Constants.CONTROLPANELMANIP_MOTOR_ID, MotorType.kBrushless);
+  private VictorSPX controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
   private Solenoid controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID);
 
   public ControlPanel() {
   }
 
   public void setControlPanelMotor(double speed) {
-    controlPanelMotor.set(speed);
+    controlPanelMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void setControlPanelTrench(Solenoid controlPanelTrench) {
     this.controlPanelTrench = controlPanelTrench;
   }
 
-  public CANSparkMax getControlPanelMotor() {
+  public VictorSPX getControlPanelMotor() {
     return controlPanelMotor;
   }
 
