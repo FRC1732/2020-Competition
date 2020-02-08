@@ -10,14 +10,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.Autonomous.DriveForward;
-import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DecreaseMotorSpeed;
+import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.IncreaseMotorSpeed;
 import frc.robot.commands.MaintainRPM;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -33,9 +33,6 @@ public class RobotContainer {
   private Shooter shooter;
   private Drivetrain drivetrain;
 
-  private DecreaseMotorSpeed decreaseMotorSpeed;
-  private IncreaseMotorSpeed increaseMotorSpeed;
-  private MaintainRPM maintainRPM;
   private DriveForward driveForwardCommand;
   private DriveWithJoysticks driveWithJoysticksCommand;
 
@@ -58,9 +55,6 @@ public class RobotContainer {
     //commands
     driveForwardCommand = new DriveForward(drivetrain);
     driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
-    decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
-    increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
-    maintainRPM = new MaintainRPM(shooter);
 
     defineButtons();
 
@@ -86,9 +80,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     drivetrain.setDefaultCommand(driveWithJoysticksCommand);
-    decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
-    increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
-    maintainRPMButton.whenPressed(maintainRPM); 
+    decreaseMotorSpeedButton.whenPressed(new DecreaseMotorSpeed(shooter));
+    increaseMotorSpeedButton.whenPressed(new IncreaseMotorSpeed(shooter));
+    maintainRPMButton.whenPressed(new MaintainRPM(shooter)); 
   }
 
 
