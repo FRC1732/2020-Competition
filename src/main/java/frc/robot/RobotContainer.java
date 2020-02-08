@@ -31,7 +31,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private Shooter shooter;
-  private Drivetrain drivetrainSubsystem;
+  private Drivetrain drivetrain;
 
   private DecreaseMotorSpeed decreaseMotorSpeed;
   private IncreaseMotorSpeed increaseMotorSpeed;
@@ -51,13 +51,13 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    drivetrainSubsystem = new Drivetrain();
+    drivetrain = new Drivetrain();
     shooter = new Shooter();
 
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrainSubsystem);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    driveForwardCommand = new DriveForward(drivetrain);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
     decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
     increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
     maintainRPM = new MaintainRPM(shooter);
@@ -85,7 +85,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    drivetrain.setDefaultCommand(driveWithJoysticksCommand);
     decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
     increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
     maintainRPMButton.whenPressed(maintainRPM); 
