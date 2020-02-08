@@ -18,7 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DecreaseMotorSpeed;
 import frc.robot.commands.IncreaseMotorSpeed;
 import frc.robot.commands.MaintainRPM;
+import frc.robot.commands.FeedShooter;
+import frc.robot.commands.ReverseFeedShooter;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Indexer;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -32,16 +35,21 @@ public class RobotContainer {
 
   private Shooter shooter;
   private Drivetrain drivetrainSubsystem;
+  private Indexer indexer;
 
   private DecreaseMotorSpeed decreaseMotorSpeed;
   private IncreaseMotorSpeed increaseMotorSpeed;
   private MaintainRPM maintainRPM;
   private DriveForward driveForwardCommand;
   private DriveWithJoysticks driveWithJoysticksCommand;
+  private FeedShooter feedShooterCommand; 
+  private ReverseFeedShooter reverseFeedShooterCommand;
 
   private JoystickButton decreaseMotorSpeedButton;
   private JoystickButton increaseMotorSpeedButton;
   private JoystickButton maintainRPMButton;
+  private JoystickButton feedShooterButton; 
+  private JoystickButton reverseFeedShooterButton;
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -53,6 +61,7 @@ public class RobotContainer {
     //Subsystems
     drivetrainSubsystem = new Drivetrain();
     shooter = new Shooter();
+    indexer = new Indexer(); 
 
 
     //commands
@@ -61,6 +70,8 @@ public class RobotContainer {
     decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
     increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
     maintainRPM = new MaintainRPM(shooter);
+    feedShooterCommand = new FeedShooter(indexer); 
+    reverseFeedShooterCommand = new ReverseFeedShooter(indexer); 
 
     defineButtons();
 
@@ -78,6 +89,8 @@ public class RobotContainer {
     decreaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
     increaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
     maintainRPMButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    feedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FEED_SHOOTER);
+    reverseFeedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
   }
 
   /**
