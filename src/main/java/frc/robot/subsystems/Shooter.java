@@ -7,8 +7,9 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,15 +19,32 @@ public class Shooter extends SubsystemBase {
   /**
    * Creates a new Shooter.
    */
-  private CANSparkMax shooter = new CANSparkMax(Constants.SHOOTER_SHOOTER_ID, MotorType.kBrushless);
+  private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
+  private TalonSRX shooterFollower = new TalonSRX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
   private Solenoid adjustmentSolenoid = new Solenoid(Constants.SHOOTER_ADJUSTMENT_SOLENOID_ID);
   private Solenoid rotationSolenoid = new Solenoid(Constants.SHOOTER_ROTATION_SOLENOID_ID);
 
-  public Shooter() {
+  private double motorSpeed = 0.0;
 
+  public Shooter() {
+    shooterMaster.configFactoryDefault();
+    shooterFollower.configFactoryDefault();
+
+    shooterMaster.setInverted(false);
+    shooterMaster.setInverted(false);
+    shooterMaster.config_kP(0, .12);
+    shooterMaster.config_kI(0, 0);
+    shooterMaster.config_kD(0, 0);
+    shooterMaster.config_kF(0, .0078);
+    shooterMaster.setNeutralMode(NeutralMode.Coast);
+
+    shooterFollower.setInverted(true);
+    shooterFollower.setNeutralMode(NeutralMode.Coast);
+    shooterFollower.follow(shooterMaster);
   }
-  public void set(double speed) {
-    shooter.set(speed);
+
+  public void printMotorVelocity(){
+    System.out.println(shooterMaster.getSelectedSensorVelocity());
   }
 
   public void setAdjustmentSolenoid(Solenoid adjustmentSolenoid) {
@@ -37,9 +55,26 @@ public class Shooter extends SubsystemBase {
     this.rotationSolenoid = rotationSolenoid;
   }
 
-  public double getShooter() {
-    return shooter.get()*1;
-    //Add code to get speed
+  public void increaseMotorSpeed(){
+    motorSpeed += 0.01;
+    motorSpeed = motorSpeed >= 1.00 ? 1 : motorSpeed;
+    System.out.println("Motor ++ | " + motorSpeed);
+    setCurrentMotorSpeed();
+  }
+
+  public void decreaseMotorSpeed(){
+    motorSpeed -= 0.01;
+    motorSpeed = motorSpeed <= -1.00 ? -1 : motorSpeed;
+    System.out.println("Motor -- | " + motorSpeed);
+    setCurrentMotorSpeed();
+  }
+
+  private void setCurrentMotorSpeed(){
+    shooterMaster.set(ControlMode.PercentOutput, motorSpeed);
+  }
+
+  public void maintainRPM() {
+    shooterMaster.set(ControlMode.Velocity, 86110);
   }
 
   public Solenoid getAdjustmentSolenoid() {
@@ -49,14 +84,6 @@ public class Shooter extends SubsystemBase {
   public Solenoid getRotationSolenoid() {
     return rotationSolenoid;
   }
-
-  public boolean atSpeed() {
-    return false;
-  }
-  
-  public void shootBall() {
-  }
-
 
   @Override
   public void periodic() {
