@@ -59,6 +59,7 @@ public class RobotContainer {
 
     //commands
     //driveForwardCommand = new DriveForward(drivetrainSubsystem);
+    getColorCommand = new GetColor(controlpanel);
     //driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
     //decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
     //increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
