@@ -33,12 +33,12 @@ public class RobotContainer {
   private Shooter shooter;
   private Drivetrain drivetrain;
 
-  private DriveForward driveForwardCommand;
-  private DriveWithJoysticks driveWithJoysticksCommand;
+  private DriveForward driveForward;
+  private DriveWithJoysticks driveWithJoysticks;
 
-  private JoystickButton decreaseMotorSpeedButton;
-  private JoystickButton increaseMotorSpeedButton;
-  private JoystickButton maintainRPMButton;
+  private JoystickButton decreaseMotorSpeed;
+  private JoystickButton increaseMotorSpeed;
+  private JoystickButton maintainRPM;
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -53,8 +53,8 @@ public class RobotContainer {
 
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrain);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
+    driveForward = new DriveForward(drivetrain);
+    driveWithJoysticks = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
 
     defineButtons();
 
@@ -67,9 +67,9 @@ public class RobotContainer {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    decreaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
-    increaseMotorSpeedButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
-    maintainRPMButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    decreaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
+    increaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
+    maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
   }
 
   /**
@@ -79,10 +79,10 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(driveWithJoysticksCommand);
-    decreaseMotorSpeedButton.whenPressed(new DecreaseMotorSpeed(shooter));
-    increaseMotorSpeedButton.whenPressed(new IncreaseMotorSpeed(shooter));
-    maintainRPMButton.whenPressed(new MaintainRPM(shooter)); 
+    drivetrain.setDefaultCommand(driveWithJoysticks);
+    decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
+    increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
+    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
   }
 
 
@@ -93,6 +93,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForwardCommand;
+    return driveForward;
   }
 }
