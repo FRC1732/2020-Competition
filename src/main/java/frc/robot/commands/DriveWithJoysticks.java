@@ -21,11 +21,11 @@ public class DriveWithJoysticks extends CommandBase {
  * @param leftJoystick
  * @param drivetrainSubsystem
    */
-  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrainSubsystem) {
-    addRequirements(drivetrainSubsystem);
+  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
+    addRequirements(drivetrain);
     this.leftJoystick = leftJoystick;
     this.rightJoystick = rightJoystick;
-    this.drivetrain = drivetrainSubsystem;
+    this.drivetrain = drivetrain;
   }
 
   // Called when the command is initially scheduled.
