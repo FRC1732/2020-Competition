@@ -44,7 +44,6 @@ public final class Constants {
 
     //Indexer mapping
     public static final int INDEXER_CELLHOLDER1_ID = 29;
-    public static final int INDEXER_CELLHOLDER2_ID = -99999;
     public static final int INDEXER_CONVEYER_ID = 15;
     public static final int INDEXER_CELLGATE_ID = 3;
 
