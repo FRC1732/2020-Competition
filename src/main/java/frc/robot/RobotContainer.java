@@ -10,18 +10,18 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.DriveWithJoysticks;
-import frc.robot.commands.Autonomous.DriveForward;
-import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DecreaseMotorSpeed;
+import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.FeedShooter;
 import frc.robot.commands.IncreaseMotorSpeed;
 import frc.robot.commands.MaintainRPM;
-import frc.robot.commands.FeedShooter;
 import frc.robot.commands.ReverseFeedShooter;
-import frc.robot.subsystems.Shooter;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -34,7 +34,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private Shooter shooter;
-  private Drivetrain drivetrainSubsystem;
+  private Drivetrain drivetrain;
   private Indexer indexer;
 
   private DecreaseMotorSpeed decreaseMotorSpeed;
@@ -59,14 +59,14 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    drivetrainSubsystem = new Drivetrain();
+    drivetrain = new Drivetrain();
     shooter = new Shooter();
     indexer = new Indexer(); 
 
 
     //commands
-    driveForwardCommand = new DriveForward(drivetrainSubsystem);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    driveForwardCommand = new DriveForward(drivetrain);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
     decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
     increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
     maintainRPM = new MaintainRPM(shooter);
@@ -100,10 +100,13 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
-    decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
-    increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
-    maintainRPMButton.whenPressed(maintainRPM); 
+    drivetrain.setDefaultCommand(driveWithJoysticksCommand);
+    decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
+    increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
+    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
+    feedShooterButton.whenPressed(new FeedShooter(indexer));
+    reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
+
   }
 
 
@@ -114,6 +117,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;//driveForwardCommand;
+    return driveForward;
   }
 }
