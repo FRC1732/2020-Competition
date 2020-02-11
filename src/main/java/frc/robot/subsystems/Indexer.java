@@ -11,20 +11,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
   private final double speed = 1;
-  private VictorSPX cellHolder1;
-  private VictorSPX cellHodler2;
-  private VictorSPX conveyor;
+  private TalonSRX cellHolder1;
+  private TalonSRX conveyor;
   private Solenoid cellGate;
 
   public Indexer() {
-    cellHolder1 = new VictorSPX(Constants.INDEXER_CELLHOLDER1_ID);
-    cellHodler2 = new VictorSPX(Constants.INDEXER_CELLHOLDER2_ID);
-    conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+    cellHolder1 = new TalonSRX(Constants.INDEXER_CELLHOLDER1_ID);
+    conveyor = new TalonSRX(Constants.INDEXER_CONVEYER_ID);
     cellGate = new Solenoid(Constants.INDEXER_CELLGATE_ID);
   }
 
