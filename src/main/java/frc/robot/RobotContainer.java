@@ -12,15 +12,22 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ChangeIntakeSolenoidState;
 import frc.robot.commands.DecreaseMotorSpeed;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.FeedShooter;
 import frc.robot.commands.IncreaseMotorSpeed;
+import frc.robot.commands.IntakeCells;
 import frc.robot.commands.MaintainRPM;
 import frc.robot.commands.ReverseFeedShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
+import frc.robot.commands.ReverseIntakeCells;
+import frc.robot.commands.StopIntake;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 /**
@@ -34,6 +41,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private Shooter shooter;
+  private Intake intake;
   private Drivetrain drivetrain;
   private Indexer indexer;
 
@@ -45,6 +53,10 @@ public class RobotContainer {
   private JoystickButton maintainRPM;
   private JoystickButton feedShooterButton; 
   private JoystickButton reverseFeedShooterButton;
+  private JoystickButton changeIntakeSolenoidState;
+  private JoystickButton intakeCells;
+  private JoystickButton reverseIntakeCells;
+  private JoystickButton stopIntake;
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -81,6 +93,11 @@ public class RobotContainer {
     maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
     feedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FEED_SHOOTER);
     reverseFeedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
+    intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
+    changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
+    reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
+    stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
+
   }
 
   /**
@@ -90,12 +107,17 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(driveWithJoysticksCommand);
+    drivetrain.setDefaultCommand(driveWithJoysticks);
+
     decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
     increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
-    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
-    feedShooterButton.whenPressed(new FeedShooter(indexer));
-    reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
+    maintainRPM.whenPressed(new MaintainRPM(shooter));
+
+    intakeCells.whenPressed(new IntakeCells(intake));
+    reverseIntakeCells.whenPressed(new ReverseIntakeCells(intake));
+    stopIntake.whenPressed(new StopIntake(intake));
+    changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
+    
 
   }
 

@@ -29,12 +29,12 @@ public final class Constants {
     public static final int CLIMBING_SOLENOID_ID = 1;
     
     //Drivetrain mapping
-    public static final int DRIVETRAIN_LEFTMASTER_ID = 33;
-    public static final int DRIVETRAIN_LEFT1_ID = 34;
-    public static final int DRIVETRAIN_LEFT2_ID = 35;
-    public static final int DRIVETRAIN_RIGHTMASTER_ID = 10;
-    public static final int DRIVETRAIN_RIGHT1_ID = 11; 
-    public static final int DRIVETRAIN_RIGHT2_ID = 12;
+    public static final int DRIVETRAIN_LEFTMASTER_ID = 10;
+    public static final int DRIVETRAIN_LEFT1_ID = 11;
+    public static final int DRIVETRAIN_LEFT2_ID = 12;
+    public static final int DRIVETRAIN_RIGHTMASTER_ID = 33;
+    public static final int DRIVETRAIN_RIGHT1_ID = 34; 
+    public static final int DRIVETRAIN_RIGHT2_ID = 35;
     
     //Shooter mapping
     public static final int SHOOTER_SHOOTER_MASTER_ID = 30;
@@ -63,9 +63,17 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
     //Operator Interface (buttons)
+    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
     public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
     public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
+<<<<<<< HEAD
     public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
     public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
+=======
+    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 3;
+    public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
+    public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
+    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
+>>>>>>> development
 }
