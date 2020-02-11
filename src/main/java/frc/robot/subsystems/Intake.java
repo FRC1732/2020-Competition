@@ -26,14 +26,24 @@ public class Intake extends SubsystemBase {
     intakeSolenoid = new Solenoid(Constants.INTAKE_INTAKESOLENOID_ID);
   }
 
-
-  
   public void setIntakeMotor (double motor){
     intakeMotor.set(ControlMode.PercentOutput, motor);
   }
 
-  public void extendIntake(boolean extendIntakeSolenoid){
-    intakeSolenoid.set(extendIntakeSolenoid);
+  public void intakeCells(){
+    setIntakeMotor(1);
+  }
+
+  public void reverseIntakeCells(){
+    setIntakeMotor(-1);
+  }
+
+  public void stop(){
+    setIntakeMotor(0);
+  }
+
+  public void toggleSolenoidState(){
+    intakeSolenoid.set(!intakeSolenoid.get());
   }
 
   @Override
