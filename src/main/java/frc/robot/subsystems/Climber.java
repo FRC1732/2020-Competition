@@ -19,8 +19,8 @@ public class Climber extends SubsystemBase {
    */
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
-  private final double UP_SPEED = 0.5;
-  private final double DOWN_SPEED = 0.25;
+  private double UP_SPEED = .5;
+  private double DOWN_SPEED = -.25;
 
   public Climber() {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
@@ -28,20 +28,13 @@ public class Climber extends SubsystemBase {
 
     climberLeft.configFactoryDefault();
     climberRight.configFactoryDefault();
+    
   }
-
-  //need button to control each motor
-  /**
-   * @param climberLeft the climberLeft to set
-   */
-
-  //only use for testing
 
   public void setRight(double right) {
     climberRight.set(ControlMode.PercentOutput, right);
   }
 
-  //only use for testing
   public void setLeft(double left) {
     climberLeft.set(ControlMode.PercentOutput, left);
   }
@@ -54,12 +47,7 @@ public class Climber extends SubsystemBase {
   public void manualDown(){
     setRight(DOWN_SPEED);
     setLeft(DOWN_SPEED);
-  }
-
-  public void climb(){
-    //input code to autoclimb here
-  }
-  
+  }  
 
   @Override
   public void periodic() {
