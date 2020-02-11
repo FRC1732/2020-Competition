@@ -53,17 +53,17 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
-    //drivetrainSubsystem = new Drivetrain();
-    //shooter = new Shooter();
+    drivetrainSubsystem = new Drivetrain();
+    shooter = new Shooter();
     controlpanel = new ControlPanel();
 
     //commands
-    //driveForwardCommand = new DriveForward(drivetrainSubsystem);
+    driveForwardCommand = new DriveForward(drivetrainSubsystem);
     getColorCommand = new GetColor(controlpanel);
-    //driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
-    //decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
-    //increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
-    //maintainRPM = new MaintainRPM(shooter);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrainSubsystem);
+    decreaseMotorSpeed = new DecreaseMotorSpeed(shooter);
+    increaseMotorSpeed = new IncreaseMotorSpeed(shooter);
+    maintainRPM = new MaintainRPM(shooter);
 
     defineButtons();
 
@@ -88,11 +88,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
+    drivetrainSubsystem.setDefaultCommand(driveWithJoysticksCommand);
     controlpanel.setDefaultCommand(getColorCommand);
-    //decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
-    //increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
-    //maintainRPMButton.whenPressed(maintainRPM); 
+    decreaseMotorSpeedButton.whenPressed(decreaseMotorSpeed);
+    increaseMotorSpeedButton.whenPressed(increaseMotorSpeed);
+    maintainRPMButton.whenPressed(maintainRPM); 
   }
 
 
@@ -101,8 +101,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  //public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return driveForwardCommand;
- // }
+    return driveForwardCommand;
+  }
 }
