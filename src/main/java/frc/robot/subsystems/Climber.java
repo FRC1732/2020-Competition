@@ -9,48 +9,56 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Subsystem_Climber extends SubsystemBase {
+public class Climber extends SubsystemBase {
   /**
-   * Creates a new Subsystem_Climber.
+   * Creates a new Climber.
    */
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
-  private VictorSPX climberDrive;
-  private Solenoid solenoid;
+  private final double UP_SPEED = 0.5;
+  private final double DOWN_SPEED = 0.25;
 
-  public Subsystem_Climber() {
+  public Climber() {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
     climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
-    climberDrive = new VictorSPX(Constants.CLIMBER_DRIVE_ID);
-    solenoid = new Solenoid(Constants.CLIMBING_SOLENOID_ID);
+
+    climberLeft.configFactoryDefault();
+    climberRight.configFactoryDefault();
   }
 
   //need button to control each motor
   /**
    * @param climberLeft the climberLeft to set
    */
+
+  //only use for testing
+
   public void setRight(double right) {
     climberRight.set(ControlMode.PercentOutput, right);
   }
 
+  //only use for testing
   public void setLeft(double left) {
     climberLeft.set(ControlMode.PercentOutput, left);
   }
 
-  public void setDrive(double drive) {
-    climberLeft.set(ControlMode.PercentOutput, drive);
+  public void manualUp(){
+    setRight(UP_SPEED);
+    setLeft(UP_SPEED);
   }
 
-  public void extendLeft(boolean extend) {
-    solenoid.set(extend);
+  public void manualDown(){
+    setRight(DOWN_SPEED);
+    setLeft(DOWN_SPEED);
   }
 
+  public void climb(){
+    //input code to autoclimb here
+  }
   
 
   @Override
