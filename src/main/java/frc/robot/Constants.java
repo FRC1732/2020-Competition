@@ -66,14 +66,10 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
     public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
     public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
-<<<<<<< HEAD
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
     public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
-=======
     public static final int JOYSTICKBUTTON_INTAKE_CELLS = 3;
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
->>>>>>> development
 }
