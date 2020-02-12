@@ -33,7 +33,6 @@ public class GetColor extends CommandBase {
   @Override
   public void execute() {
     Color detectedColor = controlpanel.readColor();
-    System.out.println("Red: " + detectedColor.red);
     SmartDashboard.putNumber("Red", detectedColor.red);
     SmartDashboard.putNumber("Green", detectedColor.green);
     SmartDashboard.putNumber("Blue", detectedColor.blue);
