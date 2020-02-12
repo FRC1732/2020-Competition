@@ -117,8 +117,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(driveWithJoysticks);
-
+    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
     decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
     increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
     maintainRPM.whenPressed(new MaintainRPM(shooter)); 
