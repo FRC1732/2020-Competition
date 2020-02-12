@@ -15,16 +15,20 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ChangeIntakeSolenoidState;
 import frc.robot.commands.DecreaseMotorSpeed;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.FeedShooter;
 import frc.robot.commands.IncreaseMotorSpeed;
 import frc.robot.commands.IntakeCells;
 import frc.robot.commands.MaintainRPM;
-import frc.robot.commands.ReverseIntakeCells;
-import frc.robot.commands.StopIntake;
 import frc.robot.commands.ToggleLimelightLEDS;
 import frc.robot.commands.ToggleLimelightVisionMode;
+import frc.robot.commands.ReverseFeedShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
+import frc.robot.commands.ReverseIntakeCells;
+import frc.robot.commands.StopIntake;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
@@ -113,8 +117,7 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(driveWithJoysticksCommand);
-
+    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
     decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
     increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
     maintainRPM.whenPressed(new MaintainRPM(shooter)); 
