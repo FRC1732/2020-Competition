@@ -13,10 +13,10 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class StopIntakeCommand extends InstantCommand {
+public class ReverseIntakeCells extends InstantCommand {
   Intake intake;
 
-  public StopIntakeCommand(Intake intake) {
+  public ReverseIntakeCells(Intake intake) {
     addRequirements(intake);
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,5 +25,6 @@ public class StopIntakeCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    intake.reverseIntakeCells();
   }
 }

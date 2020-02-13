@@ -5,25 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class MaintainRPMCommand extends InstantCommand {
-  private Shooter shooter;
+public class ToggleLimelightVisionMode extends InstantCommand {
+  Vision vision;
 
-  public MaintainRPMCommand(Shooter shooter) {
-    this.shooter = shooter;
+  public ToggleLimelightVisionMode(Vision vision) {
+    addRequirements(vision);
+    this.vision = vision; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    vision.toggleVisionMode();
   }
 }

@@ -13,10 +13,10 @@ import frc.robot.subsystems.Vision;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ToggleLimelightLEDSCommand extends InstantCommand {
+public class ToggleLimelightLEDS extends InstantCommand {
   private Vision vision;
 
-  public ToggleLimelightLEDSCommand(Vision vision) {
+  public ToggleLimelightLEDS(Vision vision) {
     addRequirements(vision);
     this.vision = vision;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,5 +25,6 @@ public class ToggleLimelightLEDSCommand extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    vision.toggleLed();
   }
 }
