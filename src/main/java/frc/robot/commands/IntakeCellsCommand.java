@@ -13,17 +13,17 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ChangeIntakeSolenoidState extends InstantCommand {
+public class IntakeCellsCommand extends InstantCommand {
   private Intake intake;
-  public ChangeIntakeSolenoidState(Intake intake) {
+
+  public IntakeCellsCommand(Intake intake) {
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
     this.intake = intake;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.toggleSolenoidState();
   }
 }
