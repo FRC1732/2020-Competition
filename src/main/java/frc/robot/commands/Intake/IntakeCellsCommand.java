@@ -5,21 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ToggleLimelightVisionModeCommand extends InstantCommand {
-  Vision vision;
+public class IntakeCellsCommand extends InstantCommand {
+  private Intake intake;
 
-  public ToggleLimelightVisionModeCommand(Vision vision) {
-    addRequirements(vision);
-    this.vision = vision; 
+  public IntakeCellsCommand(Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.

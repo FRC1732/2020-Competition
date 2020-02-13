@@ -5,18 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Indexer;
 
-
-public class ReverseFeedShooter extends InstantCommand {
-  private Indexer indexer;
+public class FeedShooter extends InstantCommand {
+  private Indexer indexer; 
   /**
-   * Creates a new ReverseFeedShooter.
+   * Creates a new FeedShooter.
    */
-  public ReverseFeedShooter(Indexer indexer) {
+  public FeedShooter(Indexer indexer) {
     this.indexer = indexer;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(indexer);
@@ -25,6 +24,6 @@ public class ReverseFeedShooter extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    indexer.reverseFeedShooter();
+    indexer.feedShooter();
   }
 }
