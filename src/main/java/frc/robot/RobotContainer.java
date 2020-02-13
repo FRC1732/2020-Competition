@@ -140,8 +140,9 @@ public class RobotContainer {
     stopIntake.whenPressed(new StopIntake(intake));
     changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
 
-    manualUp.whenPressed(new ManualUp(climber));
-    manualDown.whenPressed(new ManualDown(climber));
+    manualUp.whileHeld(new ManualUp(climber));
+    manualDown.whileHeld(new ManualDown(climber));
+
     
 
   }
