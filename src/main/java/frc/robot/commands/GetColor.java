@@ -7,18 +7,21 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.ControlPanel;
 
-public class ChangeIntakeSolenoidState extends CommandBase {
-  Intake intake;
+public class GetColor extends CommandBase {
   /**
-   * Creates a new ChangeIntakeSolenoidState.
+   * Creates a new GetColor.
    */
-  public ChangeIntakeSolenoidState(Intake intake) {
-    addRequirements(intake);
-    this.intake = intake;
+  private ControlPanel controlpanel;
+  
+  public GetColor(ControlPanel controlpanel) {
+    this.controlpanel = controlpanel;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(controlpanel);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +32,10 @@ public class ChangeIntakeSolenoidState extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.toggleSolenoidState();
+    Color detectedColor = controlpanel.readColor();
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
   }
 
   // Called once the command ends or is interrupted.
