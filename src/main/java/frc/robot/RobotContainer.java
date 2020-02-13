@@ -15,11 +15,18 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ChangeIntakeSolenoidState;
 import frc.robot.commands.DecreaseMotorSpeed;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.FeedShooter;
 import frc.robot.commands.IncreaseMotorSpeed;
 import frc.robot.commands.IntakeCells;
 import frc.robot.commands.MaintainRPM;
 import frc.robot.commands.ManualDown;
 import frc.robot.commands.ManualUp;
+import frc.robot.commands.ToggleLimelightLEDS;
+import frc.robot.commands.ToggleLimelightVisionMode;
+import frc.robot.commands.ReverseFeedShooter;
+import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Indexer;
 import frc.robot.commands.ReverseIntakeCells;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.Autonomous.DriveForward;
@@ -28,6 +35,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -42,8 +50,9 @@ public class RobotContainer {
   private Shooter shooter;
   private Intake intake;
   private Drivetrain drivetrain;
-  private Indexer indexer;
   private Climber climber;
+  private Vision vision;
+  private Indexer indexer;
 
   private DriveWithJoysticks driveWithJoysticksCommand;
   private DriveForward driveForward;
@@ -51,6 +60,8 @@ public class RobotContainer {
   private JoystickButton decreaseMotorSpeed;
   private JoystickButton increaseMotorSpeed;
   private JoystickButton maintainRPM;
+  private JoystickButton toggleLEDS;
+  private JoystickButton toggleVisionMode;
   private JoystickButton feedShooterButton; 
   private JoystickButton reverseFeedShooterButton;
   private JoystickButton changeIntakeSolenoidState;
@@ -68,6 +79,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     //Subsystems
+    vision = new Vision();
     drivetrain = new Drivetrain();
     shooter = new Shooter();
     indexer = new Indexer(); 
@@ -76,6 +88,7 @@ public class RobotContainer {
 
     //commands
     driveForward = new DriveForward(drivetrain);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
 
     defineButtons();
 
@@ -93,6 +106,9 @@ public class RobotContainer {
     decreaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
     increaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
     maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+
+    toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
+    toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
     feedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FEED_SHOOTER);
     reverseFeedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
     intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
@@ -111,10 +127,12 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
-
+    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
     decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
     increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
+    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
+    toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
+    toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
     maintainRPM.whenPressed(new MaintainRPM(shooter));
 
     intakeCells.whenPressed(new IntakeCells(intake));
