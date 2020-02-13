@@ -7,25 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ControlPanel;
 
-public class DriveWithJoysticks extends CommandBase {
-  private Joystick leftJoystick;
-  private Joystick rightJoystick;
-  private Drivetrain drivetrain;
+public class GetColor extends CommandBase {
   /**
-   * Creates a new DriveWithJoysticks.
- * @param rightJoystick
- * @param leftJoystick
- * @param drivetrainSubsystem
+   * Creates a new GetColor.
    */
-  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
-    addRequirements(drivetrain);
-    this.leftJoystick = leftJoystick;
-    this.rightJoystick = rightJoystick;
-    this.drivetrain = drivetrain;
+  private ControlPanel controlpanel;
+  
+  public GetColor(ControlPanel controlpanel) {
+    this.controlpanel = controlpanel;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(controlpanel);
   }
 
   // Called when the command is initially scheduled.
@@ -36,10 +32,10 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double left = leftJoystick.getY() * leftJoystick.getY() * Math.signum(leftJoystick.getY());
-    double right = rightJoystick.getY() * rightJoystick.getY() * Math.signum(rightJoystick.getY());
-
-    drivetrain.set(left,right);
+    Color detectedColor = controlpanel.readColor();
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
   }
 
   // Called once the command ends or is interrupted.
