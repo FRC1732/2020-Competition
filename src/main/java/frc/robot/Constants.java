@@ -63,8 +63,9 @@ public final class Constants {
 
     //Operator Interface (buttons)
     public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
-    public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
-    public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
+    public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
+    public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
+    public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
     public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 7;
     public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
@@ -73,4 +74,5 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
+
 }
