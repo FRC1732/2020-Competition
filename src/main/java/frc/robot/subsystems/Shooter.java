@@ -31,15 +31,9 @@ public class Shooter extends SubsystemBase {
     shooterFollower.configFactoryDefault();
 
     shooterMaster.setInverted(false);
-    shooterMaster.setInverted(false);
-    shooterMaster.config_kP(0, .12);
-    shooterMaster.config_kI(0, 0);
-    shooterMaster.config_kD(0, 0);
-    shooterMaster.config_kF(0, .0078);
-    shooterMaster.setNeutralMode(NeutralMode.Coast);
+    shooterMaster.setSensorPhase(true);
 
     shooterFollower.setInverted(true);
-    shooterFollower.setNeutralMode(NeutralMode.Coast);
     shooterFollower.follow(shooterMaster);
   }
 
@@ -55,6 +49,7 @@ public class Shooter extends SubsystemBase {
     this.rotationSolenoid = rotationSolenoid;
   }
 
+  //increaseMotorSpeed is only to be used for testing
   public void increaseMotorSpeed(){
     motorSpeed += 0.01;
     motorSpeed = motorSpeed >= 1.00 ? 1 : motorSpeed;
@@ -62,6 +57,7 @@ public class Shooter extends SubsystemBase {
     setCurrentMotorSpeed();
   }
 
+  //decreaseMotorSpeed is only to be used for testing
   public void decreaseMotorSpeed(){
     motorSpeed -= 0.01;
     motorSpeed = motorSpeed <= -1.00 ? -1 : motorSpeed;
@@ -69,12 +65,20 @@ public class Shooter extends SubsystemBase {
     setCurrentMotorSpeed();
   }
 
-  private void setCurrentMotorSpeed(){
+  public void setCurrentMotorSpeed(){
     shooterMaster.set(ControlMode.PercentOutput, motorSpeed);
   }
 
   public void maintainRPM() {
-    shooterMaster.set(ControlMode.Velocity, 86110);
+    if(shooterMaster.getSelectedSensorPosition() < 125000){
+      shooterMaster.set(ControlMode.PercentOutput, 1);
+    } else {
+      shooterMaster.set(ControlMode.PercentOutput, .85);
+    }
+  }
+
+  public void stopMotors(){
+    shooterMaster.set(ControlMode.PercentOutput, 0);
   }
 
   public Solenoid getAdjustmentSolenoid() {
