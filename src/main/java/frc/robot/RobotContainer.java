@@ -18,9 +18,8 @@ import frc.robot.commands.Intake.ChangeIntakeSolenoidState;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.StopIntake;
-import frc.robot.commands.Shooter.DecreaseMotorSpeed;
-import frc.robot.commands.Shooter.IncreaseMotorSpeed;
 import frc.robot.commands.Shooter.MaintainRPM;
+import frc.robot.commands.Shooter.stopMotors;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
 import frc.robot.subsystems.Drivetrain;
@@ -48,13 +47,9 @@ public class RobotContainer {
   private DriveWithJoysticks driveWithJoysticksCommand;
   private DriveForward driveForward;
 
-  private JoystickButton decreaseMotorSpeed;
-  private JoystickButton increaseMotorSpeed;
   private JoystickButton maintainRPM;
   private JoystickButton toggleLEDS;
   private JoystickButton toggleVisionMode;
-  private JoystickButton feedShooterButton; 
-  private JoystickButton reverseFeedShooterButton;
   private JoystickButton changeIntakeSolenoidState;
   private JoystickButton intakeCells;
   private JoystickButton reverseIntakeCells;
@@ -91,14 +86,10 @@ public class RobotContainer {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    decreaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_DECREASE_MOTOR_SPEED);
-    increaseMotorSpeed = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INCREASE_MOTOR_SPEED);
     maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
 
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
     toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
-    feedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FEED_SHOOTER);
-    reverseFeedShooterButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
     intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
@@ -114,12 +105,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
-    decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
-    increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
-    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
+
+    maintainRPM.whenActive(new MaintainRPM(shooter)); 
+    maintainRPM.whenInactive(new stopMotors(shooter));
+
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
     toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
-    maintainRPM.whenPressed(new MaintainRPM(shooter));
 
     intakeCells.whenPressed(new IntakeCells(intake));
     reverseIntakeCells.whenPressed(new ReverseIntakeCells(intake));
