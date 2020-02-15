@@ -5,19 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Climber;
 
-public class ToggleLimelightLEDS extends CommandBase {
-  private Vision vision;
+public class ManualDown extends CommandBase {
+  Climber climber;
   /**
-   * Creates a new ToggleLimelightLEDS.
+   * Creates a new ManualDown.
    */
-  public ToggleLimelightLEDS(Vision vision) {
-    addRequirements(vision);
-    this.vision = vision;
+  public ManualDown(Climber climber) {
+    addRequirements(climber);
+    this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,7 +29,7 @@ public class ToggleLimelightLEDS extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    vision.toggleLed();
+    climber.manualDown();
   }
 
   // Called once the command ends or is interrupted.

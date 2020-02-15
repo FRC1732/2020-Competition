@@ -5,25 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
 
-public class FeedShooter extends InstantCommand {
-  private Indexer indexer; 
-  /**
-   * Creates a new FeedShooter.
-   */
-  public FeedShooter(Indexer indexer) {
-    this.indexer = indexer;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class StopIntake extends InstantCommand {
+  Intake intake;
+
+  public StopIntake(Intake intake) {
+    addRequirements(intake);
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    indexer.feedShooter();
+    intake.stopIntake();
   }
 }

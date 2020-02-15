@@ -38,7 +38,7 @@ public class Intake extends SubsystemBase {
     setIntakeMotor(-1);
   }
 
-  public void stop(){
+  public void stopIntake(){
     setIntakeMotor(0);
   }
 
