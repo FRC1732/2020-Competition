@@ -43,9 +43,8 @@ public final class Constants {
     public static final int SHOOTER_ROTATION_SOLENOID_ID = 6;
 
     //Indexer mapping
-    public static final int INDEXER_CELLHOLDER1_ID = 29;
+    public static final int INDEXER_FEEDER_ID = 29;
     public static final int INDEXER_CONVEYER_ID = 15;
-    public static final int INDEXER_CELLGATE_ID = 3;
 
     //Intake mapping
     public static final int INTAKE_INTAKEMOTOR_ID = 16;
