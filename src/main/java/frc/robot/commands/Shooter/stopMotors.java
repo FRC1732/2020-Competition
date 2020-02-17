@@ -13,9 +13,9 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class stopMotors extends InstantCommand {
+public class StopMotors extends InstantCommand {
   Shooter  shooter;
-  public stopMotors(Shooter shooter) {
+  public StopMotors(Shooter shooter) {
     addRequirements(shooter);
     this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.

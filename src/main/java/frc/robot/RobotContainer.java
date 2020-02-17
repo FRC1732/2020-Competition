@@ -19,7 +19,7 @@ import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.Shooter.MaintainRPM;
-import frc.robot.commands.Shooter.stopMotors;
+import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
 import frc.robot.subsystems.Drivetrain;
@@ -107,7 +107,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
 
     maintainRPM.whenActive(new MaintainRPM(shooter)); 
-    maintainRPM.whenInactive(new stopMotors(shooter));
+    maintainRPM.whenInactive(new StopMotors(shooter));
 
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
     toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
