@@ -69,7 +69,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void maintainRPM() {
-    if(shooterMaster.getSelectedSensorPosition() < 125000){
+    if(shooterMaster.getSelectedSensorVelocity() < 125000){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
