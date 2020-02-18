@@ -38,7 +38,6 @@ import frc.robot.subsystems.Vision;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
   private Shooter shooter;
   private Intake intake;
   private Drivetrain drivetrain;
@@ -48,6 +47,7 @@ public class RobotContainer {
   private DriveWithJoysticks driveWithJoysticksCommand;
   private DriveForward driveForward;
 
+  // Joystick Buttons 
   private JoystickButton decreaseMotorSpeed;
   private JoystickButton increaseMotorSpeed;
   private JoystickButton maintainRPM;
@@ -60,6 +60,7 @@ public class RobotContainer {
   private JoystickButton reverseIntakeCells;
   private JoystickButton stopIntake;
 
+  // Joysticks 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
 
