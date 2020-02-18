@@ -36,6 +36,7 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    // gets the y value of the joysticks
     double left = leftJoystick.getY() * leftJoystick.getY() * Math.signum(leftJoystick.getY());
     double right = rightJoystick.getY() * rightJoystick.getY() * Math.signum(rightJoystick.getY());
 

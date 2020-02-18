@@ -36,15 +36,15 @@ public class Subsystem_Climber extends SubsystemBase {
    * @param climberLeft the climberLeft to set
    */
 
-  // Sets the right 
+  // Sets the right climber motor
   public void setRight(double right) {
     climberRight.set(ControlMode.PercentOutput, right);
   }
-
+  // Sets the left climber motor 
   public void setLeft(double left) {
     climberLeft.set(ControlMode.PercentOutput, left);
   }
-
+  // this shouldn't exsist 
   public void setDrive(double drive) {
     climberLeft.set(ControlMode.PercentOutput, drive);
   }
