@@ -20,7 +20,6 @@ import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Indexer.StopFeeder;
 import frc.robot.commands.Intake.ChangeIntakeSolenoidState;
 import frc.robot.commands.Intake.IntakeCells;
-import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.StopMotors;
@@ -57,7 +56,6 @@ public class RobotContainer {
   private JoystickButton changeIntakeSolenoidState;
   private JoystickButton intakeCells;
   private JoystickButton reverseIntakeCells;
-  private JoystickButton stopIntake;
   private JoystickButton feedShooterButton; 
   private JoystickButton reverseFeedShooterButton;
   private JoystickButton stopFeedShooterButton;
@@ -95,7 +93,8 @@ public class RobotContainer {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    //this has a permanent button binding 
+    maintainRPM = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
 
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
     toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
@@ -105,13 +104,11 @@ public class RobotContainer {
     forwardConveyorButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FORWARD_CONVEYOR);
     reverseConveyorButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_CONVEYOR);
 
+    //this has a permanent button binding
     intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
+    
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
-    stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
-
-
-
   }
 
   /**
@@ -121,32 +118,30 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
-    maintainRPM.whenPressed(new MaintainRPM(shooter)); 
 
-    toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
-    toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
+    //drivetrain button
+    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
 
     //all the indexer buttons are placeholders and the structure isn't fully worked out
+    //indexer buttons
     feedShooterButton.whenPressed(new FeedShooter(indexer));
     reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
     stopFeedShooterButton.whenPressed(new StopFeeder(indexer));
     forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
     reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
 
-
+    //shooter buttons
     maintainRPM.whenActive(new MaintainRPM(shooter)); 
     maintainRPM.whenInactive(new StopMotors(shooter));
 
+    //vision buttons
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
     toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
 
-    intakeCells.whenPressed(new IntakeCells(intake));
-    reverseIntakeCells.whenPressed(new ReverseIntakeCells(intake));
-    stopIntake.whenPressed(new StopIntake(intake));
+    //intake buttons
+    intakeCells.whenActive(new IntakeCells(intake));
+    intakeCells.whenInactive(new StopIntake(intake));
     changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
-    
-
   }
 
 

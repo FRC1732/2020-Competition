@@ -62,7 +62,10 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
     //Operator Interface (buttons)
+
+    //Right Trigger Button: Shoot
     public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
+
     public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
     public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
     public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
@@ -70,7 +73,10 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
     public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
-    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 3;
+
+    //Left Trigger Button: Intake
+    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 0;
+    
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
