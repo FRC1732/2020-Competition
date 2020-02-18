@@ -22,9 +22,8 @@ import frc.robot.commands.Intake.ChangeIntakeSolenoidState;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.StopIntake;
-import frc.robot.commands.Shooter.DecreaseMotorSpeed;
-import frc.robot.commands.Shooter.IncreaseMotorSpeed;
 import frc.robot.commands.Shooter.MaintainRPM;
+import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
 import frc.robot.subsystems.Drivetrain;
@@ -52,8 +51,6 @@ public class RobotContainer {
   private DriveWithJoysticks driveWithJoysticksCommand;
   private DriveForward driveForward;
 
-  private JoystickButton decreaseMotorSpeed;
-  private JoystickButton increaseMotorSpeed;
   private JoystickButton maintainRPM;
   private JoystickButton toggleLEDS;
   private JoystickButton toggleVisionMode;
@@ -125,8 +122,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
-    decreaseMotorSpeed.whenPressed(new DecreaseMotorSpeed(shooter));
-    increaseMotorSpeed.whenPressed(new IncreaseMotorSpeed(shooter));
     maintainRPM.whenPressed(new MaintainRPM(shooter)); 
 
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
@@ -139,6 +134,12 @@ public class RobotContainer {
     forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
     reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
 
+
+    maintainRPM.whenActive(new MaintainRPM(shooter)); 
+    maintainRPM.whenInactive(new StopMotors(shooter));
+
+    toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
+    toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
 
     intakeCells.whenPressed(new IntakeCells(intake));
     reverseIntakeCells.whenPressed(new ReverseIntakeCells(intake));
