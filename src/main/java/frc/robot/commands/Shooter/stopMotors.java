@@ -8,23 +8,22 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 
-
-public class ReverseFeedShooter extends InstantCommand {
-  private Indexer indexer;
-  /**
-   * Creates a new ReverseFeedShooter.
-   */
-  public ReverseFeedShooter(Indexer indexer) {
-    this.indexer = indexer;
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class StopMotors extends InstantCommand {
+  Shooter  shooter;
+  public StopMotors(Shooter shooter) {
+    addRequirements(shooter);
+    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(indexer);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    indexer.reverseFeedShooter();
+    shooter.stopMotors();
   }
 }
