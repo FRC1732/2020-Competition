@@ -30,11 +30,11 @@ public class Indexer extends SubsystemBase {
   public void openCellGate(boolean extendGate) {
     cellGate.set(extendGate);
   }
-
+  // starts the motor to feed the shooter
   public void feedShooter() {
     conveyor.set(ControlMode.PercentOutput, speed);
   }
-
+  // starts the motor to get the cells away from the shooter
   public void reverseFeedShooter() {
     conveyor.set(ControlMode.PercentOutput, -speed);
   }

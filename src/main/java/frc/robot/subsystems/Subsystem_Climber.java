@@ -35,6 +35,8 @@ public class Subsystem_Climber extends SubsystemBase {
   /**
    * @param climberLeft the climberLeft to set
    */
+
+  // Sets the right 
   public void setRight(double right) {
     climberRight.set(ControlMode.PercentOutput, right);
   }
