@@ -31,10 +31,16 @@ public class Climber extends SubsystemBase {
     
   }
 
+  //need button to control each motor
+  /**
+   * @param climberLeft the climberLeft to set
+   */
+
+  // Sets the right climber motor
   public void setRight(double right) {
     climberRight.set(ControlMode.PercentOutput, right);
   }
-
+  // Sets the left climber motor 
   public void setLeft(double left) {
     climberLeft.set(ControlMode.PercentOutput, left);
   }

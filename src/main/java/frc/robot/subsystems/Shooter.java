@@ -35,15 +35,15 @@ public class Shooter extends SubsystemBase {
     shooterFollower.setInverted(true);
     shooterFollower.follow(shooterMaster);
   }
-
+  // prints motor speed 
   public void printMotorVelocity(){
     System.out.println(shooterMaster.getSelectedSensorVelocity());
   }
-
+  // sets the solenoid 
   public void setAdjustmentSolenoid(Solenoid adjustmentSolenoid) {
     this.adjustmentSolenoid = adjustmentSolenoid;
   }
-  
+  // sets the rotational solenoid 
   public void setRotationSolenoid(Solenoid rotationSolenoid) {
     this.rotationSolenoid = rotationSolenoid;
   }

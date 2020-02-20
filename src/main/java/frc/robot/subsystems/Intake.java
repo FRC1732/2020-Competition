@@ -25,23 +25,23 @@ public class Intake extends SubsystemBase {
     intakeMotor = new VictorSPX(Constants.INTAKE_INTAKEMOTOR_ID);
     intakeSolenoid = new Solenoid(Constants.INTAKE_INTAKESOLENOID_ID);
   }
-
+  // sets the intake motor to a speed 
   public void setIntakeMotor (double motor){
     intakeMotor.set(ControlMode.PercentOutput, motor);
   }
-
+  // starts the intake 
   public void intakeCells(){
     setIntakeMotor(1);
   }
-
+  // reverses the intake motor
   public void reverseIntakeCells(){
     setIntakeMotor(-1);
   }
-
+  // stops the intake motor
   public void stopIntake(){
     setIntakeMotor(0);
   }
-
+  // toggle the solenoid.
   public void toggleSolenoidState(){
     intakeSolenoid.set(!intakeSolenoid.get());
   }
