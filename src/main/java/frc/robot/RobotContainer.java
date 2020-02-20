@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.commands.Climber.ManualDown;
+import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Indexer.FeedShooter;
 import frc.robot.commands.Indexer.ForwardConveyer;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
@@ -26,6 +28,7 @@ import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
@@ -45,6 +48,7 @@ public class RobotContainer {
   private Shooter shooter;
   private Intake intake;
   private Drivetrain drivetrain;
+  private Climber climber;
   private Vision vision;
   private Indexer indexer;
 
@@ -63,6 +67,8 @@ public class RobotContainer {
   private JoystickButton stopFeedShooterButton;
   private JoystickButton forwardConveyorButton;
   private JoystickButton reverseConveyorButton;
+  private JoystickButton manualUp;
+  private JoystickButton manualDown;
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -76,6 +82,7 @@ public class RobotContainer {
     drivetrain = new Drivetrain();
     shooter = new Shooter();
     indexer = new Indexer(); 
+    climber = new Climber();
 
 
     //commands
@@ -109,6 +116,8 @@ public class RobotContainer {
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
     stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
+    manualUp = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_UP);
+    manualDown = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN);
 
 
 
@@ -145,6 +154,10 @@ public class RobotContainer {
     reverseIntakeCells.whenPressed(new ReverseIntakeCells(intake));
     stopIntake.whenPressed(new StopIntake(intake));
     changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
+
+    manualUp.whileHeld(new ManualUp(climber));
+    manualDown.whileHeld(new ManualDown(climber));
+
     
 
   }
