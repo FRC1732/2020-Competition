@@ -5,26 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Indexer;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class IncreaseMotorSpeed extends InstantCommand {
-  private Shooter shooter;
-
-  public IncreaseMotorSpeed(Shooter shooter) {
-    this.shooter = shooter;
+public class ReverseConveyor extends InstantCommand {
+  private Intake intake;
+  public ReverseConveyor(Intake intake) {
+    addRequirements(intake);
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.increaseMotorSpeed();
+    intake.reverseIntakeCells();
   }
 }
