@@ -66,6 +66,14 @@ public class Drivetrain extends SubsystemBase {
 
     right1.follow(rightMaster);
     right2.follow(rightMaster);    
+
+    leftMaster.burnFlash();
+    left1.burnFlash();
+    left2.burnFlash();
+
+    rightMaster.burnFlash();
+    right1.burnFlash();
+    right2.burnFlash();
   }
 
   public void set(double left, double right) {
