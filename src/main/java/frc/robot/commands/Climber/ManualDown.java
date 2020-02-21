@@ -5,27 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Climber;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Climber;
 
-public class DriveWithJoysticks extends CommandBase {
-  private Joystick leftJoystick;
-  private Joystick rightJoystick;
-  private Drivetrain drivetrain;
+public class ManualDown extends CommandBase {
+  Climber climber;
   /**
-   * Creates a new DriveWithJoysticks.
- * @param rightJoystick
- * @param leftJoystick
- * @param drivetrainSubsystem
+   * Creates a new ManualDown.
    */
-  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
-    addRequirements(drivetrain);
-    this.leftJoystick = leftJoystick;
-    this.rightJoystick = rightJoystick;
-    this.drivetrain = drivetrain;
+  public ManualDown(Climber climber) {
+    addRequirements(climber);
+    this.climber = climber;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -36,11 +29,7 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // gets the y value of the joysticks
-    double left = leftJoystick.getY() * leftJoystick.getY() * Math.signum(leftJoystick.getY());
-    double right = rightJoystick.getY() * rightJoystick.getY() * Math.signum(rightJoystick.getY());
-
-    drivetrain.set(left,right);
+    climber.manualDown();
   }
 
   // Called once the command ends or is interrupted.

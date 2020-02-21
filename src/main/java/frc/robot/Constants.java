@@ -25,8 +25,10 @@ public final class Constants {
     //Climber mapping
     public static final int CLIMBER_RIGHT_ID = 13;
     public static final int CLIMBER_LEFT_ID = 32;
-    public static final int CLIMBER_DRIVE_ID = 17;
-    public static final int CLIMBING_SOLENOID_ID = 1;
+
+    //As of now it doesn't look like the below two features are in the picture
+    //public static final int CLIMBER_DRIVE_ID = 17;
+    //public static final int CLIMBING_SOLENOID_ID = 1;
     
     //Drivetrain mapping
     public static final int DRIVETRAIN_LEFTMASTER_ID = 10;
@@ -43,9 +45,8 @@ public final class Constants {
     public static final int SHOOTER_ROTATION_SOLENOID_ID = 6;
 
     //Indexer mapping
-    public static final int INDEXER_CELLHOLDER1_ID = 29;
+    public static final int INDEXER_FEEDER_ID = 29;
     public static final int INDEXER_CONVEYER_ID = 15;
-    public static final int INDEXER_CELLGATE_ID = 3;
 
     //Intake mapping
     public static final int INTAKE_INTAKEMOTOR_ID = 16;
@@ -64,8 +65,9 @@ public final class Constants {
 
     //Operator Interface (buttons)
     public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
-    public static final int JOYSTICKBUTTON_INCREASE_MOTOR_SPEED = 1;
-    public static final int JOYSTICKBUTTON_DECREASE_MOTOR_SPEED = 2;
+    public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
+    public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
+    public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
     public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 7;
     public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
@@ -74,4 +76,7 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
+
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 7;
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 8;
 }

@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Autonomous;
+package frc.robot.commands.Shooter;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class DriveForward extends SequentialCommandGroup {
-  //private Drivetrain m_Drivetrain;
-  /**
-   * Creates a new DriveForward.
-   */
-  public DriveForward(Drivetrain drivetrain) {
-    //m_Drivetrain = subsystem;
-    addCommands(new DrivetrainOn(drivetrain), new WaitCommand(5), new DrivetrainOff(drivetrain) );
-    
-    // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand())
+public class StopMotors extends InstantCommand {
+  Shooter  shooter;
+  public StopMotors(Shooter shooter) {
+    addRequirements(shooter);
+    this.shooter = shooter;
+    // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    shooter.stopMotors();
   }
 }

@@ -17,7 +17,7 @@ import java.util.Properties;
 /**
  * Add your docs here.
  */
-public class RobotProperties {
+public class RobotProperties { 
     private static Properties properties = null;
     private static final String fileName = "/home/lvuser/deploy/robot.properties";
 

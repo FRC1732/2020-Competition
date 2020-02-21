@@ -23,6 +23,11 @@ The code herein follows the WPILIB Command Robot pattern, and uses a single code
 
 The offical formatting is defined in eclipse-formatter.xml. Just use `Shift-Alt-F` or `Format Document` from the command palette to automatically format an open .java file.
 
+## Git Config
+Because Java classes are case-sensitive to the file name, Git does not pick up on case file name changes, you need to enter the following command in your terminal
+
+`git config core.ignorecase false`
+
 ## Specific Files - DO NOT MODIFY
 
 The following files should not be modified in anyway:

@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -31,30 +30,25 @@ public class Shooter extends SubsystemBase {
     shooterFollower.configFactoryDefault();
 
     shooterMaster.setInverted(false);
-    shooterMaster.setInverted(false);
-    shooterMaster.config_kP(0, .12);
-    shooterMaster.config_kI(0, 0);
-    shooterMaster.config_kD(0, 0);
-    shooterMaster.config_kF(0, .0078);
-    shooterMaster.setNeutralMode(NeutralMode.Coast);
+    shooterMaster.setSensorPhase(true);
 
     shooterFollower.setInverted(true);
-    shooterFollower.setNeutralMode(NeutralMode.Coast);
     shooterFollower.follow(shooterMaster);
   }
-
+  // prints motor speed 
   public void printMotorVelocity(){
     System.out.println(shooterMaster.getSelectedSensorVelocity());
   }
-
+  // sets the solenoid 
   public void setAdjustmentSolenoid(Solenoid adjustmentSolenoid) {
     this.adjustmentSolenoid = adjustmentSolenoid;
   }
-  
+  // sets the rotational solenoid 
   public void setRotationSolenoid(Solenoid rotationSolenoid) {
     this.rotationSolenoid = rotationSolenoid;
   }
 
+  //increaseMotorSpeed is only to be used for testing
   public void increaseMotorSpeed(){
     motorSpeed += 0.01;
     motorSpeed = motorSpeed >= 1.00 ? 1 : motorSpeed;
@@ -62,6 +56,7 @@ public class Shooter extends SubsystemBase {
     setCurrentMotorSpeed();
   }
 
+  //decreaseMotorSpeed is only to be used for testing
   public void decreaseMotorSpeed(){
     motorSpeed -= 0.01;
     motorSpeed = motorSpeed <= -1.00 ? -1 : motorSpeed;
@@ -69,12 +64,20 @@ public class Shooter extends SubsystemBase {
     setCurrentMotorSpeed();
   }
 
-  private void setCurrentMotorSpeed(){
+  public void setCurrentMotorSpeed(){
     shooterMaster.set(ControlMode.PercentOutput, motorSpeed);
   }
 
   public void maintainRPM() {
-    shooterMaster.set(ControlMode.Velocity, 86110);
+    if(shooterMaster.getSelectedSensorVelocity() < 125000){
+      shooterMaster.set(ControlMode.PercentOutput, 1);
+    } else {
+      shooterMaster.set(ControlMode.PercentOutput, .85);
+    }
+  }
+
+  public void stopMotors(){
+    shooterMaster.set(ControlMode.PercentOutput, 0);
   }
 
   public Solenoid getAdjustmentSolenoid() {
