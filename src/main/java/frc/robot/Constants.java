@@ -64,7 +64,7 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
     //Operator Interface (buttons)
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
+    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 0;
     public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
     public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
     public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;

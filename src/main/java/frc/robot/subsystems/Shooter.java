@@ -80,6 +80,10 @@ public class Shooter extends SubsystemBase {
     shooterMaster.set(ControlMode.PercentOutput, 0);
   }
 
+  public boolean getAtSpeed(){
+    return (shooterMaster.getSelectedSensorPosition() < 125000);
+  }
+
   public Solenoid getAdjustmentSolenoid() {
     return adjustmentSolenoid;
   }
