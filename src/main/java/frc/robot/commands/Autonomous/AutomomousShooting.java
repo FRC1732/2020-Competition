@@ -25,6 +25,6 @@ public class AutomomousShooting extends SequentialCommandGroup {
       new PrintCommand("Use Sams Shooter commands"),
       new WaitCommand(9),
       new PrintCommand("use Sam's Shooter off command"),
-      new PrintCommand("do a spin "),);
+      new PrintCommand("do a spin "));
   }
 }

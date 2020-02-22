@@ -7,12 +7,18 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Indexer.FeedShooter;
 import frc.robot.commands.Indexer.ForwardConveyer;
@@ -56,7 +62,7 @@ public class RobotContainer {
   private JoystickButton changeIntakeSolenoidState;
   private JoystickButton intakeCells;
   private JoystickButton reverseIntakeCells;
-  private JoystickButton feedShooterButton; 
+  private JoystickButton feedShooterButton;
   private JoystickButton reverseFeedShooterButton;
   private JoystickButton stopFeedShooterButton;
   private JoystickButton forwardConveyorButton;
@@ -64,21 +70,22 @@ public class RobotContainer {
 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
+  private AutomomousShooting automomousShooting;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    //Subsystems
+    // Subsystems
     vision = new Vision();
     drivetrain = new Drivetrain();
     shooter = new Shooter();
-    indexer = new Indexer(); 
+    indexer = new Indexer();
 
-
-    //commands
+    // commands
     driveForward = new DriveForward(drivetrain);
-    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick,rightJoystick,drivetrain);
+    driveWithJoysticksCommand = new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain);
+    automomousShooting = new AutomomousShooting(drivetrain);
 
     defineButtons();
 
@@ -86,14 +93,14 @@ public class RobotContainer {
     configureButtonBindings();
 
     System.out.println(RobotProperties.getProperty("name"));
-    
+
   }
 
   private void defineButtons() {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    //this has a permanent button binding 
+    // this has a permanent button binding
     maintainRPM = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
 
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
@@ -104,9 +111,9 @@ public class RobotContainer {
     forwardConveyorButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_FORWARD_CONVEYOR);
     reverseConveyorButton = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_REVERSE_CONVEYOR);
 
-    //this has a permanent button binding
+    // this has a permanent button binding
     intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
-    
+
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
   }
@@ -119,31 +126,31 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    //drivetrain button
+    // drivetrain button
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
 
-    //all the indexer buttons are placeholders and the structure isn't fully worked out
-    //indexer buttons
+    // all the indexer buttons are placeholders and the structure isn't fully worked
+    // out
+    // indexer buttons
     feedShooterButton.whenPressed(new FeedShooter(indexer));
     reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
     stopFeedShooterButton.whenPressed(new StopFeeder(indexer));
     forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
     reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
 
-    //shooter buttons
-    maintainRPM.whenActive(new MaintainRPM(shooter)); 
+    // shooter buttons
+    maintainRPM.whenActive(new MaintainRPM(shooter));
     maintainRPM.whenInactive(new StopMotors(shooter));
 
-    //vision buttons
+    // vision buttons
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
     toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
 
-    //intake buttons
+    // intake buttons
     intakeCells.whenActive(new IntakeCells(intake));
     intakeCells.whenInactive(new StopIntake(intake));
     changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
   }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -152,6 +159,16 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForward;
+    Map<Object, Command> selectableCommands = new HashMap<>();
+    selectableCommands.put("I am Good", automomousShooting);
+    selectableCommands.put("we good", driveForward);
+    Supplier<Object> selector = this::getOperatingAutoCommand;
+    return new SelectCommand(selectableCommands, selector);
+  }
+
+  private String getOperatingAutoCommand() {
+    // select value from shuffle board
+
+    return "How are you";
   }
 }
