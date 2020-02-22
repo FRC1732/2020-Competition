@@ -12,8 +12,8 @@ import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
 public class SmartShooter extends CommandBase {
-  Indexer indexer;
-  Shooter shooter;
+  private Indexer indexer;
+  private Shooter shooter;
   /**
    * Creates a new SmartShooter.
    */
