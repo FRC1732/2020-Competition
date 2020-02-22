@@ -102,14 +102,16 @@ public class RobotContainer {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    //maintainRPM, forwardConveyorButton, and reverseConveyorButton are deprecated
 
-    forwardConveyorButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_FORWARD_CONVEYOR);
-    reverseConveyorButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_REVERSE_CONVEYOR);
+    //maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    //forwardConveyorButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_FORWARD_CONVEYOR);
+    //reverseConveyorButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_REVERSE_CONVEYOR);
 
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
     toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
 
+    
     feedShooterButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_FEED_SHOOTER);
     reverseFeedShooterButton = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
     
