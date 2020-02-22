@@ -18,8 +18,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.commands.Climber.ManualDown;
+import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Indexer.FeedShooter;
 import frc.robot.commands.Indexer.ForwardConveyer;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
@@ -31,6 +34,7 @@ import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
@@ -46,10 +50,10 @@ import frc.robot.subsystems.Vision;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
   private Shooter shooter;
   private Intake intake;
   private Drivetrain drivetrain;
+  private Climber climber;
   private Vision vision;
   private Indexer indexer;
 
@@ -67,7 +71,11 @@ public class RobotContainer {
   private JoystickButton stopFeedShooterButton;
   private JoystickButton forwardConveyorButton;
   private JoystickButton reverseConveyorButton;
+  private JoystickButton manualUp;
+  private JoystickButton manualDown;
+  private JoystickButton smartShooter;
 
+  // Joysticks 
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private AutomomousShooting automomousShooting;
@@ -80,7 +88,9 @@ public class RobotContainer {
     vision = new Vision();
     drivetrain = new Drivetrain();
     shooter = new Shooter();
-    indexer = new Indexer();
+    indexer = new Indexer(); 
+    climber = new Climber();
+
 
     // commands
     driveForward = new DriveForward(drivetrain);
@@ -92,8 +102,8 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    System.out.println(RobotProperties.getProperty("name"));
-
+    RobotProperties.load();
+    
   }
 
   private void defineButtons() {
@@ -101,7 +111,7 @@ public class RobotContainer {
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
     // this has a permanent button binding
-    maintainRPM = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
+    // maintainRPM = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
 
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
     toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
@@ -116,6 +126,10 @@ public class RobotContainer {
 
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
+    // stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
+    manualUp = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_UP);
+    manualDown = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN);
+    smartShooter = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
   }
 
   /**
@@ -150,6 +164,12 @@ public class RobotContainer {
     intakeCells.whenActive(new IntakeCells(intake));
     intakeCells.whenInactive(new StopIntake(intake));
     changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
+
+    manualUp.whileHeld(new ManualUp(climber));
+    manualDown.whileHeld(new ManualDown(climber));
+
+    smartShooter.whenHeld(new SmartShooter(indexer, shooter));
+
   }
 
   /**

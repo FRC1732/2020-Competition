@@ -8,23 +8,57 @@
 package frc.robot;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
 
 /**
  * Add your docs here.
  */
-public class RobotProperties {
+public class RobotProperties { 
     private static Properties properties = null;
     private static final String fileName = "/home/lvuser/deploy/robot.properties";
 
+    private RobotProperties(){
+     //intentionally left blank
+    }
+
+    public static void load () {
+        loadProperties();
+    }
+
+    
+    public static void setProperty(String key, int intValue){
+        setProperty(key, Integer.toString(intValue));
+    }
+
+    public static void setProperty(String key, double doubleValue){
+        setProperty(key, Double.toString(doubleValue));
+        
+    }
+
     public static void setProperty(String key,String value){
         getPropertiesInstant().setProperty(key, value); 
+        try(OutputStream output = new FileOutputStream(fileName)) {
+            getPropertiesInstant().store(output, null);
+        }
+        catch(IOException ex){
+            System.err.println(ex.getMessage());
+        }
     } 
 
-    public static String getProperty(String key){
+    public static String getPropertyAString(String key){
         return getPropertiesInstant().getProperty(key); 
+    }
+
+    public static int getPropertyAsInt(String key){
+        return Integer.parseInt(getPropertiesInstant().getProperty(key));
+    }
+
+    public static double getPropertyAsDouble(String key){
+        return Double.parseDouble(getPropertiesInstant().getProperty(key));
     }
     
     private static Properties getPropertiesInstant(){

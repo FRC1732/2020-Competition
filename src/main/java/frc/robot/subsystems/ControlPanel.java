@@ -32,23 +32,23 @@ public class ControlPanel extends SubsystemBase {
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
   }
-
+  // this gets the color
   public Color readColor() {
     return colorSensor.getColor();
   }
-
+  // Gets the speed of the control panel motor 
   public VictorSPX getControlPanelMotor() {
     return controlPanelMotor;
   }
-
+  // Gets the position of the control panel trench
   public Solenoid getControlPanelTrench() {
     return controlPanelTrench;
   }
-
+  // Sets the control panel motor
   public void setControlPanelMotor(double speed) {
     controlPanelMotor.set(ControlMode.PercentOutput, speed);
   }
-
+  // sets the control panel trench 
   public void setControlPanelTrench(Solenoid controlPanelTrench) {
     this.controlPanelTrench = controlPanelTrench;
   }

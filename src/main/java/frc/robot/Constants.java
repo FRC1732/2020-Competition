@@ -25,8 +25,10 @@ public final class Constants {
     //Climber mapping
     public static final int CLIMBER_RIGHT_ID = 13;
     public static final int CLIMBER_LEFT_ID = 32;
-    public static final int CLIMBER_DRIVE_ID = 17;
-    public static final int CLIMBING_SOLENOID_ID = 1;
+
+    //As of now it doesn't look like the below two features are in the picture
+    //public static final int CLIMBER_DRIVE_ID = 17;
+    //public static final int CLIMBING_SOLENOID_ID = 1;
     
     //Drivetrain mapping
     public static final int DRIVETRAIN_LEFTMASTER_ID = 10;
@@ -62,10 +64,7 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
     //Operator Interface (buttons)
-
-    //Right Trigger Button: Shoot
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
-
+    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 0;
     public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
     public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
     public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
@@ -81,4 +80,6 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
 
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 7;
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 8;
 }

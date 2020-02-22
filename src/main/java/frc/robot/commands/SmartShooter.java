@@ -7,25 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 
-public class DriveWithJoysticks extends CommandBase {
-  private Joystick leftJoystick;
-  private Joystick rightJoystick;
-  private Drivetrain drivetrain;
+public class SmartShooter extends CommandBase {
+  private Indexer indexer;
+  private Shooter shooter;
   /**
-   * Creates a new DriveWithJoysticks.
- * @param rightJoystick
- * @param leftJoystick
- * @param drivetrainSubsystem
+   * Creates a new SmartShooter.
    */
-  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
-    addRequirements(drivetrain);
-    this.leftJoystick = leftJoystick;
-    this.rightJoystick = rightJoystick;
-    this.drivetrain = drivetrain;
+  public SmartShooter(Indexer indexer, Shooter shooter) {
+    addRequirements(indexer, shooter);
+    this.indexer = indexer;
+    this.shooter = shooter;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -36,16 +32,22 @@ public class DriveWithJoysticks extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // gets the y value of the joysticks
-    double left = leftJoystick.getY() * leftJoystick.getY() * Math.signum(leftJoystick.getY());
-    double right = rightJoystick.getY() * rightJoystick.getY() * Math.signum(rightJoystick.getY());
-
-    drivetrain.set(left,right);
+    shooter.maintainRPM();
+    if(shooter.getAtSpeed()){
+      indexer.feedShooter();
+      indexer.forwardConveyor();
+    } else {
+      indexer.stopConveyor();
+      indexer.stopFeeder();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    shooter.stopMotors();
+    indexer.stopConveyor();
+    indexer.stopFeeder();
   }
 
   // Returns true when the command should end.
