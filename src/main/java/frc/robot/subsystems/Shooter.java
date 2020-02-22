@@ -19,7 +19,7 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
-  private TalonSRX shooterFollower = new TalonSRX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
+  //private TalonSRX shooterFollower = new TalonSRX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
   private Solenoid adjustmentSolenoid = new Solenoid(Constants.SHOOTER_ADJUSTMENT_SOLENOID_ID);
   private Solenoid rotationSolenoid = new Solenoid(Constants.SHOOTER_ROTATION_SOLENOID_ID);
 
@@ -27,13 +27,13 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
-    shooterFollower.configFactoryDefault();
+    //shooterFollower.configFactoryDefault();
 
-    shooterMaster.setInverted(false);
-    shooterMaster.setSensorPhase(true);
+    //shooterMaster.setInverted(false);
+    //shooterMaster.setSensorPhase(true);
 
-    shooterFollower.setInverted(true);
-    shooterFollower.follow(shooterMaster);
+    //shooterFollower.setInverted(true);
+    //shooterFollower.follow(shooterMaster);
   }
   // prints motor speed 
   public void printMotorVelocity(){
@@ -49,8 +49,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void testMotors(){
-    shooterMaster.set(ControlMode.PercentOutput, 30);
-    System.out.println("Inverted| "+shooterFollower.getInverted());
+    shooterMaster.set(ControlMode.PercentOutput, -1);
   }
 
   //increaseMotorSpeed is only to be used for testing
