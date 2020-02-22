@@ -21,6 +21,7 @@ import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.ManualDown;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Indexer.FeedShooter;
@@ -79,6 +80,7 @@ public class RobotContainer {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private AutomomousShooting automomousShooting;
+  private FiveBallShooting fiveBallShooting;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -182,6 +184,7 @@ public class RobotContainer {
     Map<Object, Command> selectableCommands = new HashMap<>();
     selectableCommands.put("I am Good", automomousShooting);
     selectableCommands.put("we good", driveForward);
+    selectableCommands.put("lovely day",fiveBallShooting);
     Supplier<Object> selector = this::getOperatingAutoCommand;
     return new SelectCommand(selectableCommands, selector);
   }
