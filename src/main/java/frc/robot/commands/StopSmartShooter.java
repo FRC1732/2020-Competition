@@ -7,17 +7,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
-public class SmartShooter extends CommandBase {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class StopSmartShooter extends InstantCommand {
   private Indexer indexer;
   private Shooter shooter;
-  /**
-   * Creates a new SmartShooter.
-   */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
+
+  public StopSmartShooter(Indexer indexer, Shooter shooter) {
     addRequirements(indexer, shooter);
     this.indexer = indexer;
     this.shooter = shooter;
@@ -27,29 +28,8 @@ public class SmartShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    shooter.maintainRPM();
-    if(shooter.getAtSpeed()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    shooter.stopMotors();
+    indexer.stopConveyor();
+    indexer.stopFeeder();
   }
 }

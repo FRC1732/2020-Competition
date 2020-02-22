@@ -31,12 +31,13 @@ public final class Constants {
     //public static final int CLIMBING_SOLENOID_ID = 1;
     
     //Drivetrain mapping
-    public static final int DRIVETRAIN_LEFTMASTER_ID = 10;
-    public static final int DRIVETRAIN_LEFT1_ID = 11;
-    public static final int DRIVETRAIN_LEFT2_ID = 12;
-    public static final int DRIVETRAIN_RIGHTMASTER_ID = 33;
-    public static final int DRIVETRAIN_RIGHT1_ID = 34; 
-    public static final int DRIVETRAIN_RIGHT2_ID = 35;
+    public static final int DRIVETRAIN_LEFTMASTER_ID = 33;
+    public static final int DRIVETRAIN_LEFT1_ID = 34;
+    public static final int DRIVETRAIN_LEFT2_ID = 35;
+    public static final int DRIVETRAIN_RIGHTMASTER_ID = 10;
+    public static final int DRIVETRAIN_RIGHT1_ID = 11; 
+    public static final int DRIVETRAIN_RIGHT2_ID = 12;
+
     
     //Shooter mapping
     public static final int SHOOTER_SHOOTER_MASTER_ID = 30;

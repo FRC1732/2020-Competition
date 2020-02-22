@@ -14,19 +14,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
+import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Climber.ManualDown;
 import frc.robot.commands.Climber.ManualUp;
-import frc.robot.commands.Indexer.FeedShooter;
-import frc.robot.commands.Indexer.ForwardConveyer;
-import frc.robot.commands.Indexer.ReverseFeedShooter;
-import frc.robot.commands.Indexer.StopFeeder;
 import frc.robot.commands.Intake.ChangeIntakeSolenoidState;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.StopIntake;
-import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.StopMotors;
+import frc.robot.commands.Shooter.TestMotor;
 import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.commands.Vision.ToggleLimelightVisionMode;
 import frc.robot.subsystems.Climber;
@@ -63,6 +60,7 @@ public class RobotContainer {
   private JoystickButton manualUp;
   private JoystickButton manualDown;
   private JoystickButton smartShooter;
+  private JoystickButton testMotors;
 
   // Joysticks 
   private Joystick leftJoystick;
@@ -116,7 +114,9 @@ public class RobotContainer {
     manualUp = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_UP);
     manualDown = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN);
 
-    smartShooter = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
+    //smartShooter = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
+
+    testMotors = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
   }
 
   /**
@@ -146,7 +146,13 @@ public class RobotContainer {
     manualUp.whileHeld(new ManualUp(climber));
     manualDown.whileHeld(new ManualDown(climber));
 
-    smartShooter.whenHeld(new SmartShooter(indexer, shooter));
+    testMotors.whenActive(new TestMotor(shooter));
+    testMotors.whenInactive(new StopMotors(shooter));
+
+
+
+    //smartShooter.whenActive(new SmartShooter(indexer, shooter));
+    //smartShooter.whenInactive(new StopSmartShooter(indexer, shooter));
 
   }
 

@@ -48,6 +48,11 @@ public class Shooter extends SubsystemBase {
     this.rotationSolenoid = rotationSolenoid;
   }
 
+  public void testMotors(){
+    shooterMaster.set(ControlMode.PercentOutput, 30);
+    System.out.println("Inverted| "+shooterFollower.getInverted());
+  }
+
   //increaseMotorSpeed is only to be used for testing
   public void increaseMotorSpeed(){
     motorSpeed += 0.01;
