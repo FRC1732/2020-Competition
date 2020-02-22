@@ -64,19 +64,20 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
     //Operator Interface (buttons)
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 0;
-    public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
-    public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
-    public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
-    public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 7;
-    public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
-    public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
-    public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
-    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 3;
-    public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
-    public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
-    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
+    //Note: buttons must be declared from 1-11
+    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 1;
+    public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 2;
+    public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 3;
+    public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 4;
+    public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 5;
+    public static final int JOYSTICKBUTTON_FEED_SHOOTER = 6;
+    public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 7;
+    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 8;
+    public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 9;
+    public static final int JOYSTICKBUTTON_STOP_INTAKE = 10;
 
-    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 7;
-    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 8;
+    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 11;
+
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 1;
+    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 2;
 }
