@@ -66,9 +66,9 @@ public final class Constants {
 
     //Operator Interface (buttons)
     //Note: buttons must be declared from 1-11
-    public static final int JOYSTICKBUTTON_TEST_MOTORS = 1;
+    //public static final int JOYSTICKBUTTON_TEST_MOTORS = 1;
 
-   // public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
+    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
 
     public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 2;
     public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 3;

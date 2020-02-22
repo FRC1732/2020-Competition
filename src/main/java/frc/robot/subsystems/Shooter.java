@@ -91,7 +91,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean getAtSpeed(){
-    return (shooterMaster.getSelectedSensorPosition() < 125000);
+    return (shooterMaster.getSelectedSensorVelocity() > 120000);
   }
 
   public Solenoid getAdjustmentSolenoid() {
