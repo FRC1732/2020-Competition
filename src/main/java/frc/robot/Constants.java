@@ -72,7 +72,10 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
     public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
     public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
-    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 3;
+
+    //Left Trigger Button: Intake
+    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 0;
+    
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
