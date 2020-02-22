@@ -25,5 +25,6 @@ public class StopMotors extends InstantCommand {
   @Override
   public void initialize() {
     shooter.stopMotors();
+    System.out.println("StopMotor Running");
   }
 }

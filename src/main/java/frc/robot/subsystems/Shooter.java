@@ -8,7 +8,9 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,7 +21,7 @@ public class Shooter extends SubsystemBase {
    * Creates a new Shooter.
    */
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
-  //private TalonSRX shooterFollower = new TalonSRX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
+  private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
   private Solenoid adjustmentSolenoid = new Solenoid(Constants.SHOOTER_ADJUSTMENT_SOLENOID_ID);
   private Solenoid rotationSolenoid = new Solenoid(Constants.SHOOTER_ROTATION_SOLENOID_ID);
 
@@ -27,13 +29,16 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
-    //shooterFollower.configFactoryDefault();
+    shooterFollower.configFactoryDefault();
 
-    //shooterMaster.setInverted(false);
-    //shooterMaster.setSensorPhase(true);
+    shooterMaster.setNeutralMode(NeutralMode.Coast);
+    shooterFollower.setNeutralMode(NeutralMode.Coast);
 
-    //shooterFollower.setInverted(true);
-    //shooterFollower.follow(shooterMaster);
+    shooterMaster.setInverted(false);
+    shooterMaster.setSensorPhase(true);
+
+    shooterFollower.setInverted(true);
+    shooterFollower.follow(shooterMaster);
   }
   // prints motor speed 
   public void printMotorVelocity(){
@@ -49,7 +54,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void testMotors(){
-    shooterMaster.set(ControlMode.PercentOutput, -1);
+    shooterMaster.set(ControlMode.PercentOutput, .5);
+    System.out.println("TestMotor Method Called\n Output Voltage| "+ shooterMaster.getMotorOutputVoltage());
   }
 
   //increaseMotorSpeed is only to be used for testing
