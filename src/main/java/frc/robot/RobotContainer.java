@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
+import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Climber.ManualDown;
 import frc.robot.commands.Climber.ManualUp;
@@ -68,6 +69,7 @@ public class RobotContainer {
   private JoystickButton reverseConveyorButton;
   private JoystickButton manualUp;
   private JoystickButton manualDown;
+  private JoystickButton smartShooter;
 
   // Joysticks 
   private Joystick leftJoystick;
@@ -102,8 +104,6 @@ public class RobotContainer {
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    maintainRPM = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_MAINTAIN_RPM);
-
     toggleLEDS = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS);
     toggleVisionMode = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_VISION_MODE);
 
@@ -118,9 +118,7 @@ public class RobotContainer {
     stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
     manualUp = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_UP);
     manualDown = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN);
-
-
-
+    smartShooter = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
   }
 
   /**
@@ -143,10 +141,6 @@ public class RobotContainer {
     forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
     reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
 
-
-    maintainRPM.whenActive(new MaintainRPM(shooter)); 
-    maintainRPM.whenInactive(new StopMotors(shooter));
-
     toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
     toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
 
@@ -158,7 +152,7 @@ public class RobotContainer {
     manualUp.whileHeld(new ManualUp(climber));
     manualDown.whileHeld(new ManualDown(climber));
 
-    
+    smartShooter.whenHeld(new SmartShooter(indexer, shooter));
 
   }
 
