@@ -65,7 +65,7 @@ public final class Constants {
 
     //Operator Interface (buttons)
     //Note: buttons must be declared from 1-11
-    public static final int JOYSTICKBUTTON_MAINTAIN_RPM = 1;
+    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
     public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 2;
     public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 3;
     public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 4;
@@ -75,6 +75,8 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_INTAKE_CELLS = 8;
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 9;
     public static final int JOYSTICKBUTTON_STOP_INTAKE = 10;
+    
+   
 
     public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 11;
 
