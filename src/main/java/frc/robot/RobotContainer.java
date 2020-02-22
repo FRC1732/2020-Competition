@@ -53,7 +53,6 @@ public class RobotContainer {
   private Indexer indexer;
 
   private DriveForward driveForward;
-  private DriveWithJoysticks driveWithJoysticks;
 
   private JoystickButton maintainRPM;
   private JoystickButton toggleLEDS;
@@ -89,7 +88,6 @@ public class RobotContainer {
 
     //commands
     driveForward = new DriveForward(drivetrain);
-    driveWithJoysticks = new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain);
 
     defineButtons();
 
@@ -121,13 +119,12 @@ public class RobotContainer {
     reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_REVERSE_INTAKE_CELLS);
 
     changeIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
-    reverseIntakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
 
     stopIntake = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_STOP_INTAKE);
 
     manualUp = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_UP);
     manualDown = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN);
-    
+
     smartShooter = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
   }
 
