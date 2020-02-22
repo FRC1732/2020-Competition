@@ -74,11 +74,7 @@ public final class Constants {
     public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 7;
     public static final int JOYSTICKBUTTON_INTAKE_CELLS = 8;
     public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 9;
-    public static final int JOYSTICKBUTTON_STOP_INTAKE = 10;
-    
-   
-
-    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 11;
+    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 10;
 
     public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 1;
     public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 2;
