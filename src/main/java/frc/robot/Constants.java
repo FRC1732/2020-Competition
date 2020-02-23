@@ -55,7 +55,7 @@ public final class Constants {
 
     //ControlPanelManip mapping
     public static final int CONTROLPANELMANIP_MOTOR_ID = 14;
-    public static final int CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID = 4;
+    public static final int CONTROLPANELMANIP_TRENCH_SOLENOID_ID = 4;
 
     //Vision mapping
     public static final int VISION_LIMELIGHT_ID = 31;

@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Climber.ManualUp;
+import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
@@ -141,6 +143,8 @@ public class RobotContainer {
     o_shooterSpeedDown = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_SPEED_DOWN);
     o_shooterSpeedUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_SPEED_UP);
     o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP );
+
+    
   }
 
   /**
@@ -160,7 +164,6 @@ public class RobotContainer {
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
 
-
     //Operator1Joystick button configuration
     //o_testingButton.whenPressed(command);
     o_reverseIntake.whileHeld(new ReverseIntakeCells(intake));
@@ -169,14 +172,14 @@ public class RobotContainer {
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
     o_maintainRPM.whileHeld(new MaintainRPM(shooter));
     o_changeIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
-    //o_enableClimb.whileHeld(new EnableClimb(Climber));
 
     //Operator2Joystick button configuration
     //o_toggleHardstops.whileHeld(new ToggleHardstops(Shooter));
     //o_toggleControlPanel.whileHeld(new ToggleControlPanel);
     //o_shooterSpeedDown.whenPressed(new ShooterSpeedDown(Shooter));
     //o_shooterSpeedUp.whenPressed(new ShooterSpeedUp(Shooter));
-    o_manualUp.whileHeld(new ManualUp(climber));
+
+    o_enableClimb.and(o_manualUp).whenActive(new ManualUp(climber)).whenInactive(new StopClimber(climber));
   }
 
 

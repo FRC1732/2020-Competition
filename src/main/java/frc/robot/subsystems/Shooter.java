@@ -22,10 +22,8 @@ public class Shooter extends SubsystemBase {
    */
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
-  private Solenoid adjustmentSolenoid = new Solenoid(Constants.SHOOTER_ADJUSTMENT_SOLENOID_ID);
-  private Solenoid rotationSolenoid = new Solenoid(Constants.SHOOTER_ROTATION_SOLENOID_ID);
 
-  private double motorSpeed = 0.0;
+  private int setPoint = 125000;
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
@@ -40,46 +38,9 @@ public class Shooter extends SubsystemBase {
     shooterFollower.setInverted(true);
     shooterFollower.follow(shooterMaster);
   }
-  // prints motor speed 
-  public void printMotorVelocity(){
-    System.out.println(shooterMaster.getSelectedSensorVelocity());
-  }
-  // sets the solenoid 
-  public void setAdjustmentSolenoid(Solenoid adjustmentSolenoid) {
-    this.adjustmentSolenoid = adjustmentSolenoid;
-  }
-  // sets the rotational solenoid 
-  public void setRotationSolenoid(Solenoid rotationSolenoid) {
-    this.rotationSolenoid = rotationSolenoid;
-  }
-
-  public void testMotors(){
-    shooterMaster.set(ControlMode.PercentOutput, .3);
-    System.out.println("TestMotor Method Called\n Output Voltage| "+ shooterMaster.getMotorOutputVoltage());
-  }
-
-  //increaseMotorSpeed is only to be used for testing
-  public void increaseMotorSpeed(){
-    motorSpeed += 0.01;
-    motorSpeed = motorSpeed >= 1.00 ? 1 : motorSpeed;
-    System.out.println("Motor ++ | " + motorSpeed);
-    setCurrentMotorSpeed();
-  }
-
-  //decreaseMotorSpeed is only to be used for testing
-  public void decreaseMotorSpeed(){
-    motorSpeed -= 0.01;
-    motorSpeed = motorSpeed <= -1.00 ? -1 : motorSpeed;
-    System.out.println("Motor -- | " + motorSpeed);
-    setCurrentMotorSpeed();
-  }
-
-  public void setCurrentMotorSpeed(){
-    shooterMaster.set(ControlMode.PercentOutput, motorSpeed);
-  }
 
   public void maintainRPM() {
-    if(shooterMaster.getSelectedSensorVelocity() < 125000){
+    if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
@@ -92,14 +53,6 @@ public class Shooter extends SubsystemBase {
 
   public boolean getAtSpeed(){
     return (shooterMaster.getSelectedSensorVelocity() > 120000);
-  }
-
-  public Solenoid getAdjustmentSolenoid() {
-    return adjustmentSolenoid;
-  }
-
-  public Solenoid getRotationSolenoid() {
-    return rotationSolenoid;
   }
 
   @Override

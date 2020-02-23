@@ -28,7 +28,7 @@ public class ControlPanel extends SubsystemBase {
 
   public ControlPanel() {
     controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
-    controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID);
+    controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_SOLENOID_ID);
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
   }
