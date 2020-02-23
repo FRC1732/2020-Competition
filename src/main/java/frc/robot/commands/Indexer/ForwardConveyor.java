@@ -13,9 +13,9 @@ import frc.robot.subsystems.Indexer;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ForwardConveyer extends InstantCommand {
+public class ForwardConveyor extends InstantCommand {
   Indexer indexer;
-  public ForwardConveyer(Indexer indexer) {
+  public ForwardConveyor(Indexer indexer) {
     addRequirements(indexer);
     this.indexer = indexer;
 

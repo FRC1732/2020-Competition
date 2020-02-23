@@ -54,7 +54,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void testMotors(){
-    shooterMaster.set(ControlMode.PercentOutput, .5);
+    shooterMaster.set(ControlMode.PercentOutput, .3);
     System.out.println("TestMotor Method Called\n Output Voltage| "+ shooterMaster.getMotorOutputVoltage());
   }
 

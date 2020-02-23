@@ -5,19 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Indexer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Indexer;
 
-public class MaintainRPM extends CommandBase {
-  Shooter shooter;
+public class TestConveyor extends CommandBase {
+  private Indexer indexer;
   /**
-   * Creates a new MaintainRPM.
+   * Creates a new TestConveyor.
    */
-  public MaintainRPM(Shooter shooter) {
-    addRequirements(shooter);
-    this.shooter = shooter;
+  public TestConveyor(Indexer indexer) {
+    addRequirements(indexer);
+    this.indexer = indexer;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,13 +30,13 @@ public class MaintainRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.maintainRPM();
+    indexer.forwardConveyor();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
+    indexer.stopConveyor();
   }
 
   // Returns true when the command should end.
