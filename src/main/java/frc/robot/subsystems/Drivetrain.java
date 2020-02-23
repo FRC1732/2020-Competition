@@ -48,13 +48,13 @@ public class Drivetrain extends SubsystemBase {
     right1.restoreFactoryDefaults();
     right2.restoreFactoryDefaults();
     // Sets the motors to inverted. 
-    leftMaster.setInverted(true);
-    left1.setInverted(true);
-    left2.setInverted(true);
+    leftMaster.setInverted(false);
+    left1.setInverted(false);
+    left2.setInverted(false);
 
-    rightMaster.setInverted(false);
-    right1.setInverted(false);
-    right2.setInverted(false);
+    rightMaster.setInverted(true);
+    right1.setInverted(true);
+    right2.setInverted(true);
 
     leftMaster.setIdleMode(IdleMode.kBrake);
     rightMaster.setIdleMode(IdleMode.kBrake);

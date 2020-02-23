@@ -16,19 +16,16 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class StopSmartShooter extends InstantCommand {
   private Indexer indexer;
-  private Shooter shooter;
 
   public StopSmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
+    addRequirements(indexer);
     this.indexer = indexer;
-    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.stopMotors();
     indexer.stopConveyor();
     indexer.stopFeeder();
   }
