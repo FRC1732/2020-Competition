@@ -46,6 +46,16 @@ public class Shooter extends SubsystemBase {
     }
   }
 
+  public void manualUp(){
+    //this code is unregulated and dumb...but who knows whether its even going to be used.
+    setPoint += 1000;
+  }
+
+  public void manualDown(){
+    //this code is unregulated and dumb...but who knows whether its even going to be used.
+    setPoint -= 1000;
+  }
+
   public void stopMotors(){
     shooterMaster.set(ControlMode.PercentOutput, 0);
   }

@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -21,6 +22,9 @@ public class Indexer extends SubsystemBase {
   public Indexer() {
     feeder = new TalonSRX(Constants.INDEXER_FEEDER_ID);
     conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+
+    feeder.setNeutralMode(NeutralMode.Coast);
+    conveyor.setNeutralMode(NeutralMode.Coast);
 
     conveyor.setInverted(true);
   }

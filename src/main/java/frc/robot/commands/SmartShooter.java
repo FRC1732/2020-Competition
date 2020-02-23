@@ -44,6 +44,8 @@ public class SmartShooter extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    indexer.stopConveyor();
+    indexer.stopFeeder();
   }
 
   // Returns true when the command should end.

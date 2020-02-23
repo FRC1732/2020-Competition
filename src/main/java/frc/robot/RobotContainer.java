@@ -17,11 +17,15 @@ import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
+import frc.robot.commands.Indexer.FeedShooter;
+import frc.robot.commands.Indexer.ForwardConveyor;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
+import frc.robot.commands.Shooter.ShooterManualDown;
+import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
@@ -47,24 +51,24 @@ public class RobotContainer {
 
   private DriveForward driveForward;
 
-  //Driver Joysticks
+  // Driver Joysticks
   private Joystick leftJoystick;
   private Joystick rightJoystick;
 
-  //LeftJoystick Buttons
+  // LeftJoystick Buttons
   private JoystickButton intakeCells;
   private JoystickButton toggleIntakeSolenoidState;
 
-  //RightJoystick Buttons
+  // RightJoystick Buttons
   private JoystickButton smartShooter;
   private JoystickButton toggleHardStops;
   private JoystickButton visionAlign;
 
-  //Operator Joysticks
+  // Operator Joysticks
   private Joystick operator1Joystick;
   private Joystick operator2Joystick;
 
-  //Operator1Joystick Buttons
+  // Operator1Joystick Buttons
   private JoystickButton o_testingButton;
   private JoystickButton o_reverseIntake;
   private JoystickButton o_reverseFeedShooter;
@@ -74,19 +78,18 @@ public class RobotContainer {
   private JoystickButton o_changeIntakeSolenoidState;
   private JoystickButton o_enableClimb;
 
-  //Operator2Joystick Buttons
+  // Operator2Joystick Buttons
   private JoystickButton o_toggleHardstops;
   private JoystickButton o_toggleControlPanel;
   private JoystickButton o_shooterSpeedDown;
   private JoystickButton o_shooterSpeedUp;
   private JoystickButton o_manualUp;
 
-  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    //Subsystems
+    // Subsystems
     vision = new Vision();
     drivetrain = new Drivetrain();
     intake = new Intake();
@@ -94,39 +97,40 @@ public class RobotContainer {
     indexer = new Indexer();
     climber = new Climber();
 
-    //Commands
+    // Commands
     driveForward = new DriveForward(drivetrain);
-    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
 
-    //Define Buttons
+    // Define Buttons
     defineButtons();
 
-    //Configure the button bindings
+    // Configure the button bindings
     configureButtonBindings();
+
+    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
 
     RobotProperties.load();
 
   }
 
   private void defineButtons() {
-    //Joystick declaration
+    // Joystick declaration
     leftJoystick = new Joystick(Constants.LEFT_JOYSTICK_PORT_ID);
     rightJoystick = new Joystick(Constants.RIGHT_JOYSTICK_PORT_ID);
 
-    //Leftjoystick button declaration
+    // Leftjoystick button declaration
     intakeCells = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_INTAKE_CELLS);
     toggleIntakeSolenoidState = new JoystickButton(leftJoystick, Constants.JOYSTICKBUTTON_TOGGLE_INTAKE_SOLENOID_STATE);
 
-    //Rightjoystick button declartion
+    // Rightjoystick button declartion
     smartShooter = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
     toggleHardStops = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_TOGGLE_HARDSTOPS);
     visionAlign = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_VISION_ALIGN);
 
-    //Operator joystick declaration
+    // Operator joystick declaration
     operator1Joystick = new Joystick(Constants.OPERATOR_1_JOYSTICK_PORT_ID);
-    operator1Joystick = new Joystick(Constants.OPERATOR_2_JOYSTICK_PORT_ID);
+    operator2Joystick = new Joystick(Constants.OPERATOR_2_JOYSTICK_PORT_ID);
 
-    //Operator1Joystick button declaration
+    // Operator1Joystick button declaration
     o_testingButton = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_TESTING_BUTTON);
     o_reverseIntake = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_REVERSE_INTAKE);
     o_reverseFeedShooter = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
@@ -136,14 +140,13 @@ public class RobotContainer {
     o_changeIntakeSolenoidState = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     o_enableClimb = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_ENABLE_CLIMB);
 
-    //Operator2Joystick button declaration
+    // Operator2Joystick button declaration
     o_toggleHardstops = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_TOGGLE_HARDSTOPS);
     o_toggleControlPanel = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_TOGGLE_CONTROL_PANEL);
     o_shooterSpeedDown = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_SPEED_DOWN);
     o_shooterSpeedUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_SPEED_UP);
-    o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP );
+    o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP);
 
-    
   }
 
   /**
@@ -154,29 +157,30 @@ public class RobotContainer {
    */
 
   private void configureButtonBindings() {
-    //leftJoystick button configuration
-    intakeCells.whileHeld(new IntakeCells(intake));
+    // leftJoystick button configuration
+    //intakeCells.whileHeld(new IntakeCells(intake));
+    intakeCells.whileHeld(new MaintainRPM(shooter));
     toggleIntakeSolenoidState.whileHeld(new ToggleIntakeSolenoidState(intake));
 
-    //RightJoystick button configuration
+    // RightJoystick button configuration
     smartShooter.whileHeld(new SmartShooter(indexer, shooter));
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
 
-    //Operator1Joystick button configuration
-    //o_testingButton.whenPressed(command);
+    // Operator1Joystick button configuration
+    // o_testingButton.whenPressed(command);
     o_reverseIntake.whileHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whileHeld(new ReverseFeedShooter(indexer));
-    //o_positionControl.whenPressed(new PositionControl(ControlPanel));
+    // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
     o_maintainRPM.whileHeld(new MaintainRPM(shooter));
     o_changeIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
-    //Operator2Joystick button configuration
-    //o_toggleHardstops.whileHeld(new ToggleHardstops(Shooter));
-    //o_toggleControlPanel.whileHeld(new ToggleControlPanel);
-    //o_shooterSpeedDown.whenPressed(new ShooterSpeedDown(Shooter));
-    //o_shooterSpeedUp.whenPressed(new ShooterSpeedUp(Shooter));
+    // Operator2Joystick button configuration
+    // o_toggleHardstops.whileHeld(new ToggleHardstops(Shooter));
+    // o_toggleControlPanel.whileHeld(new ToggleControlPanel);
+    o_shooterSpeedDown.whenPressed(new ShooterManualDown(shooter));
+    o_shooterSpeedUp.whenPressed(new ShooterManualUp(shooter));
 
     o_enableClimb.and(o_manualUp).whenActive(new ManualUp(climber)).whenInactive(new StopClimber(climber));
   }
