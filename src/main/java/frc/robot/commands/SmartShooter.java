@@ -13,14 +13,12 @@ import frc.robot.subsystems.Shooter;
 
 public class SmartShooter extends CommandBase {
   private Indexer indexer;
-  private Shooter shooter;
   /**
    * Creates a new SmartShooter.
    */
   public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
+    addRequirements(indexer);
     this.indexer = indexer;
-    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,13 +30,17 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.getAtSpeed()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    // System.out.println("SmartShooter Running");
+    // if(shooter.getAtSpeed()){
+    //   System.out.println("SmartShooter at Speed");
+    //   indexer.feedShooter();
+    //   indexer.forwardConveyor();
+    // } else {
+    //   indexer.stopConveyor();
+    //   indexer.stopFeeder();
+    // }
+    indexer.feedShooter();
+    indexer.forwardConveyor();
   }
 
   // Called once the command ends or is interrupted.

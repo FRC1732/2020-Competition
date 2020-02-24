@@ -27,6 +27,7 @@ public class Indexer extends SubsystemBase {
     conveyor.setNeutralMode(NeutralMode.Coast);
 
     conveyor.setInverted(true);
+    feeder.setInverted(true);
   }
 
   public void feedShooter(){

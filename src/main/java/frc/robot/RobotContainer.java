@@ -159,21 +159,22 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // leftJoystick button configuration
     //intakeCells.whileHeld(new IntakeCells(intake));
-    intakeCells.whileHeld(new MaintainRPM(shooter));
-    toggleIntakeSolenoidState.whileHeld(new ToggleIntakeSolenoidState(intake));
+    intakeCells.whenHeld(new MaintainRPM(shooter),false);
+    //toggleIntakeSolenoidState.whileHeld(new ToggleIntakeSolenoidState(intake));
+    toggleIntakeSolenoidState.whileHeld(new IntakeCells(intake));
 
     // RightJoystick button configuration
-    smartShooter.whileHeld(new SmartShooter(indexer, shooter));
+    smartShooter.whenHeld(new SmartShooter(indexer, shooter),false);
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     // Operator1Joystick button configuration
     // o_testingButton.whenPressed(command);
-    o_reverseIntake.whileHeld(new ReverseIntakeCells(intake));
-    o_reverseFeedShooter.whileHeld(new ReverseFeedShooter(indexer));
+    o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
+    o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
-    o_maintainRPM.whileHeld(new MaintainRPM(shooter));
+    o_maintainRPM.whenHeld(new MaintainRPM(shooter));
     o_changeIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // Operator2Joystick button configuration
