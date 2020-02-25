@@ -15,11 +15,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
+import frc.robot.commands.StopSmartShooter;
+import frc.robot.commands.TestCommand;
 import frc.robot.commands.Autonomous.DriveForward;
-import frc.robot.commands.Climber.ManualUp;
-import frc.robot.commands.Climber.StopClimber;
-import frc.robot.commands.Indexer.FeedShooter;
-import frc.robot.commands.Indexer.ForwardConveyor;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
@@ -27,6 +25,7 @@ import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
+import frc.robot.commands.Shooter.TestMotors;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
@@ -154,6 +153,7 @@ public class RobotContainer {
 
     // Trigger declaration
     shoot = intakeCells.and(smartShooter);
+    climb = o_enableClimb.and(o_manualUp);
 
   }
 
@@ -177,9 +177,10 @@ public class RobotContainer {
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     shoot.whenActive(new SmartShooter(indexer, shooter));
-    //smartShooter.and(intakeCells).whenActive(new SmartShooter(indexer, shooter));
+    shoot.whenInactive(new StopSmartShooter(shooter, indexer));
+
     // Operator1Joystick button configuration
-    // o_testingButton.whenPressed(command);
+    o_testingButton.whenPressed(new TestCommand());
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));

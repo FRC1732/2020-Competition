@@ -5,22 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
+public class TestMotors extends CommandBase {
   private Shooter shooter;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new TestMotors.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
+  public TestMotors(Shooter shooter) {
+    addRequirements(shooter);
     this.shooter = shooter;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,22 +30,14 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    System.out.println("life is suffering");
+    shooter.testMotors();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
   }
 
   // Returns true when the command should end.

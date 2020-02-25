@@ -38,13 +38,20 @@ public class Shooter extends SubsystemBase {
     shooterFollower.follow(shooterMaster);
   }
 
+  public void testMotors(){
+    shooterMaster.set(ControlMode.PercentOutput, .5);
+    System.out.println("Voltage| "+shooterMaster.getMotorOutputVoltage());
+    System.out.println("Velocity| "+shooterMaster.getSelectedSensorVelocity());
+  }
+
   public boolean maintainRPM() {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
-      shooterMaster.set(ControlMode.PercentOutput, .80);
+      shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
-    return shooterMaster.getSelectedSensorVelocity() > setPoint;
+    System.out.println("Velocity| "+ shooterMaster.getSelectedSensorVelocity());
+    return shooterMaster.getSelectedSensorVelocity() > setPoint-500;
   }
 
   public void manualUp(){
