@@ -23,7 +23,6 @@ public class Shooter extends SubsystemBase {
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
   private int setPoint = 125000;
-  private int currentMotorSpeed = 0;
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
@@ -39,12 +38,13 @@ public class Shooter extends SubsystemBase {
     shooterFollower.follow(shooterMaster);
   }
 
-  public void maintainRPM() {
+  public boolean maintainRPM() {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, .80);
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
+    return shooterMaster.getSelectedSensorVelocity() > setPoint;
   }
 
   public void manualUp(){
@@ -59,10 +59,6 @@ public class Shooter extends SubsystemBase {
 
   public void stopMotors(){
     shooterMaster.set(ControlMode.PercentOutput, 0);
-  }
-
-  public boolean getAtSpeed(){
-    return (currentMotorSpeed > setPoint-1000);
   }
 
   @Override

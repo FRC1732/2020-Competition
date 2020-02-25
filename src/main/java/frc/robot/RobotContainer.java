@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Autonomous.DriveForward;
@@ -85,6 +86,10 @@ public class RobotContainer {
   private JoystickButton o_shooterSpeedUp;
   private JoystickButton o_manualUp;
 
+  // Composed triggers
+  private Trigger shoot;
+  private Trigger climb;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -147,6 +152,9 @@ public class RobotContainer {
     o_shooterSpeedUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_SPEED_UP);
     o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP);
 
+    // Trigger declaration
+    shoot = intakeCells.and(smartShooter);
+
   }
 
   /**
@@ -159,15 +167,17 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // leftJoystick button configuration
     //intakeCells.whileHeld(new IntakeCells(intake));
-    intakeCells.whenHeld(new MaintainRPM(shooter),false);
+    intakeCells.whenHeld(new MaintainRPM(shooter));
     //toggleIntakeSolenoidState.whileHeld(new ToggleIntakeSolenoidState(intake));
     toggleIntakeSolenoidState.whileHeld(new IntakeCells(intake));
 
     // RightJoystick button configuration
-    smartShooter.whenHeld(new SmartShooter(indexer, shooter),false);
+    //smartShooter.whenHeld(new SmartShooter(indexer, shooter));
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
 
+    shoot.whenActive(new SmartShooter(indexer, shooter));
+    //smartShooter.and(intakeCells).whenActive(new SmartShooter(indexer, shooter));
     // Operator1Joystick button configuration
     // o_testingButton.whenPressed(command);
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
@@ -183,7 +193,6 @@ public class RobotContainer {
     o_shooterSpeedDown.whenPressed(new ShooterManualDown(shooter));
     o_shooterSpeedUp.whenPressed(new ShooterManualUp(shooter));
 
-    o_enableClimb.and(o_manualUp).whenActive(new ManualUp(climber)).whenInactive(new StopClimber(climber));
   }
 
 
