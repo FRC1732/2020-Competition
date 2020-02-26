@@ -43,6 +43,15 @@ public class Intake extends SubsystemBase {
     intakeSolenoid.set(!intakeSolenoid.get());
   }
 
+  public void setSolenoidExtended(){
+    intakeSolenoid.set(true);
+  }
+
+  public void setSolenoidRetracted(){
+    intakeSolenoid.set(false);
+  }
+  
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

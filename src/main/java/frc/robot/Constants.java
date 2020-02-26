@@ -51,7 +51,7 @@ public final class Constants {
 
     //Intake mapping
     public static final int INTAKE_INTAKEMOTOR_ID = 16;
-    public static final int INTAKE_INTAKESOLENOID_ID = 0;
+    public static final int INTAKE_INTAKESOLENOID_ID = 1;
 
     //ControlPanelManip mapping
     public static final int CONTROLPANELMANIP_MOTOR_ID = 14;

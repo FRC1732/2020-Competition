@@ -51,7 +51,7 @@ public class Shooter extends SubsystemBase {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
     System.out.println("Velocity| "+ shooterMaster.getSelectedSensorVelocity());
-    return shooterMaster.getSelectedSensorVelocity() > setPoint-500;
+    return shooterMaster.getSelectedSensorVelocity() > setPoint-5000;
   }
 
   public void manualUp(){
