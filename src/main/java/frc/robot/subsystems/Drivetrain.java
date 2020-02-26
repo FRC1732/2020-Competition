@@ -69,6 +69,9 @@ public class Drivetrain extends SubsystemBase {
     right1.follow(rightMaster);
     right2.follow(rightMaster);    
 
+    leftMaster.setOpenLoopRampRate(1);
+    rightMaster.setOpenLoopRampRate(1);
+
     leftMaster.burnFlash();
     left1.burnFlash();
     left2.burnFlash();

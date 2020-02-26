@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
   // sets the intake motor to a speed 
   // starts the intake 
   public void intakeCells(){
-    intakeMotor.set(ControlMode.PercentOutput, .5);
+    intakeMotor.set(ControlMode.PercentOutput, .75);
   }
   // reverses the intake motor
   public void reverseIntakeCells(){

@@ -18,6 +18,8 @@ import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.TestCommand;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.commands.Climber.ManualUp;
+import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
@@ -25,6 +27,7 @@ import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
+import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Shooter.TestMotors;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -166,18 +169,14 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // leftJoystick button configuration
-    //intakeCells.whileHeld(new IntakeCells(intake));
-    intakeCells.whenHeld(new MaintainRPM(shooter));
+    intakeCells.whileHeld(new IntakeCells(intake));
     //toggleIntakeSolenoidState.whileHeld(new ToggleIntakeSolenoidState(intake));
     toggleIntakeSolenoidState.whileHeld(new IntakeCells(intake));
 
     // RightJoystick button configuration
-    //smartShooter.whenHeld(new SmartShooter(indexer, shooter));
+    // smartShooter.whenHeld(new SmartShooter(indexer, shooter));
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
-
-    shoot.whenActive(new SmartShooter(indexer, shooter));
-    shoot.whenInactive(new StopSmartShooter(shooter, indexer));
 
     // Operator1Joystick button configuration
     o_testingButton.whenPressed(new TestCommand());
@@ -193,6 +192,12 @@ public class RobotContainer {
     // o_toggleControlPanel.whileHeld(new ToggleControlPanel);
     o_shooterSpeedDown.whenPressed(new ShooterManualDown(shooter));
     o_shooterSpeedUp.whenPressed(new ShooterManualUp(shooter));
+
+    // Trigger declaration
+    shoot.whenActive(new SmartShooter(indexer, shooter), true);
+    shoot.whenInactive(new StopSmartShooter(shooter, indexer));
+    climb.whenActive(new ManualUp(climber));
+    climb.whenActive(new StopClimber(climber));
 
   }
 
