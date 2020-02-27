@@ -14,7 +14,11 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveWithJoysticks;
@@ -50,6 +54,18 @@ import frc.robot.subsystems.Vision;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  /**
+   *
+   */
+  private static final String AUTONOMOUS_SHOOTING = "Autonomous Shooting";
+  /**
+   *
+   */
+  private static final String FIVE_BALL_SHOOTING = "Five ball shooting";
+  /**
+   *
+   */
+  private static final String DRIVE_FORWARD = "Drive forward";
   // The robot's subsystems and commands are defined here...
   private Shooter shooter;
   private Intake intake;
@@ -80,7 +96,9 @@ public class RobotContainer {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private AutomomousShooting automomousShooting;
-  private FiveBallShooting fiveBallShooting;
+  private FiveBallShooting fiveBallShooting; 
+
+  private SendableChooser<String> autoModeOptions;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -105,6 +123,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     RobotProperties.load();
+
+    initShuffleboard();
     
   }
 
@@ -143,35 +163,43 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     // drivetrain button
-    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
+   // drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, leftJoystick, drivetrain));
 
     // all the indexer buttons are placeholders and the structure isn't fully worked
     // out
     // indexer buttons
-    feedShooterButton.whenPressed(new FeedShooter(indexer));
-    reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
-    stopFeedShooterButton.whenPressed(new StopFeeder(indexer));
-    forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
-    reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
+   //feedShooterButton.whenPressed(new FeedShooter(indexer));
+   // reverseFeedShooterButton.whenPressed(new ReverseFeedShooter(indexer));
+    //stopFeedShooterButton.whenPressed(new StopFeeder(indexer));
+    //forwardConveyorButton.whenPressed(new ForwardConveyer(indexer));
+    //reverseConveyorButton.whenPressed(new ReverseFeedShooter(indexer));
 
     // shooter buttons
-    maintainRPM.whenActive(new MaintainRPM(shooter));
-    maintainRPM.whenInactive(new StopMotors(shooter));
+    //maintainRPM.whenActive(new MaintainRPM(shooter));
+    //maintainRPM.whenInactive(new StopMotors(shooter));
 
     // vision buttons
-    toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
-    toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
+    //toggleLEDS.whenPressed(new ToggleLimelightLEDS(vision));
+    //toggleVisionMode.whenPressed(new ToggleLimelightVisionMode(vision));
 
     // intake buttons
-    intakeCells.whenActive(new IntakeCells(intake));
-    intakeCells.whenInactive(new StopIntake(intake));
-    changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
+    //intakeCells.whenActive(new IntakeCells(intake));
+    //intakeCells.whenInactive(new StopIntake(intake));
+    //changeIntakeSolenoidState.whenPressed(new ChangeIntakeSolenoidState(intake));
 
-    manualUp.whileHeld(new ManualUp(climber));
-    manualDown.whileHeld(new ManualDown(climber));
+    //manualUp.whileHeld(new ManualUp(climber));
+    //manualDown.whileHeld(new ManualDown(climber));
 
-    smartShooter.whenHeld(new SmartShooter(indexer, shooter));
+    //smartShooter.whenHeld(new SmartShooter(indexer, shooter));
 
+  }
+
+  private void initShuffleboard(){
+    autoModeOptions = new SendableChooser<>();
+    autoModeOptions.setDefaultOption(DRIVE_FORWARD, DRIVE_FORWARD);
+    autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
+    autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
+    SmartDashboard.putData("Auto data", autoModeOptions);
   }
 
   /**
@@ -181,17 +209,25 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+
+    //Command selectAutoCommand = new SelectCommand(Map.ofEntries(
+      //Map.entry("Drive forward", )
+    //), selector)
+
     Map<Object, Command> selectableCommands = new HashMap<>();
-    selectableCommands.put("I am Good", automomousShooting);
-    selectableCommands.put("we good", driveForward);
-    selectableCommands.put("lovely day",fiveBallShooting);
+    selectableCommands.put(AUTONOMOUS_SHOOTING, automomousShooting);
+    selectableCommands.put(DRIVE_FORWARD, driveForward);
+    selectableCommands.put(FIVE_BALL_SHOOTING,new PrintCommand(FIVE_BALL_SHOOTING));
+    
     Supplier<Object> selector = this::getOperatingAutoCommand;
+    
     return new SelectCommand(selectableCommands, selector);
   }
 
   private String getOperatingAutoCommand() {
     // select value from shuffle board
-
-    return "How are you";
+    String selected = autoModeOptions.getSelected();
+    System.out.println(" hey selected option is "+selected);
+    return selected;
   }
 }

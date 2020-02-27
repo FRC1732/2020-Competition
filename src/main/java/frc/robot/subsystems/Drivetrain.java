@@ -7,10 +7,13 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,6 +31,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain() {
     initializeMotorControllers();
+
+    initializeEncodersStuff();
   }
 
   public void initializeMotorControllers(){
@@ -76,6 +81,10 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.burnFlash();
     right1.burnFlash();
     right2.burnFlash();
+
+    leftMaster.getEncoder().setPosition(0);
+    rightMaster.getEncoder().setPosition(0);
+    
   }
   // starts the motors
   public void set(double left, double right) {
@@ -87,7 +96,37 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.set(0);
 	  rightMaster.set(0);
   }
-
+  public double getLeftEncoder(){
+    return leftMaster.getEncoder().getPosition();
+  }
+  public double getRightEncoder(){
+    return rightMaster.getEncoder().getPosition();
+  }
+  private void initializeEncodersStuff(){
+    Shuffleboard.getTab("SmartDashboard").addNumber("left Encoder", leftEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("right Encoder", rightEncoderSupplier);
+  }
+  
+  DoubleSupplier leftEncoderSupplier =  new DoubleSupplier(){
+  
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getLeftEncoder();
+    }
+  };
+  DoubleSupplier rightEncoderSupplier =  new DoubleSupplier(){
+  
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getRightEncoder();
+    }
+  };
+  public void resetEncoders(){
+    leftMaster.getEncoder().setPosition(0);
+    rightMaster.getEncoder().setPosition(0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
