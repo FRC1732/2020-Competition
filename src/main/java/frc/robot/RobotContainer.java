@@ -7,17 +7,24 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SelectCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.TestCommand;
+import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveForward;
+import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.ControlPanel.ToggleControlPanelTrenchState;
@@ -62,6 +69,8 @@ public class RobotContainer {
   // Driver Joysticks
   private Joystick leftJoystick;
   private Joystick rightJoystick;
+  private AutomomousShooting automomousShooting;
+  private FiveBallShooting fiveBallShooting;
 
   // LeftJoystick Buttons
   private JoystickButton intakeCells;
@@ -110,8 +119,10 @@ public class RobotContainer {
     climber = new Climber();
     controlPanel = new ControlPanel();
 
-    // Commands
+
+    // commands
     driveForward = new DriveForward(drivetrain);
+    automomousShooting = new AutomomousShooting(drivetrain);
 
     // Define Buttons
     defineButtons();
@@ -209,7 +220,6 @@ public class RobotContainer {
 
   }
 
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -217,6 +227,17 @@ public class RobotContainer {
    */ 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return driveForward;
+    Map<Object, Command> selectableCommands = new HashMap<>();
+    selectableCommands.put("I am Good", automomousShooting);
+    selectableCommands.put("we good", driveForward);
+    selectableCommands.put("lovely day",fiveBallShooting);
+    Supplier<Object> selector = this::getOperatingAutoCommand;
+    return new SelectCommand(selectableCommands, selector);
+  }
+
+  private String getOperatingAutoCommand() {
+    // select value from shuffle board
+
+    return "How are you";
   }
 }
