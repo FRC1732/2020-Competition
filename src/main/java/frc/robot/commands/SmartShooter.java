@@ -32,8 +32,8 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.maintainRPM();
-    if(shooter.getAtSpeed()){
+    System.out.println("SmartsHOOTER ");
+    if(shooter.maintainRPM()){
       indexer.feedShooter();
       indexer.forwardConveyor();
     } else {

@@ -55,6 +55,11 @@ public class Climber extends SubsystemBase {
     setLeft(DOWN_SPEED);
   }  
 
+  public void stopMotors(){
+    setLeft(0);
+    setRight(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

@@ -10,14 +10,14 @@ package frc.robot.commands.Indexer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
 
-public class ReverseFeedShooter extends CommandBase {
+public class IndexerOverride extends CommandBase {
   private Indexer indexer;
   /**
-   * Creates a new ReverseFeedShooter.
+   * Creates a new IndexerOverridee.
    */
-  public ReverseFeedShooter(Indexer indexer) {
-    addRequirements(indexer);
+  public IndexerOverride(Indexer indexer) {
     this.indexer = indexer;
+    addRequirements(indexer);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,12 +29,14 @@ public class ReverseFeedShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    indexer.reverseFeedShooter();
+    indexer.forwardConveyor();
+    indexer.feedShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    indexer.stopConveyor();
     indexer.stopFeeder();
   }
 

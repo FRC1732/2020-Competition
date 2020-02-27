@@ -7,20 +7,27 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Solenoid;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Indexer extends SubsystemBase {
   private TalonSRX feeder;
-  private TalonSRX conveyor;
+  private VictorSPX conveyor;
 
   public Indexer() {
     feeder = new TalonSRX(Constants.INDEXER_FEEDER_ID);
-    conveyor = new TalonSRX(Constants.INDEXER_CONVEYER_ID);
+    conveyor = new VictorSPX(Constants.INDEXER_CONVEYER_ID);
+
+    feeder.setNeutralMode(NeutralMode.Coast);
+    conveyor.setNeutralMode(NeutralMode.Coast);
+
+    conveyor.setInverted(true);
+    feeder.setInverted(true);
   }
 
   public void feedShooter(){
@@ -37,6 +44,7 @@ public class Indexer extends SubsystemBase {
 
   public void forwardConveyor() {
     conveyor.set(ControlMode.PercentOutput, 1);
+    System.out.println("Conveyor Voltage| "+conveyor.getMotorOutputVoltage());
   }
 
   public void reverseConveyor() {
