@@ -82,7 +82,7 @@ public final class Constants {
     public static final int OPERATOR_2_JOYSTICK_PORT_ID = 3;
 
     //Note: all below buttons belong to Operator1Joystick
-    public static final int O_JOYSTICKBUTTON_TESTING_BUTTON = 1;
+    public static final int O_JOYSTICKBUTTON_INDEXER_OVERRIDE = 1;
     public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 2;
     public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 3;
     public static final int O_JOYSTICKBUTTON_POSITION_CONTROL = 4;

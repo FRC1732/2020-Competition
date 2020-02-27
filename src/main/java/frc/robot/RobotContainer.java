@@ -21,13 +21,12 @@ import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.ControlPanel.ToggleControlPanelTrenchState;
+import frc.robot.commands.Indexer.IndexerOverride;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
-import frc.robot.commands.Indexer.StopFeeder;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
-import frc.robot.commands.Intake.StopIntake;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.ShooterManualDown;
@@ -78,7 +77,7 @@ public class RobotContainer {
   private Joystick operator2Joystick;
 
   // Operator1Joystick Buttons
-  private JoystickButton o_testingButton;
+  private JoystickButton o_indexerOverride;
   private JoystickButton o_reverseIntake;
   private JoystickButton o_reverseFeedShooter;
   private JoystickButton o_positionControl;
@@ -145,14 +144,13 @@ public class RobotContainer {
     operator2Joystick = new Joystick(Constants.OPERATOR_2_JOYSTICK_PORT_ID);
 
     // Operator1Joystick button declaration
-    o_testingButton = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_TESTING_BUTTON);
+    o_indexerOverride = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_INDEXER_OVERRIDE);
     o_reverseIntake = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_REVERSE_INTAKE);
     o_reverseFeedShooter = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
     o_positionControl = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_POSITION_CONTROL);
     o_rotationControl = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_ROTATION_CONTROL);
     o_maintainRPM = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_MAINTAIN_RPM);
-    o_changeIntakeSolenoidState = new JoystickButton(operator1Joystick,
-        Constants.O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
+    o_changeIntakeSolenoidState = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     o_enableClimb = new JoystickButton(operator1Joystick, Constants.O_JOYSTICKBUTTON_ENABLE_CLIMB);
 
     // Operator2Joystick button declaration
@@ -163,8 +161,9 @@ public class RobotContainer {
     o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP);
 
     // Trigger declaration
-    shoot = smartShooter.and(smartShooter);
+    shoot = smartShooter.and(o_maintainRPM);
     climb = o_enableClimb.and(o_manualUp);
+    
 
   }
 
@@ -181,15 +180,14 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
+    smartShooter.whenPressed(new TestCommand());
     // toggleHardStops.whenPressed(new ToggleHardstops(shooter));
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     // Operator1Joystick button configuration
-    o_testingButton.whenPressed(new TestCommand());
-    o_reverseIntake.whenActive(new ReverseIntakeCells(intake));
-    o_reverseIntake.whenInactive(new StopIntake(intake));
-    o_reverseFeedShooter.whenActive(new ReverseFeedShooter(indexer));
-    o_reverseFeedShooter.whenInactive(new StopFeeder(indexer));
+    o_indexerOverride.whenPressed(new IndexerOverride(indexer));
+    o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
+    o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
     o_maintainRPM.whenActive(new MaintainRPM(shooter));
@@ -216,7 +214,7 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
-   */
+   */ 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return driveForward;
