@@ -27,6 +27,7 @@ import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
+import frc.robot.commands.ControlPanel.PositionControl;
 import frc.robot.commands.ControlPanel.ToggleControlPanelTrenchState;
 import frc.robot.commands.Indexer.IndexerOverride;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
@@ -199,7 +200,7 @@ public class RobotContainer {
     o_indexerOverride.whenPressed(new IndexerOverride(indexer));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
-    // o_positionControl.whenPressed(new PositionControl(ControlPanel));
+    o_positionControl.whenPressed(new PositionControl(controlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
     o_maintainRPM.whenActive(new MaintainRPM(shooter));
     o_maintainRPM.whenInactive(new StopMotors(shooter));
