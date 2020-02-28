@@ -34,10 +34,11 @@ public final class Constants {
     public static final int DRIVETRAIN_LEFTMASTER_ID = 10;
     public static final int DRIVETRAIN_LEFT1_ID = 11;
     public static final int DRIVETRAIN_LEFT2_ID = 12;
+
     public static final int DRIVETRAIN_RIGHTMASTER_ID = 33;
     public static final int DRIVETRAIN_RIGHT1_ID = 34; 
     public static final int DRIVETRAIN_RIGHT2_ID = 35;
-    
+
     //Shooter mapping
     public static final int SHOOTER_SHOOTER_MASTER_ID = 30;
     public static final int SHOOTER_SHOOTER_FOLLOWER_ID = 28;
@@ -50,11 +51,11 @@ public final class Constants {
 
     //Intake mapping
     public static final int INTAKE_INTAKEMOTOR_ID = 16;
-    public static final int INTAKE_INTAKESOLENOID_ID = 0;
+    public static final int INTAKE_INTAKESOLENOID_ID = 1;
 
     //ControlPanelManip mapping
     public static final int CONTROLPANELMANIP_MOTOR_ID = 14;
-    public static final int CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID = 4;
+    public static final int CONTROLPANELMANIP_TRENCH_SOLENOID_ID = 4;
 
     //Vision mapping
     public static final int VISION_LIMELIGHT_ID = 31;
@@ -63,23 +64,37 @@ public final class Constants {
     public static final int LEFT_JOYSTICK_PORT_ID = 0;
     public static final int RIGHT_JOYSTICK_PORT_ID = 1;
 
-    //Operator Interface (buttons)
-    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 0;
-    public static final int JOYSTICKBUTTON_FORWARD_CONVEYOR = 1;
-    public static final int JOYSTICKBUTTON_REVERSE_CONVEYOR = 2;
-    public static final int JOYSTICKBUTTON_STOP_FEEDER = 3;
-    public static final int JOYSTICKBUTTON_TOGGLE_LIMELIGHT_LEDS = 7;
-    public static final int JOYSTICKBUTTON_TOGGLE_VISION_MODE = 8;
-    public static final int JOYSTICKBUTTON_FEED_SHOOTER = 4;
-    public static final int JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 5;
-
-    //Left Trigger Button: Intake
-    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 0;
+    //Note: all below buttons belong to leftJoystick
+    public static final int JOYSTICKBUTTON_INTAKE_CELLS = 1;
+    public static final int JOYSTICKBUTTON_TOGGLE_INTAKE_SOLENOID_STATE = 3;
     
-    public static final int JOYSTICKBUTTON_REVERSE_INTAKE_CELLS = 4;
-    public static final int JOYSTICKBUTTON_STOP_INTAKE = 5;
-    public static final int JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 6;
+    //Note: all below buttons belong to RightJoystick
+    public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
+    public static final int JOYSTICKBUTTON_TOGGLE_HARDSTOPS = 2;
+    public static final int JOYSTICKBUTTON_VISION_ALIGN = 3;
 
-    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_UP = 7;
-    public static final int JOYSTICKBUTTON_CLIMBER_MANUAL_DOWN = 8;
+
+    //Operator Interface (buttons)
+    //Note: buttons must be declared from 1-11
+    //public static final int JOYSTICKBUTTON_TEST_MOTORS = 1;
+
+    public static final int OPERATOR_1_JOYSTICK_PORT_ID = 2;
+    public static final int OPERATOR_2_JOYSTICK_PORT_ID = 3;
+
+    //Note: all below buttons belong to Operator1Joystick
+    public static final int O_JOYSTICKBUTTON_INDEXER_OVERRIDE = 1;
+    public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 2;
+    public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 3;
+    public static final int O_JOYSTICKBUTTON_POSITION_CONTROL = 4;
+    public static final int O_JOYSTICKBUTTON_ROTATION_CONTROL = 5;
+    public static final int O_JOYSTICKBUTTON_MAINTAIN_RPM = 6;
+    public static final int O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 7;
+    public static final int O_JOYSTICKBUTTON_ENABLE_CLIMB = 11;
+
+    //Note: all below buttons belong to Operator2Joystick
+    public static final int O_JOYSTICKBUTTON_TOGGLE_HARDSTOPS = 1;
+    public static final int O_JOYSTICKBUTTON_TOGGLE_CONTROL_PANEL = 2;
+    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_DOWN = 7;
+    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_UP = 6;
+    public static final int O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP = 5;
 }

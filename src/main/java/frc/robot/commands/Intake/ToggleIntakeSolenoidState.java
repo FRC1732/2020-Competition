@@ -7,15 +7,15 @@
 
 package frc.robot.commands.Intake;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Intake;
 
-public class ReverseIntakeCells extends CommandBase {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class ToggleIntakeSolenoidState extends InstantCommand {
   private Intake intake;
-  /**
-   * Creates a new ReverseIntake.
-   */
-  public ReverseIntakeCells(Intake intake) {
+  public ToggleIntakeSolenoidState(Intake intake) {
     addRequirements(intake);
     this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,23 +24,6 @@ public class ReverseIntakeCells extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    intake.reverseIntakeCells();
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    intake.stopIntake();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    intake.toggleSolenoidState();
   }
 }

@@ -28,7 +28,7 @@ public class ControlPanel extends SubsystemBase {
 
   public ControlPanel() {
     controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
-    controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_HARDSTOP_SOLENOID_ID);
+    controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_SOLENOID_ID);
     i2cPort = I2C.Port.kOnboard;
     colorSensor = new ColorSensorV3(i2cPort);
   }
@@ -37,20 +37,20 @@ public class ControlPanel extends SubsystemBase {
     return colorSensor.getColor();
   }
   // Gets the speed of the control panel motor 
-  public VictorSPX getControlPanelMotor() {
-    return controlPanelMotor;
+  public double getControlPanelMotor() {
+    return controlPanelMotor.getSelectedSensorVelocity();
   }
   // Gets the position of the control panel trench
-  public Solenoid getControlPanelTrench() {
-    return controlPanelTrench;
+  public boolean getControlPanelTrench() {
+    return controlPanelTrench.get();
   }
   // Sets the control panel motor
   public void setControlPanelMotor(double speed) {
     controlPanelMotor.set(ControlMode.PercentOutput, speed);
   }
   // sets the control panel trench 
-  public void setControlPanelTrench(Solenoid controlPanelTrench) {
-    this.controlPanelTrench = controlPanelTrench;
+  public void toggleControlPanelTrenchState() {
+    controlPanelTrench.set(!controlPanelTrench.get());
   }
   
   public void rotation() {

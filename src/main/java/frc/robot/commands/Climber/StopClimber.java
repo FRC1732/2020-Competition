@@ -5,26 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Indexer;
+package frc.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Climber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ForwardConveyer extends InstantCommand {
-  Indexer indexer;
-  public ForwardConveyer(Indexer indexer) {
-    addRequirements(indexer);
-    this.indexer = indexer;
-
+public class StopClimber extends InstantCommand {
+  private Climber climber;
+  public StopClimber(Climber climber) {
+    addRequirements(climber);
+    this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    indexer.forwardConveyor();
+    climber.stopMotors();
   }
 }
