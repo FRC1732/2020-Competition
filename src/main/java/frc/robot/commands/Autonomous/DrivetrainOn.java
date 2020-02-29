@@ -25,6 +25,6 @@ public class DrivetrainOn extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drivetrain.set(0.5, 0.5);
+    drivetrain.set(0.2, 0.2);
   }
 }
