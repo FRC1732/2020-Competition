@@ -63,8 +63,8 @@ public class Drivetrain extends SubsystemBase {
     right1.setIdleMode(IdleMode.kBrake);
     right2.setIdleMode(IdleMode.kBrake);
     // Sets the motors to follow the master 
-    left1.follow(leftMaster);
-    left2.follow(leftMaster);
+    leftMaster.follow(left1);
+    left2.follow(left1);
 
     right1.follow(rightMaster);
     right2.follow(rightMaster);    
@@ -79,7 +79,7 @@ public class Drivetrain extends SubsystemBase {
   }
   // starts the motors
   public void set(double left, double right) {
-    leftMaster.set(left);
+    left1.set(left);
     rightMaster.set(right);
   }
   // Stops the motors from 

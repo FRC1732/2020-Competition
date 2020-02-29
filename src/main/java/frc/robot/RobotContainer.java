@@ -112,7 +112,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Subsystems
-    vision = new Vision();
+    //vision = new Vision();
     drivetrain = new Drivetrain();
     intake = new Intake();
     shooter = new Shooter();
