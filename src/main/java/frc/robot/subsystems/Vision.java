@@ -32,6 +32,10 @@ public class Vision extends SubsystemBase {
     camMode = table.getEntry("camMode");
   }
 
+  public double calculateDistance(){
+    return 77.75/Math.tan(ty.getDouble(0));
+  }
+
   //turns off the limelight LEDs
   //this should only be called by toggleLed
   private void setLedOff(){
