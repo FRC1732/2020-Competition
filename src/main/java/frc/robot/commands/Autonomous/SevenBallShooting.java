@@ -9,33 +9,26 @@ package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Intake.IntakeCells;
-import frc.robot.commands.Intake.StopIntake;
-import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
+import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FiveBallShooting extends SequentialCommandGroup {
+public class SevenBallShooting extends SequentialCommandGroup {
   /**
-   * Creates a new FiveBallShooting.
+   * Creates a new SevenBallShooting.
    */
-  public FiveBallShooting(Drivetrain drivetrain, Intake intake, Indexer indexer, Shooter shooter ) {
+  public SevenBallShooting(Drivetrain drivetrain, Intake intake ) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-
-    addCommands(new DrivetrainOn(drivetrain),
-    new ToggleIntakeSolenoidState(intake),
-     new IntakeCells(intake), 
-     new WaitCommand(8), 
-     new DrivetrainOff(drivetrain), 
-     new StopIntake(intake), 
-     new SmartShooter(indexer, shooter) );
-    //super();
+    super(new DrivetrainOn(drivetrain),
+     new SetIntakeSolenoidExtended(intake),
+     new IntakeCells(intake),
+     new WaitCommand(10),
+     new DrivetrainOff(drivetrain)
+      );
   }
 }
