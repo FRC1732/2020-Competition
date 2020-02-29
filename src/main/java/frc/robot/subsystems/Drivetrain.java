@@ -7,18 +7,22 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.AlternateEncoderType;
+import com.revrobotics.CANDigitalInput;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  // creates the motor objects 
+  // creates the motor objects
   private CANSparkMax leftMaster;
   private CANSparkMax left1;
   private CANSparkMax left2;
@@ -35,7 +39,7 @@ public class Drivetrain extends SubsystemBase {
     initializeEncodersStuff();
   }
 
-  public void initializeMotorControllers(){
+  public void initializeMotorControllers() {
     // assignes the motor objects to a value
     leftMaster = new CANSparkMax(Constants.DRIVETRAIN_LEFTMASTER_ID, MotorType.kBrushless);
     left1 = new CANSparkMax(Constants.DRIVETRAIN_LEFT1_ID, MotorType.kBrushless);
@@ -52,7 +56,7 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
     right2.restoreFactoryDefaults();
-    // Sets the motors to inverted. 
+    // Sets the motors to inverted.
     leftMaster.setInverted(false);
     left1.setInverted(false);
     left2.setInverted(false);
@@ -67,12 +71,31 @@ public class Drivetrain extends SubsystemBase {
     left2.setIdleMode(IdleMode.kBrake);
     right1.setIdleMode(IdleMode.kBrake);
     right2.setIdleMode(IdleMode.kBrake);
-    // Sets the motors to follow the master 
+
+    leftMaster.setOpenLoopRampRate(0.5);
+    rightMaster.setOpenLoopRampRate(0.5);
+
+    leftMaster.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    rightMaster.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    leftMaster.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    rightMaster.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+
+    left1.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    right1.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    left1.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    right1.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+
+    left2.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    right2.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    left2.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+    right2.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).enableLimitSwitch(false);
+
+    // Sets the motors to follow the master
     left1.follow(leftMaster);
     left2.follow(leftMaster);
 
     right1.follow(rightMaster);
-    right2.follow(rightMaster);    
+    right2.follow(rightMaster);
 
     leftMaster.burnFlash();
     left1.burnFlash();
@@ -84,49 +107,129 @@ public class Drivetrain extends SubsystemBase {
 
     leftMaster.getEncoder().setPosition(0);
     rightMaster.getEncoder().setPosition(0);
-    
+
   }
+
   // starts the motors
   public void set(double left, double right) {
     leftMaster.set(left);
     rightMaster.set(right);
   }
-  // Stops the motors from 
+
+  // Stops the motors from
   public void stop() {
     leftMaster.set(0);
-	  rightMaster.set(0);
+    rightMaster.set(0);
   }
-  public double getLeftEncoder(){
+
+  public double getLeftEncoder() {
     return leftMaster.getEncoder().getPosition();
   }
-  public double getRightEncoder(){
+
+  public double getRightEncoder() {
     return rightMaster.getEncoder().getPosition();
   }
-  private void initializeEncodersStuff(){
-    Shuffleboard.getTab("SmartDashboard").addNumber("left Encoder", leftEncoderSupplier);
-    Shuffleboard.getTab("SmartDashboard").addNumber("right Encoder", rightEncoderSupplier);
+
+  public double getAlternateRightEncoder() {
+    return rightMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature, 256).getPosition();
   }
-  
-  DoubleSupplier leftEncoderSupplier =  new DoubleSupplier(){
-  
+
+  public double getAlternateLeftEncoder() {
+    return leftMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature, 256).getPosition();
+  }
+
+  public boolean getForwardRightLimitSwitch() {
+    return rightMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+
+  public boolean getForwardLeftLimitSwitch() {
+    return leftMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+
+  public boolean getReverseRightLimitSwitch() {
+    return rightMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+
+  public boolean getReverseLeftLimitSwitch() {
+    return leftMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+
+  private void initializeEncodersStuff() {
+    Shuffleboard.getTab("SmartDashboard").addNumber("Left Encoder", leftEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Right Encoder", rightEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Left", leftAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Right", rightAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Left Limit Switch", ForwardLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Right Limit Switch", ForwardRightLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Left Limit Switch", ReverseLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Right Limit Switch", ReverseRightLimitSwitch);
+
+  }
+
+  BooleanSupplier ForwardLeftLimitSwitch = new BooleanSupplier() {
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ForwardRightLimitSwitch = new BooleanSupplier() {
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardRightLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseLeftLimitSwitch = new BooleanSupplier() {
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseRightLimitSwitch = new BooleanSupplier() {
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseRightLimitSwitch();
+    }
+  };
+  DoubleSupplier leftAlternateEncoderSupplier = new DoubleSupplier() {
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateLeftEncoder();
+    }
+  };
+  DoubleSupplier rightAlternateEncoderSupplier = new DoubleSupplier() {
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateRightEncoder();
+    }
+  };
+  DoubleSupplier leftEncoderSupplier = new DoubleSupplier() {
+
     @Override
     public double getAsDouble() {
       // TODO Auto-generated method stub
       return getLeftEncoder();
     }
   };
-  DoubleSupplier rightEncoderSupplier =  new DoubleSupplier(){
-  
+  DoubleSupplier rightEncoderSupplier = new DoubleSupplier() {
+
     @Override
     public double getAsDouble() {
       // TODO Auto-generated method stub
       return getRightEncoder();
     }
   };
-  public void resetEncoders(){
+
+  public void resetEncoders() {
     leftMaster.getEncoder().setPosition(0);
     rightMaster.getEncoder().setPosition(0);
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
