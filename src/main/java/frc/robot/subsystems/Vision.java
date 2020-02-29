@@ -7,9 +7,12 @@
 
 package frc.robot.subsystems;
 
+import com.fasterxml.jackson.core.exc.StreamReadException;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
@@ -32,8 +35,13 @@ public class Vision extends SubsystemBase {
     camMode = table.getEntry("camMode");
   }
 
+  public void visionAlign(){
+    SmartDashboard.putBoolean("Alignment", Math.abs(getX()) < 5);
+  }
+
+  //this calculates the distance from the robot to the target
   public double calculateDistance(){
-    return 77.75/Math.tan(ty.getDouble(0));
+    return 77.75/Math.tan(getY());
   }
 
   //turns off the limelight LEDs
@@ -75,12 +83,12 @@ public class Vision extends SubsystemBase {
 
   //Horizontal Offset From Crosshair To Target (-27 degrees to 27 degrees)
   public double getX(){
-    return tx.getDouble(0);
+    return tx.getDouble(999);
   }
 
   //Vertical Offset From Crosshair To Target (-20.5 degrees to 20.5 degrees)
   public double getY(){
-    return ty.getDouble(0);
+    return ty.getDouble(999);
   }
 
   //sets the limelight to function as a vision processing camera

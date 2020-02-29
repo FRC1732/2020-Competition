@@ -39,6 +39,7 @@ import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
+import frc.robot.commands.Vision.BasicVisionAlign;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -131,6 +132,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
+    vision.setDefaultCommand(new BasicVisionAlign(vision));
 
     RobotProperties.load();
 
