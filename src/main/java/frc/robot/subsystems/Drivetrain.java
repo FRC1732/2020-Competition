@@ -7,8 +7,11 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.revrobotics.AlternateEncoderType;
+import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -102,11 +105,78 @@ public class Drivetrain extends SubsystemBase {
   public double getRightEncoder(){
     return rightMaster.getEncoder().getPosition();
   }
+  public double getAlternateRightEncoder() {
+    return rightMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature,256).getPosition();
+  }
+  public double getAlternateLeftEncoder(){
+    return leftMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature,256).getPosition();
+  }
+  public boolean getForwardRightLimitSwitch(){
+    return rightMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getForwardLeftLimitSwitch(){
+    return leftMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getReverseRightLimitSwitch(){
+    return rightMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getReverseLeftLimitSwitch() {
+    return leftMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
   private void initializeEncodersStuff(){
-    Shuffleboard.getTab("SmartDashboard").addNumber("left Encoder", leftEncoderSupplier);
-    Shuffleboard.getTab("SmartDashboard").addNumber("right Encoder", rightEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Left Encoder", leftEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Right Encoder", rightEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Left", leftAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Right", rightAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Left Limit Switch", ForwardLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Right Limit Switch", ForwardRightLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Left Limit Switch", ReverseLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Right Limit Switch", ReverseRightLimitSwitch);
+    
   }
   
+  BooleanSupplier ForwardLeftLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ForwardRightLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardRightLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseLeftLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseRightLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseRightLimitSwitch();
+    }
+  };
+  DoubleSupplier leftAlternateEncoderSupplier =  new DoubleSupplier(){
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateLeftEncoder();
+    }
+  };
+  DoubleSupplier rightAlternateEncoderSupplier =  new DoubleSupplier(){
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateRightEncoder();
+    }
+  };
   DoubleSupplier leftEncoderSupplier =  new DoubleSupplier(){
   
     @Override
@@ -123,6 +193,7 @@ public class Drivetrain extends SubsystemBase {
       return getRightEncoder();
     }
   };
+
   public void resetEncoders(){
     leftMaster.getEncoder().setPosition(0);
     rightMaster.getEncoder().setPosition(0);
