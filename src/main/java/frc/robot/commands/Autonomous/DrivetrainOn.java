@@ -29,10 +29,10 @@ public class DrivetrainOn extends InstantCommand {
     drivetrain.set(SPEED, SPEED);
    if (drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() > 1 || drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() < -1){
         if(drivetrain.getLeftEncoder() > drivetrain.getRightEncoder()){
-          drivetrain.set(SPEED - ((drivetrain.getLeftEncoder()-drivetrain.getLeftEncoder())/100), SPEED);
+          drivetrain.set(SPEED - ((drivetrain.getLeftEncoder()-drivetrain.getRightEncoder())/100), SPEED);
         }
         else{
-          
+          drivetrain.set(SPEED, SPEED - ((drivetrain.getRightEncoder()-drivetrain.getLeftEncoder())/100));
         }
    }
   }
