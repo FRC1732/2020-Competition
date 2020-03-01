@@ -40,6 +40,9 @@ public class Drivetrain extends SubsystemBase {
     right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
     right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
 
+    leftMaster.setOpenLoopRampRate(.5);
+    rightMaster.setOpenLoopRampRate(.5);
+
     leftMaster.restoreFactoryDefaults();
     left1.restoreFactoryDefaults();
     left2.restoreFactoryDefaults();

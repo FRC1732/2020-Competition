@@ -22,7 +22,7 @@ public class Shooter extends SubsystemBase {
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
-  private int setPoint = 125000;
+  private int setPoint = 130000;
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
@@ -39,9 +39,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void testMotors(){
-    shooterMaster.set(ControlMode.PercentOutput, .5);
-    System.out.println("Voltage| "+shooterMaster.getMotorOutputVoltage());
-    System.out.println("Velocity| "+shooterMaster.getSelectedSensorVelocity());
+    shooterMaster.set(ControlMode.PercentOutput, 1);
   }
 
   public boolean maintainRPM() {
@@ -51,7 +49,7 @@ public class Shooter extends SubsystemBase {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
     System.out.println("Velocity| "+ shooterMaster.getSelectedSensorVelocity());
-    return shooterMaster.getSelectedSensorVelocity() > setPoint-5000;
+    return shooterMaster.getSelectedSensorVelocity() > setPoint-1000;
   }
 
   public void manualUp(){
