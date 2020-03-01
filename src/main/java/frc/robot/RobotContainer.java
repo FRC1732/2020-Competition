@@ -218,7 +218,7 @@ public class RobotContainer {
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     // Operator1Joystick button configuration
-    o_indexerOverride.whenPressed(new IndexerOverride(indexer));
+    o_indexerOverride.whenHeld(new IndexerOverride(indexer));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
