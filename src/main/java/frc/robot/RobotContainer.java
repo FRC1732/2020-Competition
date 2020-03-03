@@ -263,7 +263,7 @@ public class RobotContainer {
     Map<Object, Command> selectableCommands = new HashMap<>();
     selectableCommands.put(AUTONOMOUS_SHOOTING, automomousShooting);
     selectableCommands.put(DRIVE_FORWARD, driveForward);
-    selectableCommands.put(FIVE_BALL_SHOOTING,new PrintCommand(FIVE_BALL_SHOOTING));
+    selectableCommands.put(FIVE_BALL_SHOOTING, fiveBallShooting) ;
     
     Supplier<Object> selector = this::getOperatingAutoCommand;
     
