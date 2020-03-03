@@ -7,19 +7,27 @@
 
 package frc.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.subsystems.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class ShooterOn extends InstantCommand {
-  public ShooterOn() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+public class MovingAround extends SequentialCommandGroup {
+  
+  /**
+   * Creates a new MovingAround.
+   */
+  public MovingAround(Drivetrain drivetrain) {
+    // Add your commands in the super() call, e.g.
+    // super(new FooCommand(), new BarCommand());
+    super(new DrivetrainOn(drivetrain), 
+    new WaitCommand(5), 
+    new ReverseDrivetrain(drivetrain), 
+    new WaitCommand(5),
+    new DrivetrainOff(drivetrain), 
+    new SpinAroundDrivetrain(drivetrain)
+    );
   }
 }

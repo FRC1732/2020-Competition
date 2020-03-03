@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Drivetrain;
@@ -21,7 +22,10 @@ public class DriveForward extends SequentialCommandGroup {
    */
   public DriveForward(Drivetrain drivetrain) {
     //m_Drivetrain = subsystem;
-    addCommands(new DrivetrainOn(drivetrain), new WaitCommand(5), new DrivetrainOff(drivetrain) );
+    addCommands(new InstantCommand(drivetrain::resetEncoders, drivetrain), 
+    new DrivetrainOn(drivetrain), 
+    new WaitCommand(4), 
+    new DrivetrainOff(drivetrain) );
     
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand())
