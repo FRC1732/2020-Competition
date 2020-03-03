@@ -25,6 +25,7 @@ public class MovingAround extends SequentialCommandGroup {
     super(new DrivetrainOn(drivetrain), 
     new WaitCommand(5), 
     new ReverseDrivetrain(drivetrain), 
+    new WaitCommand(5),
     new DrivetrainOff(drivetrain), 
     new SpinAroundDrivetrain(drivetrain)
     );
