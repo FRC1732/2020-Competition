@@ -26,7 +26,7 @@ public class SpinAroundDrivetrain extends InstantCommand {
   // Called once when the command executes
   @Override
   public void initialize() {
-    drivetrain.set(0.5, -0.5);
+    drivetrain.set(0.2, -0.2);
   }
 
 }
