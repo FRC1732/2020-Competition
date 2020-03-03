@@ -22,7 +22,10 @@ public class DriveForward extends SequentialCommandGroup {
    */
   public DriveForward(Drivetrain drivetrain) {
     //m_Drivetrain = subsystem;
-    addCommands(new InstantCommand(drivetrain::resetEncoders, drivetrain), new DrivetrainOn(drivetrain), new WaitCommand(3), new DrivetrainOff(drivetrain) );
+    addCommands(new InstantCommand(drivetrain::resetEncoders, drivetrain), 
+    new DrivetrainOn(drivetrain), 
+    new WaitCommand(4), 
+    new DrivetrainOff(drivetrain) );
     
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand())

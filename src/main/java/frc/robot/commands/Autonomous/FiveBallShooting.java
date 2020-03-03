@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.StopIntake;
+import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
+import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
@@ -28,9 +30,12 @@ public class FiveBallShooting extends SequentialCommandGroup {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
 
-    addCommands(new DrivetrainOn(drivetrain),
+    addCommands(new ReverseDrivetrain(drivetrain),
+     new ToggleIntakeSolenoidState(intake),
      new IntakeCells(intake), 
-     new WaitCommand(8), 
+     new WaitCommand(3),
+     new MaintainRPM(shooter),  
+     new WaitCommand(2),
      new DrivetrainOff(drivetrain), 
      new StopIntake(intake), 
      new SmartShooter(indexer, shooter) );
