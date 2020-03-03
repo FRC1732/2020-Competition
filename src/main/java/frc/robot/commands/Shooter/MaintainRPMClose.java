@@ -5,19 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.Shooter;
 
-public class ManualDown extends CommandBase {
-  Climber climber;
+public class MaintainRPMClose extends CommandBase {
+  private Shooter shooter;
   /**
-   * Creates a new ManualDown.
+   * Creates a new MaintainRPMClose.
    */
-  public ManualDown(Climber climber) {
-    addRequirements(climber);
-    this.climber = climber;
+  public MaintainRPMClose(Shooter shooter) {
+    addRequirements(shooter);
+    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,12 +29,14 @@ public class ManualDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.manualDown();
+    shooter.maintainRPMClose();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    shooter.stopMotors();
   }
 
   // Returns true when the command should end.

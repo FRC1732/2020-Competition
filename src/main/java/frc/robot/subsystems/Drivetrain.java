@@ -34,8 +34,6 @@ public class Drivetrain extends SubsystemBase {
    */
   public Drivetrain() {
     initializeMotorControllers();
-
-    initializeEncodersStuff();
   }
 
   public void initializeMotorControllers(){
@@ -44,9 +42,12 @@ public class Drivetrain extends SubsystemBase {
     left1 = new CANSparkMax(Constants.DRIVETRAIN_LEFT1_ID, MotorType.kBrushless);
     left2 = new CANSparkMax(Constants.DRIVETRAIN_LEFT2_ID, MotorType.kBrushless);
 
-    rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
-    right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
-    right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
+    right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
+    right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
+    rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
+
+    leftMaster.setOpenLoopRampRate(.5);
+    rightMaster.setOpenLoopRampRate(.5);
 
     leftMaster.restoreFactoryDefaults();
     left1.restoreFactoryDefaults();
@@ -84,10 +85,6 @@ public class Drivetrain extends SubsystemBase {
     rightMaster.burnFlash();
     right1.burnFlash();
     right2.burnFlash();
-
-    leftMaster.getEncoder().setPosition(0);
-    rightMaster.getEncoder().setPosition(0);
-    
   }
   // starts the motors
   public void set(double left, double right) {

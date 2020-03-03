@@ -11,16 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
+public class SmartShooterClose extends CommandBase {
   private Shooter shooter;
+  private Indexer indexer;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new SmartShooterClose.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
+  public SmartShooterClose(Shooter shooter, Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,7 +29,7 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
+    if(shooter.maintainRPMClose()){
       indexer.feedShooter();
       indexer.forwardConveyor();
     } else {
