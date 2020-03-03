@@ -44,7 +44,6 @@ public class Indexer extends SubsystemBase {
 
   public void forwardConveyor() {
     conveyor.set(ControlMode.PercentOutput, 1);
-    System.out.println("Conveyor Voltage| "+conveyor.getMotorOutputVoltage());
   }
 
   public void reverseConveyor() {

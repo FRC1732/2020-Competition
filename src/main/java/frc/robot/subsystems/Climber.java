@@ -19,8 +19,9 @@ public class Climber extends SubsystemBase {
    */
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
-  private double UP_SPEED = .5;
-  private double DOWN_SPEED = -.25;
+  private double leftSet = .5;
+  private double rightSet = .5;
+
 
   public Climber() {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
@@ -45,15 +46,22 @@ public class Climber extends SubsystemBase {
     climberLeft.set(ControlMode.PercentOutput, left);
   }
 
-  public void manualUp(){
-    setRight(UP_SPEED);
-    setLeft(UP_SPEED);
+  public void voltageDrive(){
+    if(climberLeft.getMotorOutputVoltage() > climberRight.getMotorOutputVoltage()){
+      rightSet *= getProportion(climberLeft.getMotorOutputVoltage(), climberRight.getMotorOutputVoltage());
+    } else {
+      leftSet *= getProportion(climberRight.getMotorOutputVoltage(), climberLeft.getMotorOutputVoltage());
+    }
   }
 
-  public void manualDown(){
-    setRight(DOWN_SPEED);
-    setLeft(DOWN_SPEED);
-  }  
+  public void manualUp(){
+    setRight(rightSet);
+    setLeft(leftSet);
+  }
+  
+  private double getProportion(double high, double low){
+    return high/low;
+  }
 
   public void stopMotors(){
     setLeft(0);

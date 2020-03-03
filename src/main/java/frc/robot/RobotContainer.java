@@ -36,9 +36,11 @@ import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
-import frc.robot.commands.Shooter.ShooterManualDown;
+import frc.robot.commands.Shooter.MaintainRPMClose;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
+import frc.robot.commands.Shooter.TestMotors;
+import frc.robot.commands.Vision.BasicVisionAlign;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -105,6 +107,7 @@ public class RobotContainer {
   // Composed triggers
   private Trigger shoot;
   private Trigger climb;
+  private Trigger closeShoot;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -131,6 +134,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
+    vision.setDefaultCommand(new BasicVisionAlign(vision));
 
     RobotProperties.load();
 
@@ -173,6 +177,7 @@ public class RobotContainer {
 
     // Trigger declaration
     shoot = smartShooter.and(o_maintainRPM);
+    closeShoot = smartShooter.and(o_toggleHardstops);
     climb = o_enableClimb.and(o_manualUp);
     
 
@@ -196,7 +201,7 @@ public class RobotContainer {
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     // Operator1Joystick button configuration
-    o_indexerOverride.whenPressed(new IndexerOverride(indexer));
+    o_indexerOverride.whenHeld(new IndexerOverride(indexer));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
@@ -207,9 +212,9 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
 
     // Operator2Joystick button configuration
-    // o_toggleHardstops.whileHeld(new ToggleHardstops(Shooter));
+    o_toggleHardstops.whileHeld(new MaintainRPMClose(shooter));
     o_toggleControlPanel.whenPressed(new ToggleControlPanelTrenchState(controlPanel));
-    o_shooterSpeedDown.whenPressed(new ShooterManualDown(shooter));
+    o_shooterSpeedDown.whenHeld(new TestMotors(shooter));
     o_shooterSpeedUp.whenPressed(new ShooterManualUp(shooter));
 
     // Trigger declaration
