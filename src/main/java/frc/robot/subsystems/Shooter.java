@@ -22,7 +22,9 @@ public class Shooter extends SubsystemBase {
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
-  private int setPoint = 130000;
+  private int setPoint = 135000;
+  private int closeSetpoint = 125000;
+  private int deadband = 1000;
 
   public Shooter() {
     shooterMaster.configFactoryDefault();
@@ -48,18 +50,30 @@ public class Shooter extends SubsystemBase {
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
-    System.out.println("Velocity| "+ shooterMaster.getSelectedSensorVelocity());
-    return shooterMaster.getSelectedSensorVelocity() > setPoint-1000;
+    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
+    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
+    return shooterMaster.getSelectedSensorVelocity() > setPoint-deadband;
+  }
+
+  public boolean maintainRPMClose() {
+    if(shooterMaster.getSelectedSensorVelocity() < closeSetpoint){
+      shooterMaster.set(ControlMode.PercentOutput, 1);
+    } else {
+      shooterMaster.set(ControlMode.PercentOutput, .85);
+    }
+    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
+    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
+    return shooterMaster.getSelectedSensorVelocity() > closeSetpoint-deadband;
   }
 
   public void manualUp(){
     //this code is unregulated and dumb...but who knows whether its even going to be used.
-    setPoint += 1000;
+    //setPoint += 1000;
   }
 
   public void manualDown(){
     //this code is unregulated and dumb...but who knows whether its even going to be used.
-    setPoint -= 1000;
+    //setPoint -= 1000;
   }
 
   public void stopMotors(){
