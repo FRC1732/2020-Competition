@@ -15,6 +15,10 @@ public class DriveWithJoysticks extends CommandBase {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private Drivetrain drivetrain;
+  //following doubles are for ramping 
+  private final double MAX_STEP = .5;
+  private double previousValue;
+
   /**
    * Creates a new DriveWithJoysticks.
  * @param rightJoystick
@@ -32,6 +36,20 @@ public class DriveWithJoysticks extends CommandBase {
   @Override
   public void initialize() {
   }
+
+  // public double ramp(double currentValue){
+  //   if(Math.signum(previousValue) == Math.signum(currentValue)){
+  //     if(currentValue - previousValue > MAX_STEP){
+  //       return previousValue += MAX_STEP;
+  //     } else {
+  //       previousValue = currentValue;
+  //       return currentValue;
+  //     }
+  //   }
+  //   previousValue = currentValue;
+  //   return currentValue;    
+  // }
+
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

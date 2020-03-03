@@ -5,22 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Vision;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
-  private Shooter shooter;
+public class BasicVisionAlign extends CommandBase {
+  private Vision vision;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new BasicVisionAlign.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
+  public BasicVisionAlign(Vision vision) {
+    addRequirements(vision);
+    this.vision = vision;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,21 +30,12 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    SmartDashboard.putBoolean("Has Target:", vision.hasTarget());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
   }
 
   // Returns true when the command should end.
