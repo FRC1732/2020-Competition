@@ -31,7 +31,6 @@ import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
-import frc.robot.commands.ControlPanel.PositionControl;
 import frc.robot.commands.ControlPanel.ToggleControlPanelTrenchState;
 import frc.robot.commands.Indexer.IndexerOverride;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
@@ -41,9 +40,11 @@ import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
-import frc.robot.commands.Shooter.ShooterManualDown;
+import frc.robot.commands.Shooter.MaintainRPMClose;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
+import frc.robot.commands.Shooter.TestMotors;
+import frc.robot.commands.Vision.BasicVisionAlign;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -87,7 +88,7 @@ public class RobotContainer {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private AutomomousShooting automomousShooting;
-  private FiveBallShooting fiveBallShooting; 
+  private FiveBallShooting fiveBallShooting;
 
   private SendableChooser<String> autoModeOptions;
 
@@ -124,6 +125,7 @@ public class RobotContainer {
   // Composed triggers
   private Trigger shoot;
   private Trigger climb;
+  private Trigger closeShoot;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -150,11 +152,12 @@ public class RobotContainer {
     configureButtonBindings();
 
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
+    vision.setDefaultCommand(new BasicVisionAlign(vision));
 
     RobotProperties.load();
 
     initShuffleboard();
-    
+
   }
 
   private void defineButtons() {
@@ -194,6 +197,7 @@ public class RobotContainer {
 
     // Trigger declaration
     shoot = smartShooter.and(o_maintainRPM);
+    closeShoot = smartShooter.and(o_toggleHardstops);
     climb = o_enableClimb.and(o_manualUp);
     
 
@@ -217,10 +221,10 @@ public class RobotContainer {
     // visionAlign.whileHeld(new VisionAlign(vision));
 
     // Operator1Joystick button configuration
-    o_indexerOverride.whenPressed(new IndexerOverride(indexer));
+    o_indexerOverride.whenHeld(new IndexerOverride(indexer));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
-    o_positionControl.whenPressed(new PositionControl(controlPanel));
+    // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
     o_maintainRPM.whenActive(new MaintainRPM(shooter));
     o_maintainRPM.whenInactive(new StopMotors(shooter));
@@ -228,9 +232,9 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
 
     // Operator2Joystick button configuration
-    // o_toggleHardstops.whileHeld(new ToggleHardstops(Shooter));
+    o_toggleHardstops.whileHeld(new MaintainRPMClose(shooter));
     o_toggleControlPanel.whenPressed(new ToggleControlPanelTrenchState(controlPanel));
-    o_shooterSpeedDown.whenPressed(new ShooterManualDown(shooter));
+    o_shooterSpeedDown.whenHeld(new TestMotors(shooter));
     o_shooterSpeedUp.whenPressed(new ShooterManualUp(shooter));
 
     // Trigger declaration
@@ -256,7 +260,7 @@ public class RobotContainer {
    */ 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-
+    
     //Command selectAutoCommand = new SelectCommand(Map.ofEntries(
       //Map.entry("Drive forward", )
     //), selector)
@@ -267,7 +271,7 @@ public class RobotContainer {
     selectableCommands.put(FIVE_BALL_SHOOTING, fiveBallShooting) ;
     
     Supplier<Object> selector = this::getOperatingAutoCommand;
-    
+
     return new SelectCommand(selectableCommands, selector);
   }
 
@@ -276,5 +280,5 @@ public class RobotContainer {
     String selected = autoModeOptions.getSelected();
     System.out.println(" hey selected option is "+selected);
     return selected;
-  }
+    }
 }
