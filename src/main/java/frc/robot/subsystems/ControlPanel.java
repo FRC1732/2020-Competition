@@ -88,9 +88,9 @@ public class ControlPanel extends SubsystemBase {
 
   public void ProcessGameData(){
     switch(DriverStation.getInstance().getGameSpecificMessage()){
-      case("R"): gameData = Color.kCyan; break;
+      case("R"): gameData = Color.kRed; break;
       case("G"): gameData = Color.kGreen; break;
-      case("B"): gameData = Color.kRed; break;
+      case("B"): gameData = Color.kCyan; break;
       case("Y"): gameData = Color.kYellow; break;
     }
   }
