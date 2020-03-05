@@ -29,6 +29,7 @@ import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.DisableClimb;
 import frc.robot.commands.Climber.EnableClimb;
+import frc.robot.commands.Climber.ManualDown;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.Indexer.FeedShooter;
@@ -43,6 +44,7 @@ import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.BasicVisionAlign;
+import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -205,7 +207,7 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    smartShooter.whenPressed(new TestCommand());
+    //smartShooter.whenPressed();
 
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard
@@ -216,6 +218,8 @@ public class RobotContainer {
     o_manualSpeedDown.whenPressed(new ShooterManualDown(shooter));
     o_maintainRPM.whenActive(new MaintainRPM(shooter, operatorJoystick));
     o_maintainRPM.whenInactive(new StopMotors(shooter));
+    o_unallocatedButton.whenActive(new ToggleLimelightLEDS(vision));
+    o_unallocatedButton.whenInactive(new ToggleLimelightLEDS(vision));
     o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
     o_intake.whenHeld(new IntakeCells(intake));
@@ -228,8 +232,8 @@ public class RobotContainer {
     shoot.whenInactive(new StopSmartShooter(shooter, indexer));
     climbUp.whenActive(new ManualUp(climber));
     climbUp.whenInactive(new StopClimber(climber));
-    // climbDown.whenActive(new ManualDown(climber));
-    // climbDown.whenInactive(new StopClimber(climber));
+    climbDown.whenActive(new ManualDown(climber));
+    climbDown.whenInactive(new StopClimber(climber));
   }
 
   private void initShuffleboard(){

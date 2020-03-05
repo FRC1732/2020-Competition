@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,6 +20,7 @@ public class Climber extends SubsystemBase {
    */
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
+  private Solenoid brakingSolenoid;
   private double leftSet = .5;
   private double rightSet = .5;
 
@@ -26,6 +28,7 @@ public class Climber extends SubsystemBase {
   public Climber() {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
     climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
+    brakingSolenoid = new Solenoid(Constants.CLIMBER_BRAKING_SOLENOID);
 
     climberLeft.configFactoryDefault();
     climberRight.configFactoryDefault();
@@ -54,9 +57,24 @@ public class Climber extends SubsystemBase {
     }
   }
 
+  public void setBrakeEnabled(){
+    brakingSolenoid.set(true);
+  }
+
+  public void setBrakeDisabled(){
+    brakingSolenoid.set(false);
+  }
+
   public void manualUp(){
+    setBrakeDisabled();
     setRight(rightSet);
     setLeft(leftSet);
+  }
+
+  public void manualDown(){
+    setBrakeDisabled();
+    setRight(-rightSet);
+    setLeft(-leftSet);
   }
   
   private double getProportion(double high, double low){
@@ -64,6 +82,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void stopMotors(){
+    setBrakeEnabled();
     setLeft(0);
     setRight(0);
   }

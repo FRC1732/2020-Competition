@@ -10,12 +10,12 @@ package frc.robot.commands.Climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
-public class ManualUp extends CommandBase {
+public class ManualDown extends CommandBase {
   private Climber climber;
   /**
-   * Creates a new ManualUp.
+   * Creates a new ManualDown.
    */
-  public ManualUp(Climber climber) {
+  public ManualDown(Climber climber) {
     addRequirements(climber);
     this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +29,7 @@ public class ManualUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.manualUp();
+    climber.manualDown();
   }
 
   // Called once the command ends or is interrupted.
