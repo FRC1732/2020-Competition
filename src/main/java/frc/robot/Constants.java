@@ -25,7 +25,7 @@ public final class Constants {
     //Climber mapping
     public static final int CLIMBER_RIGHT_ID = 13;
     public static final int CLIMBER_LEFT_ID = 32;
-    public static final int CLIMBER_BRAKING_SOLENOID = 1;
+    public static final int CLIMBER_BRAKING_SOLENOID = 2;
 
     //As of now it doesn't look like the below two features are in the picture
     //public static final int CLIMBER_DRIVE_ID = 17;
