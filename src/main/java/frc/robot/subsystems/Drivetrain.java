@@ -91,12 +91,12 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setOpenLoopRampRate(0.5);
     rightMaster.setOpenLoopRampRate(0.5);
 
-    leftMaster.setSmartCurrentLimit(20);
-    rightMaster.setSmartCurrentLimit(30);
-    right1.setSmartCurrentLimit(30);
-    right2.setSmartCurrentLimit(30);
-    left1.setSmartCurrentLimit(20);
-    left2.setSmartCurrentLimit(20);
+    leftMaster.setSmartCurrentLimit(30);
+    rightMaster.setSmartCurrentLimit(40);
+    right1.setSmartCurrentLimit(40);
+    right2.setSmartCurrentLimit(40);
+    left1.setSmartCurrentLimit(30);
+    left2.setSmartCurrentLimit(30);
   }
   // starts the motors
   public void set(double left, double right) {
@@ -110,17 +110,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double turnValue, double throttleValue){
-    leftMaster.set(throttleValue+turnValue + skim(throttleValue-turnValue));
-    rightMaster.set(throttleValue-turnValue + skim(throttleValue+turnValue));
-  }
-
-  public double skim(double value){
-    if(value > 1){
-      return value - 1;
-    } else if (value < -1){
-      return 1 - value;
-    }
-    return 0;
+    leftMaster.set(throttleValue+turnValue);
+    rightMaster.set(throttleValue-turnValue);
   }
 
   public double getLeftEncoder(){

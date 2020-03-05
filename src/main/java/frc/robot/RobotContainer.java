@@ -279,20 +279,20 @@ public class RobotContainer {
       //Map.entry("Drive forward", )
     //), selector)
 
-    Map<Object, Command> selectableCommands = new HashMap<>();
-    selectableCommands.put(AUTONOMOUS_SHOOTING, automomousShooting);
-    selectableCommands.put(FIVE_BALL_SHOOTING, fiveBallShooting) ;
-    selectableCommands.put(THREE_BALL, threeBall);
+    // Map<Object, Command> selectableCommands = new HashMap<>();
+    // selectableCommands.put(AUTONOMOUS_SHOOTING, automomousShooting);
+    // selectableCommands.put(FIVE_BALL_SHOOTING, fiveBallShooting) ;
+    // selectableCommands.put(THREE_BALL, threeBall);
     
-    Supplier<Object> selector = this::getOperatingAutoCommand;
+    // Supplier<Object> selector = this::getOperatingAutoCommand;
 
-    return threeBall; //new SelectCommand(selectableCommands, selector);
+    return null; //new SelectCommand(selectableCommands, selector);
   }
 
-  private String getOperatingAutoCommand() {
-    // select value from shuffle board
-    String selected = autoModeOptions.getSelected();
-    System.out.println(" hey selected option is "+selected);
-    return selected;
-    }
+  // private String getOperatingAutoCommand() {
+  //   // select value from shuffle board
+  //   String selected = autoModeOptions.getSelected();
+  //   System.out.println(" hey selected option is "+selected);
+  //   return selected;
+  //   }
 }

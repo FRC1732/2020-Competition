@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -21,8 +22,8 @@ public class Climber extends SubsystemBase {
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
   private Solenoid brakingSolenoid;
-  private double leftSet = 1;
-  private double rightSet = 1;
+  private double leftSet = .25;
+  private double rightSet = .25;
 
 
   public Climber() {
@@ -30,6 +31,8 @@ public class Climber extends SubsystemBase {
     climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
     climberLeft.configFactoryDefault();
     climberRight.configFactoryDefault();
+    climberLeft.setNeutralMode(NeutralMode.Brake);
+    climberRight.setNeutralMode(NeutralMode.Brake);
     climberLeft.setInverted(true);
     brakingSolenoid = new Solenoid(Constants.CLIMBER_BRAKING_SOLENOID);
     setBrakeEnabled();
