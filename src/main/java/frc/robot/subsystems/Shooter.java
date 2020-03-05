@@ -41,6 +41,8 @@ public class Shooter extends SubsystemBase {
 
     shooterFollower.setInverted(true);
     shooterFollower.follow(shooterMaster);
+
+    shooterMaster.configClosedloopRamp(.1);
   }
 
   public void testMotors(){
@@ -64,18 +66,15 @@ public class Shooter extends SubsystemBase {
   public void setShooterMode(double y){
     if(y > .5 ){
       setPoint = far;
+      SmartDashboard.putString("Shooter Mode", "Far");
     } else if(y < .5) {
       setPoint = close;
+      SmartDashboard.putString("Shooter Mode", "Close");
     } else {
       setPoint = normal;
+      SmartDashboard.putString("Shooter Mode", "Normal");
     }
 
-  }
-
-  public void putShooterMode(){
-    if(setPoint == far) SmartDashboard.putString("Shooter Mode", "Far");
-    if(setPoint == close) SmartDashboard.putString("Shooter Mode", "Close");
-    if(setPoint == normal) SmartDashboard.putString("Shooter Mode", "Normal");
   }
 
   public void manualUp(){
