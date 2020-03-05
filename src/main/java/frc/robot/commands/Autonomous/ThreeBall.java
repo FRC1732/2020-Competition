@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
@@ -19,23 +20,25 @@ public class ThreeBall extends CommandBase {
    */
   private Shooter shooter; 
   private Indexer indexer;
-  public ThreeBall(Shooter shooter,Indexer indexer) {
+  private Joystick joystick;
+  public ThreeBall(Shooter shooter,Indexer indexer, Joystick joystick) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter, indexer);
     this.shooter = shooter; 
     this.indexer = indexer;
+    this.joystick = joystick;
     }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.maintainRPM();
+    shooter.maintainRPM(joystick.getY());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    new SmartShooter(indexer, shooter);
+    new SmartShooter(indexer, shooter, joystick);
   }
 
   // Called once the command ends or is interrupted.
