@@ -197,7 +197,7 @@ public class RobotContainer {
     o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP);
 
     // Trigger declaration
-    shoot = smartShooter;//.and(o_maintainRPM);
+    shoot = smartShooter.and(o_maintainRPM);
     closeShoot = smartShooter.and(o_toggleHardstops);
     climb = o_enableClimb.and(o_manualUp);
     
@@ -227,8 +227,8 @@ public class RobotContainer {
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
-    smartShooter.whenActive(new MaintainRPM(shooter));
-    smartShooter.whenInactive(new StopMotors(shooter));
+    o_maintainRPM.whenActive(new MaintainRPM(shooter));
+    o_maintainRPM.whenInactive(new StopMotors(shooter));
     o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
 

@@ -47,15 +47,11 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
     right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
     right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
-
-    
-
    
     leftMaster.restoreFactoryDefaults();
     left1.restoreFactoryDefaults();
     left2.restoreFactoryDefaults();
  
-
     rightMaster.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
     right2.restoreFactoryDefaults();
@@ -63,8 +59,6 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setInverted(false);
     left1.setInverted(false);
     left2.setInverted(false);
-  
-    
   
     rightMaster.setInverted(true);
     right1.setInverted(true);
@@ -103,8 +97,6 @@ public class Drivetrain extends SubsystemBase {
     right2.setSmartCurrentLimit(30);
     left1.setSmartCurrentLimit(20);
     left2.setSmartCurrentLimit(20);
-
-    
   }
   // starts the motors
   public void set(double left, double right) {
