@@ -109,10 +109,19 @@ public class Drivetrain extends SubsystemBase {
 	  rightMaster.set(0);
   }
 
-  public void lockSteering(double value){
-    leftMaster.set(value);
-    rightMaster.set(value);
-  }
+  // public void arcadeDrive(double xValue, double yValue){
+  //   leftMaster.set(yValue+xValue);
+  //   rightMaster.set(yValue-xValue);
+    
+  // }
+
+  // public double getArcadeLeftMotor(){
+
+  // }
+  // public double getArcadeRightMotor(){
+
+  // }
+
   public double getLeftEncoder(){
     return leftMaster.getEncoder().getPosition();
   }

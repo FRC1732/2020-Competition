@@ -15,16 +15,15 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.Drivetrain.DriveWithJoysticks;
+import frc.robot.commands.Drivetrain.LockSteering;
 import frc.robot.commands.PrintCommand;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Autonomous.ThreeBall;
-import frc.robot.commands.Drivetrain.DriveWithJoysticks;
-import frc.robot.commands.Drivetrain.LockSteering;
 import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.SetShooterMode;
@@ -132,7 +131,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
-    shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
+    //shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
 
     RobotProperties.load();
 
@@ -245,11 +244,11 @@ public class RobotContainer {
   }
 
   private void initShuffleboard(){
-    autoModeOptions = new SendableChooser<>();
-    autoModeOptions.setDefaultOption(THREE_BALL, THREE_BALL);
-    autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
-    autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
-    SmartDashboard.putData("Auto selection", autoModeOptions);
+    // autoModeOptions = new SendableChooser<>();
+    // autoModeOptions.setDefaultOption(THREE_BALL, THREE_BALL);
+    // autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
+    // autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
+    // SmartDashboard.putData("Auto selection", autoModeOptions);
   }
 
   /**
