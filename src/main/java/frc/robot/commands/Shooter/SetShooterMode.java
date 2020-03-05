@@ -32,7 +32,6 @@ public class SetShooterMode extends CommandBase {
   @Override
   public void execute() {
     shooter.setShooterMode(joystick.getY());
-    shooter.putShooterMode();
   }
 
   // Called once the command ends or is interrupted.

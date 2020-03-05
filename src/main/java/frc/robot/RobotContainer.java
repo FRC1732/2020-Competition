@@ -38,6 +38,7 @@ import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
+import frc.robot.commands.Shooter.SetShooterMode;
 import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
@@ -146,7 +147,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new TankDrive(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
-    //shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
+    shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
 
     RobotProperties.load();
 
