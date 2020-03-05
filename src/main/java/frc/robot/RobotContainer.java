@@ -147,7 +147,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new TankDrive(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
-    shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
+    //shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
 
     RobotProperties.load();
 

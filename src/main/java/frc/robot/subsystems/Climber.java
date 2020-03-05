@@ -21,25 +21,22 @@ public class Climber extends SubsystemBase {
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
   private Solenoid brakingSolenoid;
-  private double leftSet = .5;
-  private double rightSet = .5;
+  private double leftSet = 1;
+  private double rightSet = 1;
 
 
   public Climber() {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
     climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
+    climberLeft.configFactoryDefault();
+    climberRight.configFactoryDefault();
+    climberLeft.setInverted(true);
     brakingSolenoid = new Solenoid(Constants.CLIMBER_BRAKING_SOLENOID);
     setBrakeEnabled();
 
-    climberLeft.configFactoryDefault();
-    climberRight.configFactoryDefault();
+    
     
   }
-
-  //need button to control each motor
-  /**
-   * @param climberLeft the climberLeft to set
-   */
 
   // Sets the right climber motor
   public void setRight(double right) {
@@ -50,20 +47,20 @@ public class Climber extends SubsystemBase {
     climberLeft.set(ControlMode.PercentOutput, left);
   }
 
-  public void voltageDrive(){
-    if(climberLeft.getMotorOutputVoltage() > climberRight.getMotorOutputVoltage()){
-      rightSet *= getProportion(climberLeft.getMotorOutputVoltage(), climberRight.getMotorOutputVoltage());
-    } else {
-      leftSet *= getProportion(climberRight.getMotorOutputVoltage(), climberLeft.getMotorOutputVoltage());
-    }
-  }
+  // public void voltageDrive(){
+  //   if(climberLeft.getMotorOutputVoltage() > climberRight.getMotorOutputVoltage()){
+  //     rightSet *= getProportion(climberLeft.getMotorOutputVoltage(), climberRight.getMotorOutputVoltage());
+  //   } else {
+  //     leftSet *= getProportion(climberRight.getMotorOutputVoltage(), climberLeft.getMotorOutputVoltage());
+  //   }
+  // }
 
   public void setBrakeEnabled(){
-    brakingSolenoid.set(true);
+    brakingSolenoid.set(false);
   }
 
   public void setBrakeDisabled(){
-    brakingSolenoid.set(false);
+    brakingSolenoid.set(true);
   }
 
   public void manualUp(){

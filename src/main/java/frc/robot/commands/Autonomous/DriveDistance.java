@@ -16,16 +16,14 @@ public class DriveDistance extends CommandBase {
   private double distance;
   private double leftStart;
   private double rightStart;
-  private Intake intake;
   /**
    * Creates a new DriveDistance.
    */
-  public DriveDistance(Drivetrain drivetrain, double distance, Intake intake) {
+  public DriveDistance(Drivetrain drivetrain, double distance) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain, intake);
+    addRequirements(drivetrain);
     this.distance = distance;
     this.drivetrain = drivetrain;
-    this.intake = intake; 
   }
 // Called when the command is initially scheduled.
   @Override
@@ -37,16 +35,14 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.set(-0.2 * Math.signum(distance), -0.2 * Math.signum(distance));
-    intake.intakeCells();
-    
+    drivetrain.set(-0.2 * Math.signum(distance), -0.2 * Math.signum(distance));   
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drivetrain.set(0,0);
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
