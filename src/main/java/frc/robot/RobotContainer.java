@@ -30,6 +30,7 @@ import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Climber.DisableClimb;
 import frc.robot.commands.Climber.EnableClimb;
 import frc.robot.commands.Climber.ManualDown;
+import frc.robot.commands.Autonomous.ThreeBall;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.Indexer.FeedShooter;
@@ -138,7 +139,7 @@ public class RobotContainer {
 
 
     // commands
-    driveForward = new DriveForward(drivetrain);
+    driveForward = new DriveForward(drivetrain, intake, shooter, indexer);
     automomousShooting = new AutomomousShooting(drivetrain);
 
     // Define Buttons
@@ -241,7 +242,7 @@ public class RobotContainer {
     autoModeOptions.setDefaultOption(DRIVE_FORWARD, DRIVE_FORWARD);
     autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
     autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
-    SmartDashboard.putData("Auto data", autoModeOptions);
+    SmartDashboard.putData("Auto selection", autoModeOptions);
   }
 
   /**
@@ -263,7 +264,7 @@ public class RobotContainer {
     
     Supplier<Object> selector = this::getOperatingAutoCommand;
 
-    return new SelectCommand(selectableCommands, selector);
+    return driveForward; //new SelectCommand(selectableCommands, selector);
   }
 
   private String getOperatingAutoCommand() {

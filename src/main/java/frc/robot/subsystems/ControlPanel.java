@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
@@ -25,8 +26,10 @@ public class ControlPanel extends SubsystemBase {
   private Solenoid controlPanelTrench;
   private final I2C.Port i2cPort;
   private final ColorSensorV3 colorSensor;
+  private Color gameData;
+  private Color startingColor;
 
-  public ControlPanel() {
+  public ControlPanel() {    
     controlPanelMotor = new VictorSPX(Constants.CONTROLPANELMANIP_MOTOR_ID);
     controlPanelTrench = new Solenoid(Constants.CONTROLPANELMANIP_TRENCH_SOLENOID_ID);
     i2cPort = I2C.Port.kOnboard;
@@ -52,11 +55,56 @@ public class ControlPanel extends SubsystemBase {
   public void toggleControlPanelTrenchState() {
     controlPanelTrench.set(!controlPanelTrench.get());
   }
-  
-  public void rotation() {
+
+  public void setStartingColor(){
+    startingColor = roundColor(readColor());
   }
 
-  public void position() {
+  public Boolean atPosition(){
+    return readColor().equals(gameData);
+  }
+
+  public Color roundColor(Color c){
+    double red = c.red;
+    double blue = c.blue; 
+    double green = c.green;
+    if(red > .5) {
+      red = 1;
+    } else {
+      red =0;
+    }
+    if(blue > .5) {
+      blue = 1;
+    } else {
+      blue =0;
+    }
+    if(green > .5) {
+      green = 1;
+    } else {
+      green =0;
+    }
+    return new Color(red,green,blue);
+  }
+
+  public void ProcessGameData(){
+    switch(DriverStation.getInstance().getGameSpecificMessage()){
+      case("R"): gameData = Color.kRed; break;
+      case("G"): gameData = Color.kGreen; break;
+      case("B"): gameData = Color.kCyan; break;
+      case("Y"): gameData = Color.kYellow; break;
+    }
+  }
+  
+  public void spinMotor(){
+    controlPanelMotor.set(ControlMode.PercentOutput, .5);
+  }
+
+  public void stopMotor(){
+    controlPanelMotor.set(ControlMode.PercentOutput, 0);
+  }
+  
+  public void rotation() {
+
   }
 
   @Override

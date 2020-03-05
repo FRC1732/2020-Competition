@@ -23,7 +23,10 @@ public class Shooter extends SubsystemBase {
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
-  private int setPoint = 135000;
+  private int setPoint = 75000;
+  private int normal = 75000;
+  private int close = 85000;
+  private int far = 95000;
   private int deadband = 1000;
 
   public Shooter() {
@@ -49,7 +52,7 @@ public class Shooter extends SubsystemBase {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
-      shooterMaster.set(ControlMode.PercentOutput, .85);
+      shooterMaster.set(ControlMode.PercentOutput, .65);
     }
     putFlywheelSpeed();
     return shooterMaster.getSelectedSensorVelocity() > setPoint-deadband;
@@ -60,16 +63,14 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooterMode(double y){
-    if(y == 1){
-      setPoint = 135000;
-      SmartDashboard.putString("Shooter Mode", "High");
-    } else if(y == .5){
-      setPoint = 125000;
-      SmartDashboard.putString("Shooter Mode", "Medium");
-    } else if(y == 0){
-      setPoint = 115000;
-      SmartDashboard.putString("Shooter Mode", "Low");
+    if(y > .5 ){
+      setPoint = far;
+    } else if(y < .5) {
+      setPoint = close;
+    } else {
+      setPoint = normal;
     }
+
   }
 
   public void putShooterMode(){

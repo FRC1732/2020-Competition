@@ -7,8 +7,11 @@
 
 package frc.robot.subsystems;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.revrobotics.AlternateEncoderType;
+import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -44,14 +47,11 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
     right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
     right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
-
-    leftMaster.setOpenLoopRampRate(.5);
-    rightMaster.setOpenLoopRampRate(.5);
-
+   
     leftMaster.restoreFactoryDefaults();
     left1.restoreFactoryDefaults();
     left2.restoreFactoryDefaults();
-
+ 
     rightMaster.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
     right2.restoreFactoryDefaults();
@@ -59,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setInverted(false);
     left1.setInverted(false);
     left2.setInverted(false);
-
+  
     rightMaster.setInverted(true);
     right1.setInverted(true);
     right2.setInverted(true);
@@ -88,6 +88,15 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.getEncoder().setPosition(0);
     rightMaster.getEncoder().setPosition(0);
     
+    leftMaster.setOpenLoopRampRate(0.5);
+    rightMaster.setOpenLoopRampRate(0.5);
+
+    leftMaster.setSmartCurrentLimit(20);
+    rightMaster.setSmartCurrentLimit(30);
+    right1.setSmartCurrentLimit(30);
+    right2.setSmartCurrentLimit(30);
+    left1.setSmartCurrentLimit(20);
+    left2.setSmartCurrentLimit(20);
   }
   // starts the motors
   public void set(double left, double right) {
@@ -105,11 +114,78 @@ public class Drivetrain extends SubsystemBase {
   public double getRightEncoder(){
     return rightMaster.getEncoder().getPosition();
   }
+  public double getAlternateRightEncoder() {
+    return rightMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature,256).getPosition();
+  }
+  public double getAlternateLeftEncoder(){
+    return leftMaster.getAlternateEncoder(AlternateEncoderType.kQuadrature,256).getPosition();
+  }
+  public boolean getForwardRightLimitSwitch(){
+    return rightMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getForwardLeftLimitSwitch(){
+    return leftMaster.getForwardLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getReverseRightLimitSwitch(){
+    return rightMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
+  public boolean getReverseLeftLimitSwitch() {
+    return leftMaster.getReverseLimitSwitch(CANDigitalInput.LimitSwitchPolarity.kNormallyOpen).get();
+  }
   private void initializeEncodersStuff(){
-    Shuffleboard.getTab("SmartDashboard").addNumber("left Encoder", leftEncoderSupplier);
-    Shuffleboard.getTab("SmartDashboard").addNumber("right Encoder", rightEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Left Encoder", leftEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Right Encoder", rightEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Left", leftAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addNumber("Alternate Right", rightAlternateEncoderSupplier);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Left Limit Switch", ForwardLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Forward Right Limit Switch", ForwardRightLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Left Limit Switch", ReverseLeftLimitSwitch);
+    Shuffleboard.getTab("SmartDashboard").addBoolean("Reverse Right Limit Switch", ReverseRightLimitSwitch);
+    
   }
   
+  BooleanSupplier ForwardLeftLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ForwardRightLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getForwardRightLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseLeftLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseLeftLimitSwitch();
+    }
+  };
+  BooleanSupplier ReverseRightLimitSwitch =  new BooleanSupplier(){
+    @Override
+    public boolean getAsBoolean() {
+      // TODO Auto-generated method stub
+      return getReverseRightLimitSwitch();
+    }
+  };
+  DoubleSupplier leftAlternateEncoderSupplier =  new DoubleSupplier(){
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateLeftEncoder();
+    }
+  };
+  DoubleSupplier rightAlternateEncoderSupplier =  new DoubleSupplier(){
+    @Override
+    public double getAsDouble() {
+      // TODO Auto-generated method stub
+      return getAlternateRightEncoder();
+    }
+  };
   DoubleSupplier leftEncoderSupplier =  new DoubleSupplier(){
   
     @Override
