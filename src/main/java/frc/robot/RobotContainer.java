@@ -18,16 +18,31 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Drivetrain.DriveWithJoysticks;
-import frc.robot.commands.Drivetrain.LockSteering;
-import frc.robot.commands.PrintCommand;
+import frc.robot.commands.SmartShooter;
+import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Autonomous.ThreeBall;
+import frc.robot.commands.Climber.DisableClimb;
+import frc.robot.commands.Climber.EnableClimb;
+import frc.robot.commands.Climber.ManualDown;
+import frc.robot.commands.Climber.ManualUp;
+import frc.robot.commands.Climber.StopClimber;
+import frc.robot.commands.Drivetrain.ArcadeDrive;
+import frc.robot.commands.Drivetrain.TankDrive;
+import frc.robot.commands.Indexer.FeedShooter;
+import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
+import frc.robot.commands.Intake.ReverseIntakeCells;
+import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
+import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
-import frc.robot.commands.Shooter.SetShooterMode;
+import frc.robot.commands.Shooter.MaintainRPM;
+import frc.robot.commands.Shooter.ShooterManualDown;
+import frc.robot.commands.Shooter.ShooterManualUp;
+import frc.robot.commands.Shooter.StopMotors;
 import frc.robot.commands.Vision.BasicVisionAlign;
+import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -129,7 +144,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
+    drivetrain.setDefaultCommand(new TankDrive(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
     //shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
 
@@ -190,57 +205,57 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    lockSteering.whileHeld(new LockSteering(drivetrain, rightJoystick));
+    lockSteering.whileHeld(new ArcadeDrive(drivetrain, rightJoystick));
 
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard
     
-    // o_enableClimb.whenActive(new EnableClimb());
-    // o_enableClimb.whenInactive(new DisableClimb());
-    o_enableClimb.whenActive(new PrintCommand("o_enableClimb active"));
-    o_enableClimb.whenInactive(new PrintCommand("o_enableClimb inactive"));
-    // o_manualSpeedUp.whenPressed(new ShooterManualUp(shooter));
-    o_manualSpeedUp.whenPressed(new PrintCommand("o_manualSpeedUp pressed"));
-    // o_manualSpeedDown.whenPressed(new ShooterManualDown(shooter));
-    o_manualSpeedDown.whenPressed(new PrintCommand("o_manualSpeedDown pressed"));
-    // o_maintainRPM.whenActive(new MaintainRPM(shooter, operatorJoystick));
-    // o_maintainRPM.whenInactive(new StopMotors(shooter));
-    o_maintainRPM.whenActive(new PrintCommand("o_maintainRPM active"));
-    o_maintainRPM.whenInactive(new PrintCommand("o_maintainRPM inactive"));
-    // o_unallocatedButton.whenActive(new ToggleLimelightLEDS(vision));
-    // o_unallocatedButton.whenInactive(new ToggleLimelightLEDS(vision));
-    o_unallocatedButton.whenActive(new PrintCommand("o_unallocatedButton active"));
-    o_unallocatedButton.whenInactive(new PrintCommand("o_unallocatedButton inactive"));
-    // o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
-    // o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
-    o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
-    o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
-    // o_intake.whenHeld(new IntakeCells(intake));
-    o_intake.whenActive(new PrintCommand("o_intake active"));
-    o_intake.whenInactive(new PrintCommand("o_intake inactive"));
-    // o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
-    o_reverseIntake.whenActive(new PrintCommand("o_reverseIntake active"));
-    o_reverseIntake.whenInactive(new PrintCommand("o_reverseIntake inactive"));
-    // o_feedShooter.whenHeld(new FeedShooter(indexer));
-    o_feedShooter.whenActive(new PrintCommand("o_feedShooter active"));
-    o_feedShooter.whenInactive(new PrintCommand("o_feedShooter inactive"));
-    // o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
-    o_reverseFeedShooter.whenActive(new PrintCommand("o_reverseFeedShooter active"));
-    o_reverseFeedShooter.whenInactive(new PrintCommand("o_reverseFeedShooter inactive"));
+    o_enableClimb.whenActive(new EnableClimb());
+    o_enableClimb.whenInactive(new DisableClimb());
+    // o_enableClimb.whenActive(new PrintCommand("o_enableClimb active"));
+    // o_enableClimb.whenInactive(new PrintCommand("o_enableClimb inactive"));
+    o_manualSpeedUp.whenPressed(new ShooterManualUp(shooter));
+    // o_manualSpeedUp.whenPressed(new PrintCommand("o_manualSpeedUp pressed"));
+    o_manualSpeedDown.whenPressed(new ShooterManualDown(shooter));
+    // o_manualSpeedDown.whenPressed(new PrintCommand("o_manualSpeedDown pressed"));
+    o_maintainRPM.whenActive(new MaintainRPM(shooter, operatorJoystick));
+    o_maintainRPM.whenInactive(new StopMotors(shooter));
+    // o_maintainRPM.whenActive(new PrintCommand("o_maintainRPM active"));
+    // o_maintainRPM.whenInactive(new PrintCommand("o_maintainRPM inactive"));
+    o_unallocatedButton.whenActive(new ToggleLimelightLEDS(vision));
+    o_unallocatedButton.whenInactive(new ToggleLimelightLEDS(vision));
+    // o_unallocatedButton.whenActive(new PrintCommand("o_unallocatedButton active"));
+    // o_unallocatedButton.whenInactive(new PrintCommand("o_unallocatedButton inactive"));
+    o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
+    o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
+    // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
+    // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
+    o_intake.whenHeld(new IntakeCells(intake));
+    // o_intake.whenActive(new PrintCommand("o_intake active"));
+    // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
+    o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
+    // o_reverseIntake.whenActive(new PrintCommand("o_reverseIntake active"));
+    // o_reverseIntake.whenInactive(new PrintCommand("o_reverseIntake inactive"));
+    o_feedShooter.whenHeld(new FeedShooter(indexer));
+    // o_feedShooter.whenActive(new PrintCommand("o_feedShooter active"));
+    // o_feedShooter.whenInactive(new PrintCommand("o_feedShooter inactive"));
+    o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
+    // o_reverseFeedShooter.whenActive(new PrintCommand("o_reverseFeedShooter active"));
+    // o_reverseFeedShooter.whenInactive(new PrintCommand("o_reverseFeedShooter inactive"));
 
     // // Trigger declaration
-    // shoot.whenActive(new SmartShooter(indexer, shooter, operatorJoystick));
-    // shoot.whenInactive(new StopSmartShooter(shooter, indexer));
-    shoot.whenActive(new PrintCommand("shoot active"));
-    shoot.whenInactive(new PrintCommand("shoot inactive"));
-    // climbUp.whenActive(new ManualUp(climber));
-    // climbUp.whenInactive(new StopClimber(climber));
-    climbUp.whenActive(new PrintCommand("climbUp active"));
-    climbUp.whenInactive(new PrintCommand("climbUp inactive"));
-    // climbDown.whenActive(new ManualDown(climber));
-    // climbDown.whenInactive(new StopClimber(climber));
-    climbDown.whenActive(new PrintCommand("climbDown active"));
-    climbDown.whenInactive(new PrintCommand("climbDown inactive"));
+    shoot.whenActive(new SmartShooter(indexer, shooter, operatorJoystick));
+    shoot.whenInactive(new StopSmartShooter(shooter, indexer));
+    // shoot.whenActive(new PrintCommand("shoot active"));
+    // shoot.whenInactive(new PrintCommand("shoot inactive"));
+    climbUp.whenActive(new ManualUp(climber));
+    climbUp.whenInactive(new StopClimber(climber));
+    // climbUp.whenActive(new PrintCommand("climbUp active"));
+    // climbUp.whenInactive(new PrintCommand("climbUp inactive"));
+    climbDown.whenActive(new ManualDown(climber));
+    climbDown.whenInactive(new StopClimber(climber));
+    // climbDown.whenActive(new PrintCommand("climbDown active"));
+    // climbDown.whenInactive(new PrintCommand("climbDown inactive"));
   }
 
   private void initShuffleboard(){
