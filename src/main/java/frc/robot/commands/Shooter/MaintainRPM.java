@@ -7,17 +7,20 @@
 
 package frc.robot.commands.Shooter;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class MaintainRPM extends CommandBase {
   Shooter shooter;
+  Joystick joystick;
   /**
    * Creates a new MaintainRPM.
    */
-  public MaintainRPM(Shooter shooter) {
+  public MaintainRPM(Shooter shooter, Joystick joystick) {
     addRequirements(shooter);
     this.shooter = shooter;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -29,7 +32,7 @@ public class MaintainRPM extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.maintainRPM();
+    shooter.maintainRPM(joystick.getY());
   }
 
   // Called once the command ends or is interrupted.

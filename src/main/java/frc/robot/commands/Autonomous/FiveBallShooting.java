@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.SmartShooter;
@@ -26,7 +27,7 @@ public class FiveBallShooting extends SequentialCommandGroup {
   /**
    * Creates a new FiveBallShooting.
    */
-  public FiveBallShooting(Drivetrain drivetrain, Intake intake, Indexer indexer, Shooter shooter ) {
+  public FiveBallShooting(Drivetrain drivetrain, Intake intake, Indexer indexer, Shooter shooter, Joystick joystick) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
 
@@ -34,11 +35,11 @@ public class FiveBallShooting extends SequentialCommandGroup {
      new ToggleIntakeSolenoidState(intake),
      new IntakeCells(intake), 
      new WaitCommand(3),
-     new MaintainRPM(shooter),  
+     new MaintainRPM(shooter, joystick),  
      new WaitCommand(2),
      new DrivetrainOff(drivetrain), 
      new StopIntake(intake), 
-     new SmartShooter(indexer, shooter) );
+     new SmartShooter(indexer, shooter, joystick));
     //super();
   }
 }

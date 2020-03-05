@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
@@ -14,13 +15,16 @@ import frc.robot.subsystems.Shooter;
 public class SmartShooter extends CommandBase {
   private Indexer indexer;
   private Shooter shooter;
+  private Joystick joystick;
   /**
    * Creates a new SmartShooter.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
+  public SmartShooter(Indexer indexer, Shooter shooter, Joystick joystick) {
     addRequirements(indexer, shooter);
     this.indexer = indexer;
     this.shooter = shooter;
+    this.joystick = joystick;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -32,7 +36,7 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
+    if(shooter.maintainRPM(joystick.getY())){
       indexer.feedShooter();
       indexer.forwardConveyor();
     } else {

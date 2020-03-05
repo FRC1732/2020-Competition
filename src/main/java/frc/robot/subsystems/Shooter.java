@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,7 +24,6 @@ public class Shooter extends SubsystemBase {
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
   private int setPoint = 135000;
-  private int closeSetpoint = 125000;
   private int deadband = 1000;
 
   public Shooter() {
@@ -44,26 +44,35 @@ public class Shooter extends SubsystemBase {
     shooterMaster.set(ControlMode.PercentOutput, 1);
   }
 
-  public boolean maintainRPM() {
+  public boolean maintainRPM(double d) {
+    setShooterMode(d);
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
       shooterMaster.set(ControlMode.PercentOutput, .85);
     }
-    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
-    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
+    putFlywheelSpeed();
     return shooterMaster.getSelectedSensorVelocity() > setPoint-deadband;
   }
 
-  public boolean maintainRPMClose() {
-    if(shooterMaster.getSelectedSensorVelocity() < closeSetpoint){
-      shooterMaster.set(ControlMode.PercentOutput, 1);
-    } else {
-      shooterMaster.set(ControlMode.PercentOutput, .85);
+  public void putFlywheelSpeed(){
+    SmartDashboard.putNumber("Flywheel Speed", shooterMaster.getSelectedSensorVelocity());
+  }
+
+  public void setShooterMode(double y){
+    if(y == 1){
+      setPoint = 135000;
+      SmartDashboard.putString("Shooter Mode", "High");
+    } else if(y == .5){
+      setPoint = 125000;
+      SmartDashboard.putString("Shooter Mode", "Medium");
+    } else if(y == 0){
+      setPoint = 115000;
+      SmartDashboard.putString("Shooter Mode", "Low");
     }
-    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
-    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
-    return shooterMaster.getSelectedSensorVelocity() > closeSetpoint-deadband;
+  }
+
+  public void putShooterMode(){
   }
 
   public void manualUp(){

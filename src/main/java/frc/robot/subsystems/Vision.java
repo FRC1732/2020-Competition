@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Vision extends SubsystemBase {
@@ -85,10 +86,16 @@ public class Vision extends SubsystemBase {
     camMode.setDouble(0);
   }
 
+
+
   //sets the limelight to function as a driver vision camera
   //this is used by toggleVisionMode
   public void setModeCamera(){
     camMode.setDouble(1);
+  }
+
+  public boolean isAligned(){
+    return(Math.abs(getY())) < 5;
   }
 
   //returns whether the limelight is functioning as a limelight or a vision camera
