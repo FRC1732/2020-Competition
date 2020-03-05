@@ -22,8 +22,8 @@ public class Shooter extends SubsystemBase {
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
-  private int setPoint = 135000;
-  private int closeSetpoint = 125000;
+  private int setPoint = 75000;
+  private int closeSetpoint = 85000;
   private int deadband = 1000;
 
   public Shooter() {
@@ -48,10 +48,11 @@ public class Shooter extends SubsystemBase {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
-      shooterMaster.set(ControlMode.PercentOutput, .85);
+      shooterMaster.set(ControlMode.PercentOutput, .65);
     }
     System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
     System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
+  
     return shooterMaster.getSelectedSensorVelocity() > setPoint-deadband;
   }
 

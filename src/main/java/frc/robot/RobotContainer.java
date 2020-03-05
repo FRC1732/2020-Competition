@@ -29,6 +29,7 @@ import frc.robot.commands.TestCommand;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.FiveBallShooting;
+import frc.robot.commands.Autonomous.ThreeBall;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
 import frc.robot.commands.ControlPanel.ToggleControlPanelTrenchState;
@@ -142,7 +143,7 @@ public class RobotContainer {
 
 
     // commands
-    driveForward = new DriveForward(drivetrain);
+    driveForward = new DriveForward(drivetrain, intake, shooter, indexer);
     automomousShooting = new AutomomousShooting(drivetrain);
 
     // Define Buttons
@@ -196,7 +197,7 @@ public class RobotContainer {
     o_manualUp = new JoystickButton(operator2Joystick, Constants.O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP);
 
     // Trigger declaration
-    shoot = smartShooter.and(o_maintainRPM);
+    shoot = smartShooter;//.and(o_maintainRPM);
     closeShoot = smartShooter.and(o_toggleHardstops);
     climb = o_enableClimb.and(o_manualUp);
     
@@ -226,8 +227,8 @@ public class RobotContainer {
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
     // o_positionControl.whenPressed(new PositionControl(ControlPanel));
     // o_rotationControl.whenPressed(new RotationControl(ControlPanel));
-    o_maintainRPM.whenActive(new MaintainRPM(shooter));
-    o_maintainRPM.whenInactive(new StopMotors(shooter));
+    smartShooter.whenActive(new MaintainRPM(shooter));
+    smartShooter.whenInactive(new StopMotors(shooter));
     o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
 
@@ -250,7 +251,7 @@ public class RobotContainer {
     autoModeOptions.setDefaultOption(DRIVE_FORWARD, DRIVE_FORWARD);
     autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
     autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
-    SmartDashboard.putData("Auto data", autoModeOptions);
+    SmartDashboard.putData("Auto selection", autoModeOptions);
   }
 
   /**
@@ -272,7 +273,7 @@ public class RobotContainer {
     
     Supplier<Object> selector = this::getOperatingAutoCommand;
 
-    return new SelectCommand(selectableCommands, selector);
+    return driveForward; //new SelectCommand(selectableCommands, selector);
   }
 
   private String getOperatingAutoCommand() {

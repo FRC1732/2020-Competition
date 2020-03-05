@@ -7,25 +7,28 @@
 
 package frc.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.SmartShooter;
+import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
+import frc.robot.commands.Shooter.MaintainRPM;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 public class DriveForward extends SequentialCommandGroup {
-  //private Drivetrain m_Drivetrain;
+  // private Drivetrain m_Drivetrain;
   /**
    * Creates a new DriveForward.
    */
-  public DriveForward(Drivetrain drivetrain) {
-    //m_Drivetrain = subsystem;
-    addCommands(new InstantCommand(drivetrain::resetEncoders, drivetrain), 
-    new DrivetrainOn(drivetrain), 
-    new WaitCommand(4), 
-    new DrivetrainOff(drivetrain) );
+  public DriveForward(Drivetrain drivetrain, Intake intake, Shooter shooter, Indexer indexer) {
+    // m_Drivetrain = subsystem;
+    addCommands( new ThreeBall(shooter, indexer)); // new ToggleIntakeSolenoidState(intake),new
+                                                  // DriveDistance(drivetrain,- 55, intake), new SmartShooter(indexer,
+                                                  // shooter) );
     
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand())

@@ -26,14 +26,21 @@ public class DrivetrainOn extends InstantCommand {
   @Override
   public void initialize() {
     final double SPEED = 0.2;
-    drivetrain.set(SPEED, SPEED);
-   if (drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() > 1 || drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() < -1){
-        if(drivetrain.getLeftEncoder() > drivetrain.getRightEncoder()){
-          drivetrain.set(SPEED - ((drivetrain.getLeftEncoder()-drivetrain.getRightEncoder())/100), SPEED);
-        }
-        else{
-          drivetrain.set(SPEED, SPEED - ((drivetrain.getRightEncoder()-drivetrain.getLeftEncoder())/100));
-        }
-   }
+    final double RIGHT_DISTANCE = 35;
+    final double LEFT_DISTANCE = 35;
+drivetrain.set(SPEED, SPEED);
+    //if(drivetrain.getLeftEncoder()> LEFT_DISTANCE && drivetrain.getRightEncoder() > ){
+     // drivetrain.set(0, 0);
+    //}
+
+
+  //if (drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() > 1 || drivetrain.getLeftEncoder() - drivetrain.getRightEncoder() < -1){
+        //if(drivetrain.getLeftEncoder() > drivetrain.getRightEncoder()){
+          //drivetrain.set(SPEED - ((drivetrain.getLeftEncoder()-drivetrain.getRightEncoder())/100), SPEED);
+        //}
+        //else{
+          //drivetrain.set(SPEED, SPEED - ((drivetrain.getRightEncoder()-drivetrain.getLeftEncoder())/100));
+       // }
+   //}
   }
 }
