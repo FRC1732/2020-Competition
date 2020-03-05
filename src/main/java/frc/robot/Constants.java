@@ -71,7 +71,7 @@ public final class Constants {
     
     //Note: all below buttons belong to RightJoystick
     public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
-    public static final int JOYSTICKBUTTON_TOGGLE_HARDSTOPS = 2;
+    public static final int JOYSTICKBUTTON_LOCK_STEERING = 2;
     public static final int JOYSTICKBUTTON_VISION_ALIGN = 3;
 
 

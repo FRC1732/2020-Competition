@@ -19,31 +19,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.DriveWithJoysticks;
 import frc.robot.commands.PrintCommand;
-import frc.robot.commands.SmartShooter;
-import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Autonomous.ThreeBall;
-import frc.robot.commands.Climber.DisableClimb;
-import frc.robot.commands.Climber.EnableClimb;
-import frc.robot.commands.Climber.ManualDown;
-import frc.robot.commands.Climber.ManualUp;
-import frc.robot.commands.Climber.StopClimber;
-import frc.robot.commands.Indexer.FeedShooter;
-import frc.robot.commands.Indexer.ReverseFeedShooter;
+import frc.robot.commands.Drivetrain.DriveWithJoysticks;
+import frc.robot.commands.Drivetrain.LockSteering;
 import frc.robot.commands.Intake.IntakeCells;
-import frc.robot.commands.Intake.ReverseIntakeCells;
-import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
-import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
-import frc.robot.commands.Shooter.MaintainRPM;
-import frc.robot.commands.Shooter.ShooterManualDown;
-import frc.robot.commands.Shooter.ShooterManualUp;
-import frc.robot.commands.Shooter.StopMotors;
+import frc.robot.commands.Shooter.SetShooterMode;
 import frc.robot.commands.Vision.BasicVisionAlign;
-import frc.robot.commands.Vision.ToggleLimelightLEDS;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Drivetrain;
@@ -96,7 +81,7 @@ public class RobotContainer {
 
   // RightJoystick Buttons
   private JoystickButton smartShooter;
-  private JoystickButton toggleHardStops;
+  private JoystickButton lockSteering;
   private JoystickButton visionAlign;
 
   // Operator Joysticks
@@ -147,6 +132,7 @@ public class RobotContainer {
 
     drivetrain.setDefaultCommand(new DriveWithJoysticks(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
+    shooter.setDefaultCommand(new SetShooterMode(shooter, operatorJoystick));
 
     RobotProperties.load();
 
@@ -165,7 +151,7 @@ public class RobotContainer {
 
     // Rightjoystick button declartion
     smartShooter = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_SMART_SHOOTER);
-    toggleHardStops = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_TOGGLE_HARDSTOPS);
+    lockSteering = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_LOCK_STEERING);
     visionAlign = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_VISION_ALIGN);
 
     // Operator joystick declaration
@@ -205,7 +191,7 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    //smartShooter.whenPressed();
+    lockSteering.whileHeld(new LockSteering(drivetrain, rightJoystick));
 
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard

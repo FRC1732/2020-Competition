@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -16,8 +16,8 @@ public class DriveWithJoysticks extends CommandBase {
   private Joystick rightJoystick;
   private Drivetrain drivetrain;
   //following doubles are for ramping 
-  private final double MAX_STEP = .5;
-  private double previousValue;
+  // private final double MAX_STEP = .5;
+  // private double previousValue;
 
   /**
    * Creates a new DriveWithJoysticks.

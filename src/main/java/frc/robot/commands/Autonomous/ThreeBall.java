@@ -32,7 +32,7 @@ public class ThreeBall extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.maintainRPM(joystick.getY());
+    shooter.maintainRPM();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

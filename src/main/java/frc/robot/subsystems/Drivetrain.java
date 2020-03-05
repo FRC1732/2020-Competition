@@ -108,6 +108,11 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.set(0);
 	  rightMaster.set(0);
   }
+
+  public void lockSteering(double value){
+    leftMaster.set(value);
+    rightMaster.set(value);
+  }
   public double getLeftEncoder(){
     return leftMaster.getEncoder().getPosition();
   }

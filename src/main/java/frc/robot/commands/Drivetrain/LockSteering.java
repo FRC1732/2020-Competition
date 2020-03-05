@@ -5,26 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Drivetrain;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
-  private Shooter shooter;
+public class LockSteering extends CommandBase {
+  private Drivetrain drivetrain;
   private Joystick joystick;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new LockSteering.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter, Joystick joystick) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
+  public LockSteering(Drivetrain drivetrain, Joystick joystick) {
+    addRequirements(drivetrain);
+    this.drivetrain = drivetrain;
     this.joystick = joystick;
-
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -36,21 +32,12 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    drivetrain.lockSteering(joystick.getY());
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
   }
 
   // Returns true when the command should end.

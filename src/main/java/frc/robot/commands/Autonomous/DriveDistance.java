@@ -7,10 +7,7 @@
 
 package frc.robot.commands.Autonomous;
 
-import javax.naming.ldap.StartTlsRequest;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.Intake.IntakeCells;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 

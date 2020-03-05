@@ -47,8 +47,7 @@ public class Shooter extends SubsystemBase {
     shooterMaster.set(ControlMode.PercentOutput, 1);
   }
 
-  public boolean maintainRPM(double d) {
-    setShooterMode(d);
+  public boolean maintainRPM() {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
@@ -74,6 +73,9 @@ public class Shooter extends SubsystemBase {
   }
 
   public void putShooterMode(){
+    if(setPoint == far) SmartDashboard.putString("Shooter Mode", "Far");
+    if(setPoint == close) SmartDashboard.putString("Shooter Mode", "Close");
+    if(setPoint == normal) SmartDashboard.putString("Shooter Mode", "Normal");
   }
 
   public void manualUp(){
