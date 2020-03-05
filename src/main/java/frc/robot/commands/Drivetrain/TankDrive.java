@@ -11,21 +11,22 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class DriveWithJoysticks extends CommandBase {
+public class TankDrive extends CommandBase {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
   private Drivetrain drivetrain;
-  //following doubles are for ramping 
+  // following doubles are for ramping
   // private final double MAX_STEP = .5;
   // private double previousValue;
 
   /**
    * Creates a new DriveWithJoysticks.
- * @param rightJoystick
- * @param leftJoystick
- * @param drivetrainSubsystem
+   * 
+   * @param rightJoystick
+   * @param leftJoystick
+   * @param drivetrainSubsystem
    */
-  public DriveWithJoysticks(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
+  public TankDrive(Joystick leftJoystick, Joystick rightJoystick, Drivetrain drivetrain) {
     addRequirements(drivetrain);
     this.leftJoystick = leftJoystick;
     this.rightJoystick = rightJoystick;

@@ -109,18 +109,19 @@ public class Drivetrain extends SubsystemBase {
 	  rightMaster.set(0);
   }
 
-  // public void arcadeDrive(double xValue, double yValue){
-  //   leftMaster.set(yValue+xValue);
-  //   rightMaster.set(yValue-xValue);
-    
-  // }
+  public void arcadeDrive(double turnValue, double throttleValue){
+    leftMaster.set(throttleValue+turnValue + skim(throttleValue-turnValue));
+    rightMaster.set(throttleValue-turnValue + skim(throttleValue+turnValue));
+  }
 
-  // public double getArcadeLeftMotor(){
-
-  // }
-  // public double getArcadeRightMotor(){
-
-  // }
+  public double skim(double value){
+    if(value > 1){
+      return value - 1;
+    } else if (value < -1){
+      return 1 - value;
+    }
+    return 0;
+  }
 
   public double getLeftEncoder(){
     return leftMaster.getEncoder().getPosition();
