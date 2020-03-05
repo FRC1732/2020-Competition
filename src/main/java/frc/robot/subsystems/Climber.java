@@ -67,13 +67,13 @@ public class Climber extends SubsystemBase {
   }
 
   public void manualUp(){
-    //setBrakeDisabled();
+    setBrakeDisabled();
     setRight(rightSet);
     setLeft(leftSet);
   }
 
   public void manualDown(){
-    //setBrakeDisabled();
+    setBrakeDisabled();
     setRight(-rightSet);
     setLeft(-leftSet);
   }
@@ -83,7 +83,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void stopMotors(){
-    //setBrakeEnabled();
+    setBrakeEnabled();
     setLeft(0);
     setRight(0);
   }
