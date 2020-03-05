@@ -29,6 +29,7 @@ public class Climber extends SubsystemBase {
     climberRight = new TalonSRX(Constants.CLIMBER_RIGHT_ID);
     climberLeft = new TalonSRX(Constants.CLIMBER_LEFT_ID);
     brakingSolenoid = new Solenoid(Constants.CLIMBER_BRAKING_SOLENOID);
+    setBrakeEnabled();
 
     climberLeft.configFactoryDefault();
     climberRight.configFactoryDefault();
