@@ -13,15 +13,17 @@ import frc.robot.subsystems.Drivetrain;
 
 public class ArcadeDrive extends CommandBase {
   private Drivetrain drivetrain;
-  private Joystick joystick;
+  private Joystick leftJoystick;
+  private Joystick rightJoystick;
 
   /**
    * Creates a new LockSteering.
    */
-  public ArcadeDrive(Drivetrain drivetrain, Joystick joystick) {
+  public ArcadeDrive(Drivetrain drivetrain, Joystick leftJoystick, Joystick rightJoystick) {
     addRequirements(drivetrain);
     this.drivetrain = drivetrain;
-    this.joystick = joystick;
+    this.leftJoystick = leftJoystick;
+    this.rightJoystick = rightJoystick;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -33,7 +35,7 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.arcadeDrive(joystick.getX(), joystick.getY());
+    drivetrain.arcadeDrive(leftJoystick.getX(), rightJoystick.getY());
   }
 
   // Called once the command ends or is interrupted.

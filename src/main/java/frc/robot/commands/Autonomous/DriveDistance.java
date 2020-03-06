@@ -16,6 +16,7 @@ public class DriveDistance extends CommandBase {
   private double distance;
   private double leftStart;
   private double rightStart;
+  private double scale = 1.0;
   /**
    * Creates a new DriveDistance.
    */
@@ -35,7 +36,7 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.set(-0.2 * Math.signum(distance), -0.2 * Math.signum(distance));   
+    drivetrain.set(scale*-0.2 * Math.signum(distance), scale*-0.2 * Math.signum(distance));   
 
   }
 

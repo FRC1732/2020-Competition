@@ -18,6 +18,7 @@ import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
 import frc.robot.commands.Autonomous.DriveDistance;
+import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.DriveLimelight;
 import frc.robot.commands.Autonomous.DriveRotate;
 import frc.robot.commands.Autonomous.FiveBallShooting;
@@ -58,18 +59,6 @@ import frc.robot.subsystems.Vision;
  * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  /**
-   *
-   */
-  private static final String AUTONOMOUS_SHOOTING = "Autonomous Shooting";
-  /**
-   *
-   */
-  private static final String FIVE_BALL_SHOOTING = "Five ball shooting";
-  /**
-   *
-   */
-  private static final String THREE_BALL = "Three ball";
   // The robot's subsystems and commands are defined here...
   private Shooter shooter;
   private Intake intake;
@@ -82,11 +71,12 @@ public class RobotContainer {
   // Driver Joysticks
   private Joystick leftJoystick;
   private Joystick rightJoystick;
-  private AutomomousShooting automomousShooting;
-  private FiveBallShooting fiveBallShooting;
-  private ThreeBall threeBall;
 
-  private SendableChooser<String> autoModeOptions;
+  //Autonomous
+  private DriveLimelight visionAlignAuto;
+  private SmartShooter smartShooterAuto;
+  private StopSmartShooter stopSmartShooterAuto;
+  private DriveDistance driveDistanceAuto;
 
   // LeftJoystick Buttons
   private JoystickButton intakeCells;
@@ -96,6 +86,7 @@ public class RobotContainer {
   private JoystickButton smartShooter;
   private JoystickButton lockSteering;
   private JoystickButton visionAlign;
+
 
   // Operator Joysticks
   private Joystick operatorJoystick;
@@ -134,8 +125,13 @@ public class RobotContainer {
 
 
     // commands
-    threeBall = new ThreeBall(shooter, indexer, operatorJoystick);
-    automomousShooting = new AutomomousShooting(drivetrain);
+    
+    smartShooterAuto = new SmartShooter(indexer, shooter);
+    stopSmartShooterAuto = new StopSmartShooter(shooter, indexer);
+    driveDistanceAuto = new DriveDistance(drivetrain, -15);
+    visionAlignAuto = new DriveLimelight(drivetrain, vision);
+
+
 
     // Define Buttons
     defineButtons();
@@ -168,6 +164,7 @@ public class RobotContainer {
     visionAlign = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_VISION_ALIGN);
 
     // Operator joystick declaration
+
     operatorJoystick = new Joystick(Constants.OPERATOR_JOYSTICK_PORT_ID);
 
     // Operator1Joystick button declaration
@@ -204,8 +201,8 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    lockSteering.whileHeld(new ArcadeDrive(drivetrain, rightJoystick),true);
-
+    lockSteering.whileHeld(new ArcadeDrive(drivetrain, leftJoystick, rightJoystick),true);
+    //visionAlign.whenPressed(new DriveLimelight(drivetrain, vision).withTimeout(1), true);
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard
     
@@ -229,7 +226,7 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
     // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
     // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
-    o_rotateToLimelight.whenPressed(new DriveLimelight(drivetrain, vision),true);
+    o_rotateToLimelight.whenPressed(new DriveLimelight(drivetrain, vision).withTimeout(1),true);
     // o_intake.whenActive(new PrintCommand("o_intake active"));
     // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
@@ -243,15 +240,15 @@ public class RobotContainer {
     // o_reverseFeedShooter.whenInactive(new PrintCommand("o_reverseFeedShooter inactive"));
 
     // // Trigger declaration
-    shoot.whenActive(new SmartShooter(indexer, shooter, operatorJoystick));
+    shoot.whenActive(new SmartShooter(indexer, shooter));
     shoot.whenInactive(new StopSmartShooter(shooter, indexer));
     // shoot.whenActive(new PrintCommand("shoot active"));
     // shoot.whenInactive(new PrintCommand("shoot inactive"));
-    climbUp.whenActive(new ManualUp(climber));
+    climbUp.whenActive(new ManualDown(climber));
     climbUp.whenInactive(new StopClimber(climber));
     // climbUp.whenActive(new PrintCommand("climbUp active"));
     // climbUp.whenInactive(new PrintCommand("climbUp inactive"));
-    climbDown.whenActive(new ManualDown(climber));
+    climbDown.whenActive(new ManualUp(climber));
     climbDown.whenInactive(new StopClimber(climber));
     // climbDown.whenActive(new PrintCommand("climbDown active"));
     // climbDown.whenInactive(new PrintCommand("climbDown inactive"));
@@ -284,11 +281,13 @@ public class RobotContainer {
     
     // Supplier<Object> selector = this::getOperatingAutoCommand;
 
-    return threeBall.withTimeout(5)
-      .andThen(new DriveDistance(drivetrain, 15))
-      .andThen(new DriveRotate(drivetrain, 5)
-      .andThen(new DriveLimelight(drivetrain, vision))); // new SelectCommand(selectableCommands,
-                                                                                // selector);
+      return visionAlignAuto.withTimeout(1)
+      .andThen(smartShooterAuto.withTimeout(6))
+      .andThen(stopSmartShooterAuto)
+      .andThen(driveDistanceAuto);
+      //.andThen(new DriveDistance(drivetrain, -15));
+      // new SelectCommand(selectableCommands,
+      // selector);
   }
 
   // private String getOperatingAutoCommand() {

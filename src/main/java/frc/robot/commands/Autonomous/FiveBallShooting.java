@@ -39,7 +39,7 @@ public class FiveBallShooting extends SequentialCommandGroup {
      new WaitCommand(2),
      new DrivetrainOff(drivetrain), 
      new StopIntake(intake), 
-     new SmartShooter(indexer, shooter, joystick));
+     new SmartShooter(indexer, shooter));
     //super();
   }
 }

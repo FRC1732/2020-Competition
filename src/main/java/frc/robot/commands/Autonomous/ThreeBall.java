@@ -20,25 +20,22 @@ public class ThreeBall extends CommandBase {
    */
   private Shooter shooter; 
   private Indexer indexer;
-  private Joystick joystick;
-  public ThreeBall(Shooter shooter,Indexer indexer, Joystick joystick) {
+  public ThreeBall(Shooter shooter,Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooter, indexer);
     this.shooter = shooter; 
     this.indexer = indexer;
-    this.joystick = joystick;
     }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.maintainRPM();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    new SmartShooter(indexer, shooter, joystick);
+    new SmartShooter(indexer, shooter);
   }
 
   // Called once the command ends or is interrupted.

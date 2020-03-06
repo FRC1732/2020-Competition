@@ -35,13 +35,13 @@ public class Vision extends SubsystemBase {
 
   //turns off the limelight LEDs
   //this should only be called by toggleLed
-  private void setLedOff(){
+  public void setLedOff(){
     ledMode.setNumber(1);
   }
 
   //turns on the limelight LEDs
   //this should only be called by toggleLed
-  private void setLedOn(){
+  public void setLedOn(){
     ledMode.setNumber(3);
   }
 

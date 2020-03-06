@@ -15,15 +15,13 @@ import frc.robot.subsystems.Shooter;
 public class SmartShooter extends CommandBase {
   private Indexer indexer;
   private Shooter shooter;
-  private Joystick joystick;
   /**
    * Creates a new SmartShooter.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter, Joystick joystick) {
+  public SmartShooter(Indexer indexer, Shooter shooter) {
     addRequirements(indexer, shooter);
     this.indexer = indexer;
     this.shooter = shooter;
-    this.joystick = joystick;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
