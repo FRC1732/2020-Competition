@@ -22,8 +22,8 @@ public class Climber extends SubsystemBase {
   private TalonSRX climberRight;
   private TalonSRX climberLeft;
   private Solenoid brakingSolenoid;
-  private double leftSet = .25;
-  private double rightSet = .25;
+  private double leftSet = .5;
+  private double rightSet = .5;
 
 
   public Climber() {
@@ -67,13 +67,11 @@ public class Climber extends SubsystemBase {
   }
 
   public void manualUp(){
-    setBrakeDisabled();
     setRight(rightSet);
     setLeft(leftSet);
   }
 
   public void manualDown(){
-    setBrakeDisabled();
     setRight(-rightSet);
     setLeft(-leftSet);
   }
@@ -83,7 +81,6 @@ public class Climber extends SubsystemBase {
   }
 
   public void stopMotors(){
-    setBrakeEnabled();
     setLeft(0);
     setRight(0);
   }

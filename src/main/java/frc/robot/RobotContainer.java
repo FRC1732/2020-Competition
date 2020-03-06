@@ -7,10 +7,6 @@
 
 package frc.robot;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -21,10 +17,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutomomousShooting;
+import frc.robot.commands.Autonomous.DriveDistance;
+import frc.robot.commands.Autonomous.DriveLimelight;
+import frc.robot.commands.Autonomous.DriveRotate;
 import frc.robot.commands.Autonomous.FiveBallShooting;
 import frc.robot.commands.Autonomous.ThreeBall;
-import frc.robot.commands.Climber.DisableClimb;
-import frc.robot.commands.Climber.EnableClimb;
+import frc.robot.commands.Climber.DisableSolenoids;
+import frc.robot.commands.Climber.EnableSolenoids;
 import frc.robot.commands.Climber.ManualDown;
 import frc.robot.commands.Climber.ManualUp;
 import frc.robot.commands.Climber.StopClimber;
@@ -38,7 +37,6 @@ import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
 import frc.robot.commands.Shooter.MaintainRPM;
-import frc.robot.commands.Shooter.SetShooterMode;
 import frc.robot.commands.Shooter.ShooterManualDown;
 import frc.robot.commands.Shooter.ShooterManualUp;
 import frc.robot.commands.Shooter.StopMotors;
@@ -111,7 +109,7 @@ public class RobotContainer {
   private JoystickButton o_maintainRPM;
   private JoystickButton o_unallocatedButton;
   private JoystickButton o_changeIntakeSolenoidState;
-  private JoystickButton o_intake;
+  private JoystickButton o_rotateToLimelight;
   private JoystickButton o_reverseIntake;
   private JoystickButton o_feedShooter;
   private JoystickButton o_reverseFeedShooter;
@@ -181,7 +179,7 @@ public class RobotContainer {
     o_maintainRPM = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_MAINTAIN_RPM);
     o_unallocatedButton = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_UNALLOCATED_BUTTON);
     o_changeIntakeSolenoidState = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
-    o_intake = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_FEED_INTAKE);
+    o_rotateToLimelight= new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_ROTATE_TO_LIMELIGHT);
     o_reverseIntake = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_REVERSE_INTAKE);
     o_feedShooter = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_FEED_SHOOTER);
     o_reverseFeedShooter = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
@@ -206,13 +204,13 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    lockSteering.whileHeld(new ArcadeDrive(drivetrain, rightJoystick));
+    lockSteering.whileHeld(new ArcadeDrive(drivetrain, rightJoystick),true);
 
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard
     
-    o_enableClimb.whenActive(new EnableClimb());
-    o_enableClimb.whenInactive(new DisableClimb());
+    o_enableClimb.whenActive(new DisableSolenoids(climber));
+    o_enableClimb.whenInactive(new EnableSolenoids(climber));
     // o_enableClimb.whenActive(new PrintCommand("o_enableClimb active"));
     // o_enableClimb.whenInactive(new PrintCommand("o_enableClimb inactive"));
     o_manualSpeedUp.whenPressed(new ShooterManualUp(shooter));
@@ -231,7 +229,7 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
     // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
     // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
-    o_intake.whenHeld(new IntakeCells(intake));
+    o_rotateToLimelight.whenPressed(new DriveLimelight(drivetrain, vision),true);
     // o_intake.whenActive(new PrintCommand("o_intake active"));
     // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
@@ -286,7 +284,11 @@ public class RobotContainer {
     
     // Supplier<Object> selector = this::getOperatingAutoCommand;
 
-    return null; //new SelectCommand(selectableCommands, selector);
+    return threeBall.withTimeout(5)
+      .andThen(new DriveDistance(drivetrain, 15))
+      .andThen(new DriveRotate(drivetrain, 5)
+      .andThen(new DriveLimelight(drivetrain, vision))); // new SelectCommand(selectableCommands,
+                                                                                // selector);
   }
 
   // private String getOperatingAutoCommand() {
