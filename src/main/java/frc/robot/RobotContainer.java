@@ -201,7 +201,7 @@ public class RobotContainer {
     toggleIntakeSolenoidState.whenPressed(new ToggleIntakeSolenoidState(intake));
 
     // RightJoystick button configuration
-    lockSteering.whileHeld(new ArcadeDrive(drivetrain, leftJoystick, rightJoystick),true);
+    lockSteering.whileHeld(new ArcadeDrive(drivetrain, rightJoystick),true);
     //visionAlign.whenPressed(new DriveLimelight(drivetrain, vision).withTimeout(1), true);
     // Operator1Joystick button configuration
     //enable climb do the shuffleboard
@@ -226,7 +226,7 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
     // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
     // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
-    o_rotateToLimelight.whenPressed(new DriveLimelight(drivetrain, vision).withTimeout(1),true);
+    o_rotateToLimelight.whileHeld(new DriveLimelight(drivetrain, vision),true);
     // o_intake.whenActive(new PrintCommand("o_intake active"));
     // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));

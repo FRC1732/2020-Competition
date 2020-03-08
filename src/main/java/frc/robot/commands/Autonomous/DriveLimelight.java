@@ -31,8 +31,7 @@ public class DriveLimelight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drivetrain.set(-0.2 * Math.signum(vision.getX()), 0.2 * Math.signum(vision.getX()));   
-
+    if(!isFinished()) drivetrain.set(-0.075 * Math.signum(vision.getX()), 0.075 * Math.signum(vision.getX()));
   }
 
   // Called once the command ends or is interrupted.
@@ -44,7 +43,7 @@ public class DriveLimelight extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(!vision.hasTarget()) return true;
-    return Math.abs(vision.getX()) < 0.25;
+    //if(!vision.hasTarget()) return true;
+    return Math.abs(vision.getX()) < 1;
   }
 }

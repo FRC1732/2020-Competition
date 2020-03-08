@@ -109,9 +109,9 @@ public class Drivetrain extends SubsystemBase {
 	  rightMaster.set(0);
   }
 
-  public void arcadeDrive(double turnValue, double throttleValue){
-    leftMaster.set(throttleValue-turnValue);
-    rightMaster.set(throttleValue+turnValue);
+  public void arcadeDrive(double throttleValue){
+    leftMaster.set(throttleValue);
+    rightMaster.set(throttleValue);
   }
 
   public double getLeftEncoder(){
