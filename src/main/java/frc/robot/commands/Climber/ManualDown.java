@@ -5,24 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Climber;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Climber;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
-  private Shooter shooter;
+public class ManualDown extends CommandBase {
+  private Climber climber;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new ManualDown.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
-
+  public ManualDown(Climber climber) {
+    addRequirements(climber);
+    this.climber = climber;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -34,21 +29,13 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    climber.manualDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
+    climber.stopMotors();
   }
 
   // Returns true when the command should end.

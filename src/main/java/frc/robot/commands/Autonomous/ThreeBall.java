@@ -5,21 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Autonomous;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.SmartShooter;
+import frc.robot.commands.StopSmartShooter;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Shooter;
 
-public class SmartShooterClose extends CommandBase {
-  private Shooter shooter;
-  private Indexer indexer;
+public class ThreeBall extends CommandBase {
   /**
-   * Creates a new SmartShooterClose.
+   * Creates a new ThreeBall.
    */
-  public SmartShooterClose(Shooter shooter, Indexer indexer) {
+  private Shooter shooter; 
+  private Indexer indexer;
+  public ThreeBall(Shooter shooter,Indexer indexer) {
     // Use addRequirements() here to declare subsystem dependencies.
-  }
+    addRequirements(shooter, indexer);
+    this.shooter = shooter; 
+    this.indexer = indexer;
+    }
 
   // Called when the command is initially scheduled.
   @Override
@@ -29,21 +35,13 @@ public class SmartShooterClose extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPMClose()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    new SmartShooter(indexer, shooter);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
+    new StopSmartShooter(shooter, indexer);
   }
 
   // Returns true when the command should end.

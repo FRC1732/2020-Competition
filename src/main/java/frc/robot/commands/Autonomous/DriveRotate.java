@@ -5,55 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
-  private Shooter shooter;
+public class DriveRotate extends CommandBase {
+  private Drivetrain drivetrain;
+  private double angle;
+  private double leftStart;
+  private double rightStart;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new DriveDistance.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
-
+  public DriveRotate(Drivetrain drivetrain, double angle) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain);
+    this.angle = angle;
+    this.drivetrain = drivetrain;
   }
-
-  // Called when the command is initially scheduled.
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    leftStart = drivetrain.getLeftEncoder();
+    rightStart = drivetrain.getRightEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    drivetrain.set(0.2 * Math.signum(angle), 0);   
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(drivetrain.getLeftEncoder() - leftStart) > Math.abs(angle);
   }
 }

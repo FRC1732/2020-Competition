@@ -25,6 +25,7 @@ public final class Constants {
     //Climber mapping
     public static final int CLIMBER_RIGHT_ID = 13;
     public static final int CLIMBER_LEFT_ID = 32;
+    public static final int CLIMBER_BRAKING_SOLENOID = 2;
 
     //As of now it doesn't look like the below two features are in the picture
     //public static final int CLIMBER_DRIVE_ID = 17;
@@ -70,7 +71,7 @@ public final class Constants {
     
     //Note: all below buttons belong to RightJoystick
     public static final int JOYSTICKBUTTON_SMART_SHOOTER = 1;
-    public static final int JOYSTICKBUTTON_TOGGLE_HARDSTOPS = 2;
+    public static final int JOYSTICKBUTTON_LOCK_STEERING = 2;
     public static final int JOYSTICKBUTTON_VISION_ALIGN = 3;
 
 
@@ -78,23 +79,21 @@ public final class Constants {
     //Note: buttons must be declared from 1-11
     //public static final int JOYSTICKBUTTON_TEST_MOTORS = 1;
 
-    public static final int OPERATOR_1_JOYSTICK_PORT_ID = 2;
-    public static final int OPERATOR_2_JOYSTICK_PORT_ID = 3;
+    public static final int OPERATOR_JOYSTICK_PORT_ID = 2;
 
     //Note: all below buttons belong to Operator1Joystick
-    public static final int O_JOYSTICKBUTTON_INDEXER_OVERRIDE = 1;
-    public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 2;
-    public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 3;
-    public static final int O_JOYSTICKBUTTON_POSITION_CONTROL = 4;
-    public static final int O_JOYSTICKBUTTON_ROTATION_CONTROL = 5;
+    public static final int O_JOYSTICKBUTTON_ENABLE_CLIMB = 1;
+    public static final int O_JOYSTICKBUTTON_MANUAL_UP = 2;
+    public static final int O_JOYSTICKBUTTON_MANUAL_DOWN = 3;
+    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_UP = 4;
+    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_DOWN = 5;
     public static final int O_JOYSTICKBUTTON_MAINTAIN_RPM = 6;
-    public static final int O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 7;
-    public static final int O_JOYSTICKBUTTON_ENABLE_CLIMB = 11;
+    public static final int O_JOYSTICKBUTTON_UNALLOCATED_BUTTON = 7;
+    public static final int O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 8;
+    public static final int O_JOYSTICKBUTTON_ROTATE_TO_LIMELIGHT = 9;
+    public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 10;
+    public static final int O_JOYSTICKBUTTON_FEED_SHOOTER = 11;
+    public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 12;
 
-    //Note: all below buttons belong to Operator2Joystick
-    public static final int O_JOYSTICKBUTTON_TOGGLE_HARDSTOPS = 1;
-    public static final int O_JOYSTICKBUTTON_TOGGLE_CONTROL_PANEL = 2;
-    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_DOWN = 7;
-    public static final int O_JOYSTICKBUTTON_MANUAL_SPEED_UP = 6;
-    public static final int O_JOYSTICKBUTTON_MANUAL_CLIMBER_UP = 5;
 }
+

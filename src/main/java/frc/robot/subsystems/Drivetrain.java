@@ -47,14 +47,11 @@ public class Drivetrain extends SubsystemBase {
     rightMaster = new CANSparkMax(Constants.DRIVETRAIN_RIGHT2_ID, MotorType.kBrushless);
     right1 = new CANSparkMax(Constants.DRIVETRAIN_RIGHTMASTER_ID, MotorType.kBrushless);
     right2 = new CANSparkMax(Constants.DRIVETRAIN_RIGHT1_ID, MotorType.kBrushless);
-
-    leftMaster.setOpenLoopRampRate(.5);
-    rightMaster.setOpenLoopRampRate(.5);
-
+   
     leftMaster.restoreFactoryDefaults();
     left1.restoreFactoryDefaults();
     left2.restoreFactoryDefaults();
-
+ 
     rightMaster.restoreFactoryDefaults();
     right1.restoreFactoryDefaults();
     right2.restoreFactoryDefaults();
@@ -62,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.setInverted(false);
     left1.setInverted(false);
     left2.setInverted(false);
-
+  
     rightMaster.setInverted(true);
     right1.setInverted(true);
     right2.setInverted(true);
@@ -91,6 +88,15 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.getEncoder().setPosition(0);
     rightMaster.getEncoder().setPosition(0);
     
+    leftMaster.setOpenLoopRampRate(0.5);
+    rightMaster.setOpenLoopRampRate(0.5);
+
+    leftMaster.setSmartCurrentLimit(30);
+    rightMaster.setSmartCurrentLimit(40);
+    right1.setSmartCurrentLimit(40);
+    right2.setSmartCurrentLimit(40);
+    left1.setSmartCurrentLimit(30);
+    left2.setSmartCurrentLimit(30);
   }
   // starts the motors
   public void set(double left, double right) {
@@ -102,6 +108,12 @@ public class Drivetrain extends SubsystemBase {
     leftMaster.set(0);
 	  rightMaster.set(0);
   }
+
+  public void arcadeDrive(double throttleValue){
+    leftMaster.set(throttleValue);
+    rightMaster.set(throttleValue);
+  }
+
   public double getLeftEncoder(){
     return leftMaster.getEncoder().getPosition();
   }

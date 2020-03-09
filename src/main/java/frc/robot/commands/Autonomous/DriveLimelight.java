@@ -5,28 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
 
-public class SmartShooter extends CommandBase {
-  private Indexer indexer;
-  private Shooter shooter;
+public class DriveLimelight extends CommandBase {
+  private Drivetrain drivetrain;
+  private Vision vision;
   /**
-   * Creates a new SmartShooter.
+   * Creates a new DriveDistance.
    */
-  public SmartShooter(Indexer indexer, Shooter shooter) {
-    addRequirements(indexer, shooter);
-    this.indexer = indexer;
-    this.shooter = shooter;
-
+  public DriveLimelight(Drivetrain drivetrain, Vision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain, vision);
+    this.vision = vision;
+    this.drivetrain = drivetrain;
   }
-
-  // Called when the command is initially scheduled.
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -34,26 +31,19 @@ public class SmartShooter extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(shooter.maintainRPM()){
-      indexer.feedShooter();
-      indexer.forwardConveyor();
-    } else {
-      indexer.stopConveyor();
-      indexer.stopFeeder();
-    }
+    if(!isFinished()) drivetrain.set(-0.075 * Math.signum(vision.getX()), 0.075 * Math.signum(vision.getX()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
-    indexer.stopConveyor();
-    indexer.stopFeeder();
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //if(!vision.hasTarget()) return true;
+    return Math.abs(vision.getX()) < 1;
   }
 }

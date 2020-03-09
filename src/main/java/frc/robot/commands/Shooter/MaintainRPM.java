@@ -7,17 +7,20 @@
 
 package frc.robot.commands.Shooter;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
 public class MaintainRPM extends CommandBase {
   Shooter shooter;
+  Joystick joystick;
   /**
    * Creates a new MaintainRPM.
    */
-  public MaintainRPM(Shooter shooter) {
+  public MaintainRPM(Shooter shooter, Joystick joystick) {
     addRequirements(shooter);
     this.shooter = shooter;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

@@ -5,43 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 
-public class MaintainRPMClose extends CommandBase {
-  private Shooter shooter;
+public class DriveDistance extends CommandBase {
+  private Drivetrain drivetrain;
+  private double distance;
+  private double leftStart;
+  private double rightStart;
+  private double scale = 1.0;
   /**
-   * Creates a new MaintainRPMClose.
+   * Creates a new DriveDistance.
    */
-  public MaintainRPMClose(Shooter shooter) {
-    addRequirements(shooter);
-    this.shooter = shooter;
+  public DriveDistance(Drivetrain drivetrain, double distance) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain);
+    this.distance = distance;
+    this.drivetrain = drivetrain;
   }
-
-  // Called when the command is initially scheduled.
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    leftStart = drivetrain.getLeftEncoder();
+    rightStart = drivetrain.getRightEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.maintainRPMClose();
+    drivetrain.set(scale*-0.2 * Math.signum(distance), scale*-0.2 * Math.signum(distance));   
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopMotors();
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(drivetrain.getLeftEncoder() - leftStart) > Math.abs(distance);
   }
 }

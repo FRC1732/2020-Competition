@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -22,8 +23,10 @@ public class Shooter extends SubsystemBase {
   private TalonSRX shooterMaster = new TalonSRX(Constants.SHOOTER_SHOOTER_MASTER_ID);
   private VictorSPX shooterFollower = new VictorSPX(Constants.SHOOTER_SHOOTER_FOLLOWER_ID);
 
-  private int setPoint = 135000;
-  private int closeSetpoint = 125000;
+  private int setPoint = 75000;
+  private int normal = 75000;
+  private int close = 85000;
+  private int far = 95000;
   private int deadband = 1000;
 
   public Shooter() {
@@ -38,6 +41,8 @@ public class Shooter extends SubsystemBase {
 
     shooterFollower.setInverted(true);
     shooterFollower.follow(shooterMaster);
+
+    shooterMaster.configClosedloopRamp(.1);
   }
 
   public void testMotors(){
@@ -48,22 +53,28 @@ public class Shooter extends SubsystemBase {
     if(shooterMaster.getSelectedSensorVelocity() < setPoint){
       shooterMaster.set(ControlMode.PercentOutput, 1);
     } else {
-      shooterMaster.set(ControlMode.PercentOutput, .85);
+      shooterMaster.set(ControlMode.PercentOutput, .65);
     }
-    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
-    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
+    putFlywheelSpeed();
     return shooterMaster.getSelectedSensorVelocity() > setPoint-deadband;
   }
 
-  public boolean maintainRPMClose() {
-    if(shooterMaster.getSelectedSensorVelocity() < closeSetpoint){
-      shooterMaster.set(ControlMode.PercentOutput, 1);
+  public void putFlywheelSpeed(){
+    SmartDashboard.putNumber("Flywheel Speed", shooterMaster.getSelectedSensorVelocity());
+  }
+
+  public void setShooterMode(double y){
+    if(y > .5 ){
+      setPoint = far;
+      SmartDashboard.putString("Shooter Mode", "Far");
+    } else if(y < .5) {
+      setPoint = close;
+      SmartDashboard.putString("Shooter Mode", "Close");
     } else {
-      shooterMaster.set(ControlMode.PercentOutput, .85);
+      setPoint = normal;
+      SmartDashboard.putString("Shooter Mode", "Normal");
     }
-    System.out.println("Speed| "+ shooterMaster.getSelectedSensorVelocity());
-    System.out.println("Voltage| "+ shooterMaster.getBusVoltage());
-    return shooterMaster.getSelectedSensorVelocity() > closeSetpoint-deadband;
+
   }
 
   public void manualUp(){
