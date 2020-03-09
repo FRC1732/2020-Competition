@@ -9,6 +9,8 @@ Using the command palette within VS Code, use `WPILib: Manage Vendor Libraries` 
 - REVRobotics: https://www.revrobotics.com/content/sw/max/sdk/REVRobotics.json
 - NavX: https://www.kauailabs.com/dist/frc/2020/navx_frc.json
 
+- NEW WPILib Dependency: https://raw.githubusercontent.com/wpilibsuite/allwpilib/master/wpilibNewCommands/WPILibNewCommands.json
+
 ## Repository
 
 Before editing files in this repository, read [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -20,6 +22,11 @@ The code herein follows the WPILIB Command Robot pattern, and uses a single code
 ### Formatting
 
 The offical formatting is defined in eclipse-formatter.xml. Just use `Shift-Alt-F` or `Format Document` from the command palette to automatically format an open .java file.
+
+## Git Config
+Because Java classes are case-sensitive to the file name, Git does not pick up on case file name changes, you need to enter the following command in your terminal
+
+`git config core.ignorecase false`
 
 ## Specific Files - DO NOT MODIFY
 
