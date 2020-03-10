@@ -10,19 +10,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
-import frc.robot.commands.Autonomous.AutomomousShooting;
+import frc.robot.commands.Autonomous.AutoAlign;
 import frc.robot.commands.Autonomous.DriveDistance;
-import frc.robot.commands.Autonomous.DriveForward;
-import frc.robot.commands.Autonomous.DriveLimelight;
 import frc.robot.commands.Autonomous.DriveRotate;
-import frc.robot.commands.Autonomous.FiveBallShooting;
-import frc.robot.commands.Autonomous.ThreeBall;
 import frc.robot.commands.Climber.DisableSolenoids;
 import frc.robot.commands.Climber.EnableSolenoids;
 import frc.robot.commands.Climber.ManualDown;
@@ -72,11 +67,15 @@ public class RobotContainer {
   private Joystick leftJoystick;
   private Joystick rightJoystick;
 
-  //Autonomous
-  private DriveLimelight visionAlignAuto;
+  //Autonomous Components
+  private AutoAlign autoAlign;
   private SmartShooter smartShooterAuto;
-  private StopSmartShooter stopSmartShooterAuto;
   private DriveDistance driveDistanceAuto;
+  private DriveRotate driveRotateAuto;
+
+  //Autonomous Commands
+  private Command threeBall;
+  private Command eightBall;
 
   // LeftJoystick Buttons
   private JoystickButton intakeCells;
@@ -123,21 +122,14 @@ public class RobotContainer {
     climber = new Climber();
     controlPanel = new ControlPanel();
 
-
-    // commands
-    
-    smartShooterAuto = new SmartShooter(indexer, shooter);
-    stopSmartShooterAuto = new StopSmartShooter(shooter, indexer);
-    driveDistanceAuto = new DriveDistance(drivetrain, -15);
-    visionAlignAuto = new DriveLimelight(drivetrain, vision);
-
-
-
     // Define Buttons
     defineButtons();
 
     // Configure the button bindings
     configureButtonBindings();
+
+    // Define Autonomous Components
+    defineAutonomousComponents();
 
     drivetrain.setDefaultCommand(new TankDrive(leftJoystick, rightJoystick, drivetrain));
     vision.setDefaultCommand(new BasicVisionAlign(vision));
@@ -164,7 +156,6 @@ public class RobotContainer {
     visionAlign = new JoystickButton(rightJoystick, Constants.JOYSTICKBUTTON_VISION_ALIGN);
 
     // Operator joystick declaration
-
     operatorJoystick = new Joystick(Constants.OPERATOR_JOYSTICK_PORT_ID);
 
     // Operator1Joystick button declaration
@@ -226,7 +217,7 @@ public class RobotContainer {
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
     // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
     // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
-    o_rotateToLimelight.whileHeld(new DriveLimelight(drivetrain, vision),true);
+    o_rotateToLimelight.whileHeld(new AutoAlign(drivetrain, vision),true);
     // o_intake.whenActive(new PrintCommand("o_intake active"));
     // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
@@ -252,6 +243,19 @@ public class RobotContainer {
     climbDown.whenInactive(new StopClimber(climber));
     // climbDown.whenActive(new PrintCommand("climbDown active"));
     // climbDown.whenInactive(new PrintCommand("climbDown inactive"));
+  }
+
+  private void defineAutonomousComponents(){
+    smartShooterAuto = new SmartShooter(indexer, shooter);
+    driveDistanceAuto = new DriveDistance(drivetrain, -5);
+    autoAlign = new AutoAlign(drivetrain, vision);
+    driveRotateAuto = new DriveRotate(drivetrain, 0);
+  }
+
+  private void defineAutonomousCommands(){
+    //threeBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
+    //obviously the eightball doesn't really work yet
+    //eightBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
   }
 
   private void initShuffleboard(){
@@ -281,13 +285,7 @@ public class RobotContainer {
     
     // Supplier<Object> selector = this::getOperatingAutoCommand;
 
-      return visionAlignAuto.withTimeout(1)
-      .andThen(smartShooterAuto.withTimeout(6))
-      .andThen(stopSmartShooterAuto)
-      .andThen(driveDistanceAuto);
-      //.andThen(new DriveDistance(drivetrain, -15));
-      // new SelectCommand(selectableCommands,
-      // selector);
+      return driveDistanceAuto;
   }
 
   // private String getOperatingAutoCommand() {

@@ -7,27 +7,24 @@
 
 package frc.robot.commands.Autonomous;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.commands.SmartShooter;
-import frc.robot.commands.StopSmartShooter;
-import frc.robot.subsystems.Indexer;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
 
-public class ThreeBall extends CommandBase {
+public class AutoAlign extends CommandBase {
+  private Drivetrain drivetrain;
+  private Vision vision;
+
   /**
-   * Creates a new ThreeBall.
+   * Creates a new DriveDistance.
    */
-  private Shooter shooter; 
-  private Indexer indexer;
-  public ThreeBall(Shooter shooter,Indexer indexer) {
+  public AutoAlign(Drivetrain drivetrain, Vision vision) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter, indexer);
-    this.shooter = shooter; 
-    this.indexer = indexer;
-    }
-
-  // Called when the command is initially scheduled.
+    addRequirements(drivetrain, vision);
+    this.vision = vision;
+    this.drivetrain = drivetrain;
+  }
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
@@ -35,18 +32,19 @@ public class ThreeBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    new SmartShooter(indexer, shooter);
+    if(!isFinished()) drivetrain.set(-0.075 * Math.signum(vision.getX()), 0.075 * Math.signum(vision.getX()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    new StopSmartShooter(shooter, indexer);
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //if(!vision.hasTarget()) return true;
+    return Math.abs(vision.getX()) < 1;
   }
 }

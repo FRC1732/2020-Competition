@@ -56,4 +56,7 @@ public class SmartShooter extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
+public class withTimeout {
+}
 }
