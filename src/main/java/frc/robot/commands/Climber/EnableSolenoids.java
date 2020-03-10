@@ -7,6 +7,7 @@
 
 package frc.robot.commands.Climber;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Climber;
 
@@ -25,5 +26,6 @@ public class EnableSolenoids extends InstantCommand {
   @Override
   public void initialize() {
     climber.setBrakeEnabled();
+    SmartDashboard.putString("Climb Status", "Enabled");
   }
 }
