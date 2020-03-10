@@ -247,7 +247,7 @@ public class RobotContainer {
 
   private void defineAutonomousComponents(){
     smartShooterAuto = new SmartShooter(indexer, shooter);
-    driveDistanceAuto = new DriveDistance(drivetrain, -5);
+    driveDistanceAuto = new DriveDistance(drivetrain, -3);
     autoAlign = new AutoAlign(drivetrain, vision);
     driveRotateAuto = new DriveRotate(drivetrain, 0);
   }

@@ -17,13 +17,15 @@ public class DriveDistance extends CommandBase {
   private double leftStart;
   private double rightStart;
   private double scale = 1.0;
+  private final double TICKS_PER_FOOT = 3.33333333;
   /**
    * Creates a new DriveDistance.
+   * @param distance the distance in feet
    */
   public DriveDistance(Drivetrain drivetrain, double distance) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
-    this.distance = distance;
+    this.distance = distance /= TICKS_PER_FOOT;
     this.drivetrain = drivetrain;
   }
 // Called when the command is initially scheduled.
