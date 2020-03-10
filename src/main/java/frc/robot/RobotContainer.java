@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.PrintCommand;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutoAlign;
@@ -199,50 +200,56 @@ public class RobotContainer {
     
     o_enableClimb.whenActive(new DisableSolenoids(climber));
     o_enableClimb.whenInactive(new EnableSolenoids(climber));
-    // o_enableClimb.whenActive(new PrintCommand("o_enableClimb active"));
-    // o_enableClimb.whenInactive(new PrintCommand("o_enableClimb inactive"));
     o_manualSpeedUp.whenPressed(new ShooterManualUp(shooter));
-    // o_manualSpeedUp.whenPressed(new PrintCommand("o_manualSpeedUp pressed"));
     o_manualSpeedDown.whenPressed(new ShooterManualDown(shooter));
-    // o_manualSpeedDown.whenPressed(new PrintCommand("o_manualSpeedDown pressed"));
     o_maintainRPM.whenActive(new MaintainRPM(shooter, operatorJoystick));
     o_maintainRPM.whenInactive(new StopMotors(shooter));
-    // o_maintainRPM.whenActive(new PrintCommand("o_maintainRPM active"));
-    // o_maintainRPM.whenInactive(new PrintCommand("o_maintainRPM inactive"));
     o_unallocatedButton.whenActive(new ToggleLimelightLEDS(vision));
     o_unallocatedButton.whenInactive(new ToggleLimelightLEDS(vision));
-    // o_unallocatedButton.whenActive(new PrintCommand("o_unallocatedButton active"));
-    // o_unallocatedButton.whenInactive(new PrintCommand("o_unallocatedButton inactive"));
     o_changeIntakeSolenoidState.whenActive(new SetIntakeSolenoidExtended(intake));
     o_changeIntakeSolenoidState.whenInactive(new SetIntakeSolenoidRetracted(intake));
-    // o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
-    // o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
     o_rotateToLimelight.whileHeld(new AutoAlign(drivetrain, vision),true);
-    // o_intake.whenActive(new PrintCommand("o_intake active"));
-    // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
     o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
-    // o_reverseIntake.whenActive(new PrintCommand("o_reverseIntake active"));
-    // o_reverseIntake.whenInactive(new PrintCommand("o_reverseIntake inactive"));
     o_feedShooter.whenHeld(new FeedShooter(indexer));
-    // o_feedShooter.whenActive(new PrintCommand("o_feedShooter active"));
-    // o_feedShooter.whenInactive(new PrintCommand("o_feedShooter inactive"));
     o_reverseFeedShooter.whenHeld(new ReverseFeedShooter(indexer));
-    // o_reverseFeedShooter.whenActive(new PrintCommand("o_reverseFeedShooter active"));
-    // o_reverseFeedShooter.whenInactive(new PrintCommand("o_reverseFeedShooter inactive"));
 
     // // Trigger declaration
     shoot.whenActive(new SmartShooter(indexer, shooter));
     shoot.whenInactive(new StopSmartShooter(shooter, indexer));
-    // shoot.whenActive(new PrintCommand("shoot active"));
-    // shoot.whenInactive(new PrintCommand("shoot inactive"));
     climbUp.whenActive(new ManualDown(climber));
     climbUp.whenInactive(new StopClimber(climber));
-    // climbUp.whenActive(new PrintCommand("climbUp active"));
-    // climbUp.whenInactive(new PrintCommand("climbUp inactive"));
     climbDown.whenActive(new ManualUp(climber));
     climbDown.whenInactive(new StopClimber(climber));
-    // climbDown.whenActive(new PrintCommand("climbDown active"));
-    // climbDown.whenInactive(new PrintCommand("climbDown inactive"));
+  }
+
+  private void alternateButtonDeclaration(){
+    o_enableClimb.whenActive(new PrintCommand("o_enableClimb active"));
+    o_enableClimb.whenInactive(new PrintCommand("o_enableClimb inactive"));
+    o_manualSpeedUp.whenPressed(new PrintCommand("o_manualSpeedUp pressed"));
+    o_manualSpeedDown.whenPressed(new PrintCommand("o_manualSpeedDown pressed"));
+    o_maintainRPM.whenActive(new PrintCommand("o_maintainRPM active"));
+    o_maintainRPM.whenInactive(new PrintCommand("o_maintainRPM inactive"));
+    o_unallocatedButton.whenActive(new PrintCommand("o_unallocatedButton active"));
+    o_unallocatedButton.whenInactive(new PrintCommand("o_unallocatedButton inactive"));
+    o_changeIntakeSolenoidState.whenActive(new PrintCommand("o_changeIntakeSolenoidState active"));
+    o_changeIntakeSolenoidState.whenInactive(new PrintCommand("o_changeIntakeSolenoidState inactive"));
+    o_rotateToLimelight.whenActive(new PrintCommand("o_intake active"));
+    o_rotateToLimelight.whenInactive(new PrintCommand("o_intake inactive"));
+     o_reverseIntake.whenActive(new PrintCommand("o_reverseIntake active"));
+    o_reverseIntake.whenInactive(new PrintCommand("o_reverseIntake inactive"));
+    o_feedShooter.whenActive(new PrintCommand("o_feedShooter active"));
+    o_feedShooter.whenInactive(new PrintCommand("o_feedShooter inactive"));
+    o_reverseFeedShooter.whenActive(new PrintCommand("o_reverseFeedShooter active"));
+    o_reverseFeedShooter.whenInactive(new PrintCommand("o_reverseFeedShooter inactive"));
+
+    //trigger declaration
+    shoot.whenActive(new PrintCommand("shoot active"));
+    shoot.whenInactive(new PrintCommand("shoot inactive"));
+    climbUp.whenActive(new PrintCommand("climbUp active"));
+    climbUp.whenInactive(new PrintCommand("climbUp inactive"));
+    climbDown.whenActive(new PrintCommand("climbDown active"));
+    climbDown.whenInactive(new PrintCommand("climbDown inactive"));
+
   }
 
   private void defineAutonomousComponents(){
@@ -253,9 +260,9 @@ public class RobotContainer {
   }
 
   private void defineAutonomousCommands(){
-    //threeBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
+    threeBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
     //obviously the eightball doesn't really work yet
-    //eightBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
+    eightBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
   }
 
   private void initShuffleboard(){
@@ -285,7 +292,7 @@ public class RobotContainer {
     
     // Supplier<Object> selector = this::getOperatingAutoCommand;
 
-      return driveDistanceAuto;
+      return threeBall;
   }
 
   // private String getOperatingAutoCommand() {
