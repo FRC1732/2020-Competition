@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -67,6 +69,7 @@ public class RobotContainer {
   private Indexer indexer;
   private ControlPanel controlPanel;
 
+  private SendableChooser autonomousModeOption;
   // Driver Joysticks
   private Joystick leftJoystick;
   private Joystick rightJoystick;
@@ -295,11 +298,11 @@ public class RobotContainer {
   }
 
   private void initShuffleboard(){
-    // autoModeOptions = new SendableChooser<>();
-    // autoModeOptions.setDefaultOption(THREE_BALL, THREE_BALL);
-    // autoModeOptions.addOption(FIVE_BALL_SHOOTING, FIVE_BALL_SHOOTING);
-    // autoModeOptions.addOption(AUTONOMOUS_SHOOTING, AUTONOMOUS_SHOOTING);
-    // SmartDashboard.putData("Auto selection", autoModeOptions);
+    autonomousModeOption = new SendableChooser<>();
+    autonomousModeOption.setDefaultOption("Eight Ball Version 1", eightBallVersionOne);
+    autonomousModeOption.addOption("Eight Ball Version 2", eightBallVersionTwo);
+    autonomousModeOption.addOption("Drive Distance Auto", driveDistanceAuto);
+    SmartDashboard.putData("Auto selection", autonomousModeOption);
   }
 
   /**
@@ -309,10 +312,8 @@ public class RobotContainer {
    */ 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    
-    //Command selectAutoCommand = new SelectCommand(Map.ofEntries(
-      //Map.entry("Drive forward", )
-    //), selector)
+    return (Command) autonomousModeOption.getSelected();
+    // Command selectAutoCommand = new SelectCommand(Map.ofEntries(Map.entry("Drive forward", )), selector)
 
     // Map<Object, Command> selectableCommands = new HashMap<>();
     // selectableCommands.put(AUTONOMOUS_SHOOTING, automomousShooting);
@@ -320,8 +321,6 @@ public class RobotContainer {
     // selectableCommands.put(THREE_BALL, threeBall);
     
     // Supplier<Object> selector = this::getOperatingAutoCommand;
-
-      return threeBall;
   }
 
   // private String getOperatingAutoCommand() {
