@@ -17,8 +17,11 @@ import frc.robot.commands.PrintCommand;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
 import frc.robot.commands.Autonomous.AutoAlign;
+import frc.robot.commands.Autonomous.AutoIntakeOff;
+import frc.robot.commands.Autonomous.AutoIntakeOn;
 import frc.robot.commands.Autonomous.DriveDistance;
 import frc.robot.commands.Autonomous.DriveRotate;
+import frc.robot.commands.Autonomous.PerpendicularAlign;
 import frc.robot.commands.Climber.DisableSolenoids;
 import frc.robot.commands.Climber.EnableSolenoids;
 import frc.robot.commands.Climber.ManualDown;
@@ -73,10 +76,14 @@ public class RobotContainer {
   private SmartShooter smartShooterAuto;
   private DriveDistance driveDistanceAuto;
   private DriveRotate driveRotateAuto;
+  private PerpendicularAlign perpendicularAlign;
+  private AutoIntakeOn autoIntakeOn;
+  private AutoIntakeOff autoIntakeOff;
 
   //Autonomous Commands
   private Command threeBall;
-  private Command eightBall;
+  private Command eightBallVersionOne;
+  private Command eightBallVersionTwo;
 
   // LeftJoystick Buttons
   private JoystickButton intakeCells;
@@ -256,13 +263,35 @@ public class RobotContainer {
     smartShooterAuto = new SmartShooter(indexer, shooter);
     driveDistanceAuto = new DriveDistance(drivetrain, -3);
     autoAlign = new AutoAlign(drivetrain, vision);
+    perpendicularAlign = new PerpendicularAlign(drivetrain, vision, -3);
     driveRotateAuto = new DriveRotate(drivetrain, 0);
   }
 
   private void defineAutonomousCommands(){
-    threeBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
+    threeBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5);
     //obviously the eightball doesn't really work yet
-    eightBall = autoAlign.withTimeout(1).andThen(smartShooterAuto).withTimeout(5).andThen(driveDistanceAuto);
+
+    eightBallVersionOne = autoAlign.withTimeout(1)
+    .andThen(smartShooterAuto).withTimeout(3)
+    .andThen(perpendicularAlign)
+    .andThen(autoIntakeOn)
+    .andThen(driveDistanceAuto)
+    .andThen(autoIntakeOff)
+    .andThen(autoAlign).withTimeout(1)
+    .andThen(smartShooterAuto).withTimeout(3);
+
+    eightBallVersionTwo = autoIntakeOn
+    .andThen(driveDistanceAuto)
+    .andThen(autoIntakeOff)
+    .andThen(autoAlign).withTimeout(1)
+    .andThen(smartShooterAuto).withTimeout(1)
+    .andThen(perpendicularAlign)
+    .andThen(autoIntakeOn)
+    .andThen(driveDistanceAuto)
+    .andThen(autoIntakeOff)
+    .andThen(driveDistanceAuto)
+    .andThen(autoAlign)
+    .andThen(smartShooterAuto).withTimeout(3);
   }
 
   private void initShuffleboard(){

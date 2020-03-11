@@ -112,6 +112,11 @@ public class Vision extends SubsystemBase {
       setModeLimelight();
     }
   }
+
+  public double getDistance(){
+    //once the limelight angle is added in the algoritm will be 77.5/Math.tan(20 + getY())
+    return 77.5/Math.tan(getY());
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
