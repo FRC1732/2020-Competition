@@ -91,10 +91,9 @@ public final class Constants {
     public static final int O_JOYSTICKBUTTON_UNALLOCATED_BUTTON = 7;
     public static final int O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE = 8;
     public static final int O_JOYSTICKBUTTON_ROTATE_TO_LIMELIGHT = 9;
-    public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 10;
+    public static final int O_JOYSTICKBUTTON_UNCLOG = 10;
     public static final int O_JOYSTICKBUTTON_FEED_SHOOTER = 11;
     public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 12;
-	public static final int O_JOYSTICKBUTTON_UNCLOG = 0;
 
 }
 
