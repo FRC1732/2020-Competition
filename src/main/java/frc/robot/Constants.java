@@ -94,6 +94,7 @@ public final class Constants {
     public static final int O_JOYSTICKBUTTON_REVERSE_INTAKE = 10;
     public static final int O_JOYSTICKBUTTON_FEED_SHOOTER = 11;
     public static final int O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER = 12;
+	public static final int O_JOYSTICKBUTTON_UNCLOG = 0;
 
 }
 

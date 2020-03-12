@@ -10,19 +10,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SmartShooter;
 import frc.robot.commands.StopSmartShooter;
-import frc.robot.commands.Autonomous.AutomomousShooting;
+import frc.robot.commands.Unclog;
 import frc.robot.commands.Autonomous.DriveDistance;
-import frc.robot.commands.Autonomous.DriveForward;
 import frc.robot.commands.Autonomous.DriveLimelight;
-import frc.robot.commands.Autonomous.DriveRotate;
-import frc.robot.commands.Autonomous.FiveBallShooting;
-import frc.robot.commands.Autonomous.ThreeBall;
 import frc.robot.commands.Climber.DisableSolenoids;
 import frc.robot.commands.Climber.EnableSolenoids;
 import frc.robot.commands.Climber.ManualDown;
@@ -33,7 +28,6 @@ import frc.robot.commands.Drivetrain.TankDrive;
 import frc.robot.commands.Indexer.FeedShooter;
 import frc.robot.commands.Indexer.ReverseFeedShooter;
 import frc.robot.commands.Intake.IntakeCells;
-import frc.robot.commands.Intake.ReverseIntakeCells;
 import frc.robot.commands.Intake.SetIntakeSolenoidExtended;
 import frc.robot.commands.Intake.SetIntakeSolenoidRetracted;
 import frc.robot.commands.Intake.ToggleIntakeSolenoidState;
@@ -101,7 +95,7 @@ public class RobotContainer {
   private JoystickButton o_unallocatedButton;
   private JoystickButton o_changeIntakeSolenoidState;
   private JoystickButton o_rotateToLimelight;
-  private JoystickButton o_reverseIntake;
+  private JoystickButton o_unclog;
   private JoystickButton o_feedShooter;
   private JoystickButton o_reverseFeedShooter;
 
@@ -177,7 +171,7 @@ public class RobotContainer {
     o_unallocatedButton = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_UNALLOCATED_BUTTON);
     o_changeIntakeSolenoidState = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_CHANGE_INTAKE_SOLENOID_STATE);
     o_rotateToLimelight= new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_ROTATE_TO_LIMELIGHT);
-    o_reverseIntake = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_REVERSE_INTAKE);
+    o_unclog = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_UNCLOG);    
     o_feedShooter = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_FEED_SHOOTER);
     o_reverseFeedShooter = new JoystickButton(operatorJoystick, Constants.O_JOYSTICKBUTTON_REVERSE_FEED_SHOOTER);
 
@@ -229,7 +223,7 @@ public class RobotContainer {
     o_rotateToLimelight.whileHeld(new DriveLimelight(drivetrain, vision),true);
     // o_intake.whenActive(new PrintCommand("o_intake active"));
     // o_intake.whenInactive(new PrintCommand("o_intake inactive"));
-    o_reverseIntake.whenHeld(new ReverseIntakeCells(intake));
+    o_unclog.whenHeld(new Unclog(intake, indexer));
     // o_reverseIntake.whenActive(new PrintCommand("o_reverseIntake active"));
     // o_reverseIntake.whenInactive(new PrintCommand("o_reverseIntake inactive"));
     o_feedShooter.whenHeld(new FeedShooter(indexer));
