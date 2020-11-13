@@ -110,8 +110,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double yValue, double xValue){
-    leftMaster.set(yValue+xValue);
-    rightMaster.set(yValue-xValue);
+    leftMaster.set(yValue-xValue);
+    rightMaster.set(yValue+xValue);
   }
 
   public double getLeftEncoder(){
