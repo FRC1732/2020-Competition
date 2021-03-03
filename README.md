@@ -7,6 +7,7 @@ Using the command palette within VS Code, use `WPILib: Manage Vendor Libraries` 
 
 - CTRE/Phoenix: http://devsite.ctr-electronics.com/maven/release/com/ctre/phoenix/Phoenix-latest.json
 - REVRobotics: https://www.revrobotics.com/content/sw/max/sdk/REVRobotics.json
+- REVRobotics V3 Color Sensor: http://www.revrobotics.com/content/sw/color-sensor-v3/sdk/REVColorSensorV3.json
 - NavX: https://www.kauailabs.com/dist/frc/2020/navx_frc.json
 
 - NEW WPILib Dependency: https://raw.githubusercontent.com/wpilibsuite/allwpilib/master/wpilibNewCommands/WPILibNewCommands.json
